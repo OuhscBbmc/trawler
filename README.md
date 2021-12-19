@@ -9,6 +9,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/trawler)](https://CRAN.R-project.org/package=trawler)
+[![Codecov test
+coverage](https://codecov.io/gh/OuhscBbmc/trawler/branch/main/graph/badge.svg)](https://app.codecov.io/gh/OuhscBbmc/trawler?branch=main)
 <!-- badges: end -->
 
 The goal of trawler is to …
