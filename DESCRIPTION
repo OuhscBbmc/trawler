@@ -1,14 +1,35 @@
 Package: trawler
-Title: What the Package Does (One Line, Title Case)
+Title: Inspect a dataset
+Description: Drag a dataset to report illegal or suspicious values.
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R: c(person("Will", "Beasley", role = c("aut", "cre"), email =
+    "wibeasley@hotmail.com", comment = c(ORCID = "0000-0002-5613-5006")),
+    person("Maleeha", "Shahid", role = "aut"))
 License: MIT + file LICENSE
-Suggests: 
-    testthat (>= 3.0.0)
+Depends:
+    R (>= 4.1.0)
+Imports:
+    checkmate  (>= 1.8.4),
+    config,
+    dplyr (>= 1.0),
+    DT,
+    knitr (>= 1.18.0),
+    methods,
+    OuhscMunge,
+    readr (>= 2.0),
+    rmarkdown,
+    sessioninfo,
+    tibble (>= 1.4.0),
+    yaml
+Suggests:
+    devtools (>= 1.13.0),
+    kableExtra,
+    purrr,
+    testit,
+    testthat (>= 3.1)
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Language: en-US
