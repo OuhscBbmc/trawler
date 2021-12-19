@@ -28,6 +28,8 @@ Suggests:
     purrr,
     testit,
     testthat (>= 3.1)
+Remotes:
+  github::OuhscBbmc/OuhscMunge
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
