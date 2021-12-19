@@ -5,6 +5,8 @@ Version: 0.0.0.9000
 Authors@R: c(person("Will", "Beasley", role = c("aut", "cre"), email =
     "wibeasley@hotmail.com", comment = c(ORCID = "0000-0002-5613-5006")),
     person("Maleeha", "Shahid", role = "aut"))
+URL: https://ouhscbbmc.github.io/trawler/, https://github.com/OuhscBbmc/trawler
+BugReports: https://github.com/OuhscBbmc/trawler/issues
 License: MIT + file LICENSE
 Depends:
     R (>= 4.1.0)
