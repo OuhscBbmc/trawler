@@ -12,20 +12,21 @@ Imports:
     checkmate  (>= 1.8.4),
     config,
     dplyr (>= 1.0),
-    DT,
-    knitr (>= 1.18.0),
     methods,
     OuhscMunge,
     readr (>= 2.0),
-    rmarkdown,
-    sessioninfo,
+    rlang (>= 0.4.12),
     tibble (>= 1.4.0),
     yaml
 Suggests:
     covr,
     devtools (>= 1.13.0),
+    DT,
     kableExtra,
+    knitr (>= 1.18.0),
     purrr,
+    rmarkdown,
+    sessioninfo,
     testit,
     testthat (>= 3.1)
 Remotes:
