@@ -1,7 +1,8 @@
-^trawler\.Rproj$
 ^\.Rproj\.user$
+^\.github$
+
+^codecov\.yml$
+^cran-comments\.md$
 ^LICENSE\.md$
 ^README\.Rmd$
-^cran-comments\.md$
-^\.github$
-^codecov\.yml$
+^trawler\.Rproj$

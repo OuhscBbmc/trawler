@@ -1,0 +1,14 @@
+default:
+  project_id:               1612 # This is located in data-public/metadata/validation-rules.yml also
+
+  path_derived_pt_event_csv:         "data-public/derived/pt-event.csv"
+  path_derived_pt_event_rds:         "data-public/derived/pt-event.rds"
+
+  path_derived_smell_summary_csv:        "data-public/derived/summary-smell.csv"
+  path_derived_smell_summary_rds:        "data-public/derived/summary-smell.rds"
+  path_derived_rule_summary_csv:         "data-public/derived/summary-rule.csv"
+  path_derived_rule_summary_rds:         "data-public/derived/summary-rule.rds"
+  path_derived_rule_violation_csv:       "data-public/derived/violation-rule.csv"
+  path_derived_rule_violation_rds:       "data-public/derived/violation-rule.rds"
+
+  path_log_flow:            !expr strftime(Sys.time(), "data-unshared/log/%Y/%Y-%m/flow-%Y-%m-%d--%H-%M-%S.log")
