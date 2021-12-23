@@ -1,10 +1,10 @@
 #' @title Load and parse checks in a yaml file, and return a list
 #' of useful objects.
 #' @param path_checks The file path to the yaml file specifying the smells
-#' and rules.
+#' and rules.  Required.
 #' @examples
 #' # Replace the path for your specific project
-#' path_checks <- system.file("checks/checks-biochemical.yml", package = "trawler")
+#' path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
 #' load_checks(path_checks)
 #'
 #' @export
