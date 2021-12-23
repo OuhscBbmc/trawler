@@ -39,20 +39,20 @@
       # A tibble: 14 x 7
          check_name   error_message   priority active debug instrument  passing_test  
          <chr>        <chr>              <int> <lgl>  <lgl> <chr>       <chr>         
-       1 baseline_pr~ Serum pre-albu~        1 TRUE   FALSE baseline_d~ "function ( d~
-       2 missing_ser~ Relevant nutri~        1 TRUE   FALSE baseline_d~ "function ( d~
-       3 serum_preal~ Baseline preal~        1 TRUE   FALSE baseline_d~ "function ( d~
-       4 serum_preal~ Baseline preal~        1 TRUE   FALSE baseline_d~ "function ( d~
-       5 serum_preal~ Baseline preal~        1 TRUE   FALSE baseline_d~ "function ( d~
-       6 serum_preal~ serum prealbum~        1 TRUE   FALSE baseline_d~ "function ( d~
-       7 baseline_fi~ Serum prealbum~        1 TRUE   FALSE baseline_d~ "function ( d~
-       8 daily_first~ In-addition to~        1 TRUE   FALSE baseline_d~ "function ( d~
-       9 daily_prote~ npcr levels in~        1 TRUE   FALSE baseline_d~ "function ( d~
-      10 hospitaliza~ Patient was ho~        1 TRUE   FALSE completion~ "function ( d~
-      11 optimal_dai~ Daily protein ~        1 TRUE   FALSE completion~ "function ( d~
-      12 recommended~ NPCR values ar~        1 TRUE   FALSE completion~ "function ( d~
-      13 npcr         NPCR at comple~        1 TRUE   FALSE completion~ "function ( d~
-      14 npcr_compar~ NPCR at comple~        1 TRUE   FALSE completion~ "function ( d~
+       1 baseline_pr~ Serum pre-albu~        1 TRUE   FALSE baseline_d~ "function (d)~
+       2 missing_ser~ Relevant nutri~        1 TRUE   FALSE baseline_d~ "function (d)~
+       3 serum_preal~ Baseline preal~        1 TRUE   FALSE baseline_d~ "function (d)~
+       4 serum_preal~ Baseline preal~        1 TRUE   FALSE baseline_d~ "function (d)~
+       5 serum_preal~ Baseline preal~        1 TRUE   FALSE baseline_d~ "function (d)~
+       6 serum_preal~ serum prealbum~        1 TRUE   FALSE baseline_d~ "function (d)~
+       7 baseline_fi~ Serum prealbum~        1 TRUE   FALSE baseline_d~ "function (d)~
+       8 daily_first~ In-addition to~        1 TRUE   FALSE baseline_d~ "function (d)~
+       9 daily_prote~ npcr levels in~        1 TRUE   FALSE baseline_d~ "function (d)~
+      10 hospitaliza~ Patient was ho~        1 TRUE   FALSE completion~ "function (d)~
+      11 optimal_dai~ Daily protein ~        1 TRUE   FALSE completion~ "function (d)~
+      12 recommended~ NPCR values ar~        1 TRUE   FALSE completion~ "function (d)~
+      13 npcr         NPCR at comple~        1 TRUE   FALSE completion~ "function (d)~
+      14 npcr_compar~ NPCR at comple~        1 TRUE   FALSE completion~ "function (d)~
 
 ---
 

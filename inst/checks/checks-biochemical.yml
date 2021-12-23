@@ -25,7 +25,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$sex == "female", na.rm=T)
       }
   - check_name           : proportion_male_participants
@@ -38,7 +38,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$sex == "male", na.rm=T)
       }
   - check_name           : mean_age
@@ -51,7 +51,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$age, na.rm=T)
       }
   - check_name           : mean_serum_prealbumin_level_at_baseline
@@ -64,7 +64,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$baseline_prealbumin_level, na.rm=T)
       }
   - check_name           : mean_serum_creatinine_level_at_baseline
@@ -77,7 +77,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$baseline_creatinine_level, na.rm=T)
       }
   - check_name           : average_bmi_at_baseline
@@ -90,7 +90,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$baseline_bmi, na.rm=T)
       }
   - check_name           : mean_serum_cholesterol_levels_at_baseline
@@ -103,7 +103,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$baseline_cholesterol, na.rm=T)
       }
   - check_name           : dialysis_adequacy
@@ -116,7 +116,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$completion_project_questionnaire_ktv_value, na.rm=T)
       }
   - check_name           : average_serum_ferritin_levels_at_baseline
@@ -129,7 +129,7 @@ default:
     bounds_template      : "[%.0f, %.0f]"
     value_template       : "%.2f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$baseline_ferritin_level, na.rm=T)
       }
   - check_name           : nutritional_counseling
@@ -142,7 +142,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$nutritional_counseling, na.rm=T)
       }
   - check_name           : definitive_diagnosis
@@ -155,7 +155,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$differential_diagnoses_malnutrition, na.rm=T)
       }
   - check_name           : normalized_protein_catabolic_rate
@@ -168,7 +168,7 @@ default:
     bounds_template      : "[%.2f, %.2f]"
     value_template       : "%.4f"
     equation             : |
-      function( d ) {
+      function (d) {
         mean(d$baseline_normalized_protein_catabolic_rate, na.rm=T)
       }
   rules:
@@ -179,7 +179,7 @@ default:
     debug                : FALSE
     instrument           : baseline_data                                                                                    # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
     passing_test         : |
-      function ( d ) {
+      function (d) {
         ifelse(
           !is.na(d$date_enrolled),
           (30 < d$baseline_prealbumin_level &  d$baseline_prealbumin_level < 40),
@@ -193,7 +193,7 @@ default:
     debug                : FALSE
     instrument           : baseline_data
     passing_test         : |
-      function ( d ) {
+      function (d) {
         ifelse(
           !is.na(d$date_enrolled),
           !is.na(d$baseline_prealbumin_level) & !is.na(d$baseline_creatinine_level) & !is.na(d$baseline_transferrin_level),
@@ -207,7 +207,7 @@ default:
     debug                : FALSE
     instrument           : baseline_data, visit_lab_date
     passing_test         : |
-      function ( d ) {
+      function (d) {
         events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
         ifelse(
           d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level),
@@ -222,7 +222,7 @@ default:
     debug                : FALSE
     instrument           : baseline_data, visit_lab_date, visit_blood_workup
     passing_test         : |
-      function ( d ) {
+      function (d) {
         events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
         ifelse(
           d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level),
@@ -237,7 +237,7 @@ default:
     debug                : FALSE
     instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
     passing_test         : |
-      function ( d ) {
+      function (d) {
         events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
         ifelse(
           d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level)
@@ -253,7 +253,7 @@ default:
     debug                : FALSE
     instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
     passing_test         : |
-      function ( d ) {
+      function (d) {
         events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
         ifelse(
           d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level) &
@@ -269,7 +269,7 @@ default:
     debug                : FALSE
     instrument           : visit_lab_date
     passing_test         : |
-      function ( d ) {
+      function (d) {
         events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
         ifelse(
           (d$redcap_event_name %in% events_to_check) & !is.na(d$baseline_prealbumin_level),
@@ -285,8 +285,8 @@ default:
     debug                : FALSE
     instrument           : baseline_data, visit_lab_data
     passing_test         : |
-      function ( d ) {
-        events_to_check <- c("enrollment_arm_1","visit_1_arm_1")
+      function (d) {
+        events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
         ifelse(
            d$redcap_event_name %in% events_to_check &
           (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2),
@@ -301,8 +301,8 @@ default:
     debug                : FALSE
     instrument           : baseline_data, patient_morale_questionnaire
     passing_test         : |
-      function ( d ) {
-        events_to_check <- c("enrollment_arm_1","visit_1_arm_1")
+      function (d) {
+        events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
         ifelse(
           d$redcap_event_name %in% events_to_check &
           (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
@@ -318,8 +318,8 @@ default:
     debug                : FALSE
     instrument           : baseline_data, patient_morale_questionnaire
     passing_test         : |
-      function ( d ) {
-        events_to_check <- c("enrollment_arm_1","visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
+      function (d) {
+        events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
         ifelse(
           d$redcap_event_name %in% events_to_check &
           (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
@@ -336,7 +336,7 @@ default:
     debug                : FALSE
     instrument           : completion_project_questionnaire
     passing_test         : |
-      function ( d ) {
+      function (d) {
         ifelse(
           d$completion_project_questionnaire_hospitalization %in% 1,
           !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),
@@ -350,7 +350,7 @@ default:
     debug                : FALSE
     instrument           : completion_project_questionnaire, completion_data
     passing_test         : |
-      function ( d ) {
+      function (d) {
         ifelse(
           d$completion_data_npcr >= 1.2,
           d$completion_data_prealbumin_level > 30 & d$completion_data_prealbumin_level < 40,
@@ -364,7 +364,7 @@ default:
     debug                : FALSE
     instrument           : completion_data                                                              # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
     passing_test         : |
-      function ( d ) {
+      function (d) {
          ( 1.4 <= d$completion_data_npcr | d$completion_data_npcr >= 1.2)
       }
   - check_name           : npcr
@@ -374,7 +374,7 @@ default:
     debug                : FALSE
     instrument           : completion_data
     passing_test         : |
-      function ( d ) {
+      function (d) {
         events_to_check <- c("final_visit_arm_1")
         dplyr::if_else(
           d$redcap_event_name %in% events_to_check,
@@ -389,7 +389,7 @@ default:
     debug                : FALSE
     instrument           : completion_data
     passing_test         : |
-      function ( d ) {
+      function (d) {
         ifelse(
         !is.na(d$completion_data_npcr),
         (d$npcr_at_baseline < d$completion_data_npcr),
