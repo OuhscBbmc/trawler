@@ -2,6 +2,11 @@
 #' of useful objects.
 #' @param path_checks The file path to the yaml file specifying the smells
 #' and rules.
+#' @examples
+#' # Replace the path for your specific project
+#' path_checks <- system.file("checks/checks-biochemical.yml", package = "trawler")
+#' load_checks(path_checks)
+#'
 #' @export
 load_checks <- function (path_checks) {
     checkmate::assert_file_exists(path_checks, extension = c("yml", "yaml"))

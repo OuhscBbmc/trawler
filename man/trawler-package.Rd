@@ -8,6 +8,15 @@
 \description{
 Drag a dataset to report illegal or suspicious values.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://ouhscbbmc.github.io/trawler/}
+  \item \url{https://github.com/OuhscBbmc/trawler}
+  \item Report bugs at \url{https://github.com/OuhscBbmc/trawler/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Will Beasley \email{wibeasley@hotmail.com} (\href{https://orcid.org/0000-0002-5613-5006}{ORCID})
 
