@@ -19,6 +19,7 @@ Imports:
     readr (>= 2.0),
     rlang (>= 0.4.12),
     tibble (>= 1.4.0),
+    tidyselect,
     yaml
 Suggests:
     covr,

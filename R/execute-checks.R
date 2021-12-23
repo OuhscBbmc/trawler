@@ -26,6 +26,7 @@ execute_checks <- function (ds, ds_smell) {
 
 }
 
+#' @importFrom rlang .data
 execute_smells <- function (ds, ds_smell) {
   checkmate::assert_data_frame(ds)
   checkmate::assert_data_frame(ds_smell)
@@ -44,8 +45,8 @@ execute_smells <- function (ds, ds_smell) {
     ds_smell |>
     dplyr::mutate(
       # f             = purrr::invoke_map(function(x) eval(parse(text=x)), .data$equation),
-      smell_value   = NA_real_,
-      smell_pass    = NA
+      value   = NA_real_,
+      pass    = NA
     )
 
   # for( i in 1:14 ) {
@@ -62,16 +63,21 @@ execute_smells <- function (ds, ds_smell) {
     })
 
     tryCatch({
-      ds_smell_result$smell_value[i]   <- f(ds)
+      ds_smell_result$value[i]   <- f(ds)
     }, error = function(e) {
       stop("Problem executing the equation for smell `", ds_smell$check_name[i], "`.\n", e)
     })
 
     # ds_smell_result$smell_value[i]   <- f[[i]](ds)
-    ds_smell_result$smell_pass[i]    <- dplyr::between(ds_smell_result$smell_value[i], left = ds_smell_result$bound_lower[i], right = ds_smell_result$bound_upper[i])
+    ds_smell_result$pass[i]    <- dplyr::between(ds_smell_result$value[i], left = ds_smell_result$bound_lower[i], right = ds_smell_result$bound_upper[i])
   }
 
-  message(nrow(ds_smell_result), " smells have been sniffed  ", sum(!ds_smell_result$smell_pass), " violation(s) were found.\n")
+  message(nrow(ds_smell_result), " smells have been sniffed  ", sum(!ds_smell_result$pass), " violation(s) were found.\n")
 
-  ds_smell_result
+  ds_smell_result |>
+    dplyr::select(
+      .data$check_name,
+      .data$pass,
+      tidyselect::everything()
+    )
 }

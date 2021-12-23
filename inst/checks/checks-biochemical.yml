@@ -18,7 +18,7 @@ default:
   - check_name           : proportion_female_participants
     description          : Proportion female participants is half the participants till study conclusion
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : .5
     bound_upper          : .5
@@ -31,7 +31,7 @@ default:
   - check_name           : proportion_male_participants
     description          : Proportion male participants is half the participants till study conclusion
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : .5
     bound_upper          : .5
@@ -44,7 +44,7 @@ default:
   - check_name           : mean_age
     description          : Mean age of participants is between 18 years to 20 years
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : 20
     bound_upper          : 80
@@ -57,7 +57,7 @@ default:
   - check_name           : mean_serum_prealbumin_level_at_baseline
     description          : Mean serum pre-albumin levels at baseline are between 31mg/dl and 39mg/dl
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : 32
     bound_upper          : 39
@@ -70,7 +70,7 @@ default:
   - check_name           : mean_serum_creatinine_level_at_baseline
     description          : Mean serum creatinine levels at baseline are between 3mg/dl and 15mg/dl
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : 3
     bound_upper          : 15
@@ -83,7 +83,7 @@ default:
   - check_name           : average_bmi_at_baseline
     description          : Average BMI is between 18 and 24
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : 18
     bound_upper          : 24
@@ -96,7 +96,7 @@ default:
   - check_name           : mean_serum_cholesterol_levels_at_baseline
     description          : Average Cholesterol levels range is between 100mg/dl-140mg/dl at baseline level
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : 100
     bound_upper          : 140
@@ -109,7 +109,7 @@ default:
   - check_name           : dialysis_adequacy
     description          : Normal range for Kt/V values are between 1.2 and 5
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : 1.2
     bound_upper          : 5
@@ -122,7 +122,7 @@ default:
   - check_name           : average_serum_ferritin_levels_at_baseline
     description          : Mean serum ferritin levels are in the recommended range of > 500ng/dl-1200ng/dl
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : 501
     bound_upper          : 1200
@@ -135,7 +135,7 @@ default:
   - check_name           : nutritional_counseling
     description          : Most patients agreed to receiving nutritional counseling
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : .85
     bound_upper          : .99
@@ -148,7 +148,7 @@ default:
   - check_name           : definitive_diagnosis
     description          : A 100 percent of study participants were diagnosed with malnutrition associated with Chronic Renal Disease
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : 1.0
     bound_upper          : 1.0
@@ -161,7 +161,7 @@ default:
   - check_name           : normalized_protein_catabolic_rate
     description          : Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
     priority             : 1
-    smell_active         : TRUE
+    active               : TRUE
     debug                : FALSE
     bound_lower          : 0
     bound_upper          : 0.12
@@ -175,7 +175,7 @@ default:
   - check_name           : baseline_prealbumin_levels
     error_message        : "Serum pre-albumin level of all enrolled patients do not meet the study criterion"                         # Tranferrin level <100 indicates severe protein-energy malnutrition
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : baseline_data                                                                                    # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
     passing_test         : |
@@ -189,7 +189,7 @@ default:
   - check_name           : missing_serum_marker_levels
     error_message        : "Relevant nutritional serum markers are missing"   # All these parameters together, should not be missing
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : baseline_data
     passing_test         : |
@@ -203,7 +203,7 @@ default:
   - check_name           : serum_prealbumin_levels_1
     error_message        : "Baseline prealbumin levels are not missing however levels were not carefully monitored in the subsequent visit"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : baseline_data, visit_lab_date
     passing_test         : |
@@ -218,7 +218,7 @@ default:
   - check_name           : serum_prealbumin_levels_2
     error_message        : "Baseline prealbumin levels and pre-albumin levels during the 1st visit are not missing however levels in the next reading are missing"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : baseline_data, visit_lab_date, visit_blood_workup
     passing_test         : |
@@ -233,7 +233,7 @@ default:
   - check_name           : serum_prealbumin_levels_completion_data
     error_message        : "Baseline prealbumin levels are not missing however readings are not carefully monitored at completion"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
     passing_test         : |
@@ -249,7 +249,7 @@ default:
   - check_name           : serum_prealbumin_levels_expectations
     error_message        : "serum prealbumin levels are not missing however subsequent readings did not come as expected"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
     passing_test         : |
@@ -265,7 +265,7 @@ default:
   - check_name           : pre_albumin_levels
     error_message        : "pre_albumin levels are not improving"
     priority             : 1
-    test_active          : FALSE
+    active               : FALSE
     debug                : FALSE
     instrument           : visit_lab_date
     passing_test         : |
@@ -281,7 +281,7 @@ default:
   - check_name           : baseline_first_visit_lab_parameters
     error_message        : "Serum prealbumin levels are low and protein intake at baseline is less than optimal"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : baseline_data, visit_lab_data
     passing_test         : |
@@ -297,7 +297,7 @@ default:
   - check_name           : daily_first_visit_lab_and_workup_parameters
     error_message        : "In-addition to baseline & visit lab protein parameters, blood work-up npcr levels are also low"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : baseline_data, patient_morale_questionnaire
     passing_test         : |
@@ -314,7 +314,7 @@ default:
   - check_name           : daily_protein_intake
     error_message        : "npcr levels in study have not improved as intended"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : baseline_data, patient_morale_questionnaire
     passing_test         : |
@@ -332,7 +332,7 @@ default:
   - check_name           : hospitalization_reason
     error_message        : "Patient was hospitalized but reason and the date of hospitalization is missing"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : completion_project_questionnaire
     passing_test         : |
@@ -346,7 +346,7 @@ default:
   - check_name           : optimal_daily_protein_intake
     error_message        : "Daily protein intake is optimal but one of the nutritional marker is not within the normal range"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : completion_project_questionnaire, completion_data
     passing_test         : |
@@ -360,7 +360,7 @@ default:
   - check_name           : recommended_npcr_range
     error_message        : "NPCR values are not within the recommended range at completion"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : completion_data                                                              # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
     passing_test         : |
@@ -370,7 +370,7 @@ default:
   - check_name           : npcr
     error_message        : "NPCR at completion is missing"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : completion_data
     passing_test         : |
@@ -385,7 +385,7 @@ default:
   - check_name           : npcr_comparison                                                               # Showing improvement in nutritional status
     error_message        : "NPCR at completion is not greater than npcr at baseline"
     priority             : 1
-    test_active          : TRUE
+    active               : TRUE
     debug                : FALSE
     instrument           : completion_data
     passing_test         : |

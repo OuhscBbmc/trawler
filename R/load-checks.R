@@ -30,7 +30,7 @@ load_smells <- function (checks) {
     ds_smell <-
       checks$smells |>
       purrr::map_df(tibble::as_tibble) |>
-      dplyr::filter(.data$smell_active) |>
+      dplyr::filter(.data$active) |>
       dplyr::mutate(
         debug         = dplyr::coalesce(.data$debug, FALSE),
       )
@@ -38,12 +38,12 @@ load_smells <- function (checks) {
     ds_smell_inactive <-
       checks$smells |>
       purrr::map_df(tibble::as_tibble) |>
-      dplyr::filter(!.data$smell_active)
+      dplyr::filter(!.data$active)
 
     testit::assert("The count of distinct rule columns (in the yaml checks file) should be 10.", ncol(ds_smell) == 10L)
     testit::assert( # dput(colnames(ds_smell))
       "The smell columns (in the yaml checks file) should be correct.",
-      colnames(ds_smell) == c("check_name", "description", "priority", "smell_active", "debug", "bound_lower", "bound_upper", "bounds_template", "value_template", "equation")
+      colnames(ds_smell) == c("check_name", "description", "priority", "active", "debug", "bound_lower", "bound_upper", "bounds_template", "value_template", "equation")
     )
 
     ds_smell <-
@@ -56,7 +56,7 @@ load_smells <- function (checks) {
     checkmate::assert_character(ds_smell$check_name      , any.missing=F , pattern="^.{4,99}$"  , unique=T)
     checkmate::assert_character(ds_smell$description     , any.missing=F , pattern="^.{4,255}$" , unique=T)
     checkmate::assert_integer(  ds_smell$priority        , any.missing=F , lower=1, upper=5     )
-    checkmate::assert_logical(  ds_smell$smell_active    , any.missing=F                        )
+    checkmate::assert_logical(  ds_smell$active          , any.missing=F                        )
     checkmate::assert_logical(  ds_smell$debug           , any.missing=F                        )
     checkmate::assert_numeric(  ds_smell$bound_lower     , any.missing=F                        )
     checkmate::assert_numeric(  ds_smell$bound_upper     , any.missing=F                        )
@@ -78,7 +78,7 @@ load_rules <- function (checks) {
     checks$rules |>
     purrr::map_df(tibble::as_tibble) |>
     # dplyr::rename(check_name = name) |>
-    dplyr::filter(.data$test_active) |>
+    dplyr::filter(.data$active) |>
     dplyr::mutate(
       debug         = dplyr::coalesce(.data$debug, FALSE),
     )
@@ -86,12 +86,12 @@ load_rules <- function (checks) {
   ds_rule_inactive <-
     checks$rules |>
     purrr::map_df(tibble::as_tibble) |>
-    dplyr::filter(!.data$test_active)
+    dplyr::filter(!.data$active)
 
   #testit::assert("The count of distinct rule columns (in the yaml checks file) should be 7.", ncol(ds_rule) == 10L)
   testit::assert( # dput(colnames(ds_rule))
     "The rule columns (in the yaml checks file) should be correct.",
-    colnames(ds_rule) == c("check_name", "error_message", "priority", "test_active", "debug", "instrument", "passing_test")
+    colnames(ds_rule) == c("check_name", "error_message", "priority", "active", "debug", "instrument", "passing_test")
   )
   # table(ds_rule$check_name)
   # table(ds_rule$error_message)
@@ -101,7 +101,7 @@ load_rules <- function (checks) {
   checkmate::assert_character(ds_rule$check_name    , any.missing=F , pattern="^.{4,99}$"  , unique=T)
   checkmate::assert_character(ds_rule$error_message , any.missing=F , pattern="^.{4,255}$" , unique=T)
   checkmate::assert_integer(  ds_rule$priority      , any.missing=F , lower=1, upper=5      )
-  checkmate::assert_logical(  ds_rule$test_active   , any.missing=F                         )
+  checkmate::assert_logical(  ds_rule$active        , any.missing=F                         )
   checkmate::assert_logical(  ds_rule$debug         , any.missing=F                         )
   checkmate::assert_character(ds_rule$instrument    , any.missing=F , pattern="^.{2,255}$"  )
   checkmate::assert_character(ds_rule$passing_test  , any.missing=F , pattern="^.{5,}$"     , unique=T)
