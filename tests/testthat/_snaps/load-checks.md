@@ -31,3 +31,36 @@
       #   smell_active <lgl>, debug <lgl>, bound_lower <dbl>, bound_upper <dbl>,
       #   bounds_template <chr>, value_template <chr>, equation <chr>
 
+---
+
+    Code
+      checks$ds_rule
+    Output
+      # A tibble: 14 x 7
+         check_name  error_message  priority test_active debug instrument passing_test
+         <chr>       <chr>             <int> <lgl>       <lgl> <chr>      <chr>       
+       1 baseline_p~ Serum pre-alb~        1 TRUE        FALSE baseline_~ "function (~
+       2 missing_se~ Relevant nutr~        1 TRUE        FALSE baseline_~ "function (~
+       3 serum_prea~ Baseline prea~        1 TRUE        FALSE baseline_~ "function (~
+       4 serum_prea~ Baseline prea~        1 TRUE        FALSE baseline_~ "function (~
+       5 serum_prea~ Baseline prea~        1 TRUE        FALSE baseline_~ "function (~
+       6 serum_prea~ serum prealbu~        1 TRUE        FALSE baseline_~ "function (~
+       7 baseline_f~ Serum prealbu~        1 TRUE        FALSE baseline_~ "function (~
+       8 daily_firs~ In-addition t~        1 TRUE        FALSE baseline_~ "function (~
+       9 daily_prot~ npcr levels i~        1 TRUE        FALSE baseline_~ "function (~
+      10 hospitaliz~ Patient was h~        1 TRUE        FALSE completio~ "function (~
+      11 optimal_da~ Daily protein~        1 TRUE        FALSE completio~ "function (~
+      12 recommende~ NPCR values a~        1 TRUE        FALSE completio~ "function (~
+      13 npcr        NPCR at compl~        1 TRUE        FALSE completio~ "function (~
+      14 npcr_compa~ NPCR at compl~        1 TRUE        FALSE completio~ "function (~
+
+---
+
+    Code
+      checks$ds_rule_inactive
+    Output
+      # A tibble: 1 x 7
+        check_name  error_message  priority test_active debug instrument passing_test 
+        <chr>       <chr>             <int> <lgl>       <lgl> <chr>      <chr>        
+      1 pre_albumi~ pre_albumin l~        1 FALSE       FALSE visit_lab~ "function ( ~
+

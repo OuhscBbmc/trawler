@@ -6,4 +6,7 @@ test_that("load-checks-biochemical", {
 
   expect_snapshot(checks$ds_smell)
   expect_snapshot(checks$ds_smell_inactive)
+
+  expect_snapshot(checks$ds_rule)
+  expect_snapshot(checks$ds_rule_inactive)
 })
