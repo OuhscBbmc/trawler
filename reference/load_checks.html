@@ -70,6 +70,9 @@ and rules.  Required.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Replace the path for your specific project</span></span>
 <span class="r-in"><span class="va">path_checks</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"checks/checks-biochemical.yml"</span>, package <span class="op">=</span> <span class="st">"trawler"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">load_checks</span><span class="op">(</span><span class="va">path_checks</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $github_file_prefix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://github.com/OuhscBbmc/validator-1/blob/master"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ds_smell</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    check_name    description       priority active debug bound_lower bound_upper</span>
