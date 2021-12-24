@@ -3,23 +3,23 @@
     Code
       checks$ds_smell
     Output
-      # A tibble: 12 x 11
-         check_name    description       priority active debug bound_lower bound_upper
-         <chr>         <chr>                <int> <lgl>  <lgl>       <dbl>       <dbl>
-       1 proportion_f~ Proportion femal~        1 TRUE   FALSE        0.5         0.5 
-       2 proportion_m~ Proportion male ~        1 TRUE   FALSE        0.5         0.5 
-       3 mean_age      Mean age of part~        1 TRUE   FALSE       20          80   
-       4 mean_serum_p~ Mean serum pre-a~        1 TRUE   FALSE       32          39   
-       5 mean_serum_c~ Mean serum creat~        1 TRUE   FALSE        3          15   
-       6 average_bmi_~ Average BMI is b~        1 TRUE   FALSE       18          24   
-       7 mean_serum_c~ Average Choleste~        1 TRUE   FALSE      100         140   
-       8 dialysis_ade~ Normal range for~        1 TRUE   FALSE        1.2         5   
-       9 average_seru~ Mean serum ferri~        1 TRUE   FALSE      501        1200   
-      10 nutritional_~ Most patients ag~        1 TRUE   FALSE        0.85        0.99
-      11 definitive_d~ A 100 percent of~        1 TRUE   FALSE        1           1   
-      12 normalized_p~ Average Normaliz~        1 TRUE   FALSE        0           0.12
-      # ... with 4 more variables: bounds_template <chr>, value_template <chr>,
-      #   equation <chr>, boundaries <chr>
+      # A tibble: 12 x 10
+         check_name description priority debug bound_lower bound_upper bounds_template
+         <chr>      <chr>          <int> <lgl>       <dbl>       <dbl> <chr>          
+       1 proportio~ Proportion~        1 FALSE        0.5         0.5  [%.2f, %.2f]   
+       2 proportio~ Proportion~        1 FALSE        0.5         0.5  [%.2f, %.2f]   
+       3 mean_age   Mean age o~        1 FALSE       20          80    [%.2f, %.2f]   
+       4 mean_seru~ Mean serum~        1 FALSE       32          39    [%.2f, %.2f]   
+       5 mean_seru~ Mean serum~        1 FALSE        3          15    [%.2f, %.2f]   
+       6 average_b~ Average BM~        1 FALSE       18          24    [%.2f, %.2f]   
+       7 mean_seru~ Average Ch~        1 FALSE      100         140    [%.2f, %.2f]   
+       8 dialysis_~ Normal ran~        1 FALSE        1.2         5    [%.2f, %.2f]   
+       9 average_s~ Mean serum~        1 FALSE      501        1200    [%.0f, %.0f]   
+      10 nutrition~ Most patie~        1 FALSE        0.85        0.99 [%.2f, %.2f]   
+      11 definitiv~ A 100 perc~        1 FALSE        1           1    [%.2f, %.2f]   
+      12 normalize~ Average No~        1 FALSE        0           0.12 [%.2f, %.2f]   
+      # ... with 3 more variables: value_template <chr>, equation <chr>,
+      #   boundaries <chr>
 
 ---
 
@@ -52,19 +52,19 @@
       10                                                   Most patients agreed to receiving nutritional counseling
       11 A 100 percent of study participants were diagnosed with malnutrition associated with Chronic Renal Disease
       12                                                 Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
-         priority active debug bound_lower bound_upper bounds_template value_template
-      1         1   TRUE FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
-      2         1   TRUE FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
-      3         1   TRUE FALSE       20.00       80.00    [%.2f, %.2f]           %.4f
-      4         1   TRUE FALSE       32.00       39.00    [%.2f, %.2f]           %.4f
-      5         1   TRUE FALSE        3.00       15.00    [%.2f, %.2f]           %.4f
-      6         1   TRUE FALSE       18.00       24.00    [%.2f, %.2f]           %.4f
-      7         1   TRUE FALSE      100.00      140.00    [%.2f, %.2f]           %.4f
-      8         1   TRUE FALSE        1.20        5.00    [%.2f, %.2f]           %.4f
-      9         1   TRUE FALSE      501.00     1200.00    [%.0f, %.0f]           %.2f
-      10        1   TRUE FALSE        0.85        0.99    [%.2f, %.2f]           %.4f
-      11        1   TRUE FALSE        1.00        1.00    [%.2f, %.2f]           %.4f
-      12        1   TRUE FALSE        0.00        0.12    [%.2f, %.2f]           %.4f
+         priority debug bound_lower bound_upper bounds_template value_template
+      1         1 FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
+      2         1 FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
+      3         1 FALSE       20.00       80.00    [%.2f, %.2f]           %.4f
+      4         1 FALSE       32.00       39.00    [%.2f, %.2f]           %.4f
+      5         1 FALSE        3.00       15.00    [%.2f, %.2f]           %.4f
+      6         1 FALSE       18.00       24.00    [%.2f, %.2f]           %.4f
+      7         1 FALSE      100.00      140.00    [%.2f, %.2f]           %.4f
+      8         1 FALSE        1.20        5.00    [%.2f, %.2f]           %.4f
+      9         1 FALSE      501.00     1200.00    [%.0f, %.0f]           %.2f
+      10        1 FALSE        0.85        0.99    [%.2f, %.2f]           %.4f
+      11        1 FALSE        1.00        1.00    [%.2f, %.2f]           %.4f
+      12        1 FALSE        0.00        0.12    [%.2f, %.2f]           %.4f
                                                                                    equation
       1                             function (d) {\n  mean(d$sex == "female", na.rm=T)\n}\n
       2                               function (d) {\n  mean(d$sex == "male", na.rm=T)\n}\n
@@ -97,10 +97,10 @@
     Code
       checks$ds_smell_inactive
     Output
-      # A tibble: 0 x 10
-      # ... with 10 variables: check_name <chr>, description <chr>, priority <int>,
-      #   active <lgl>, debug <lgl>, bound_lower <dbl>, bound_upper <dbl>,
-      #   bounds_template <chr>, value_template <chr>, equation <chr>
+      # A tibble: 0 x 9
+      # ... with 9 variables: check_name <chr>, description <chr>, priority <int>,
+      #   debug <lgl>, bound_lower <dbl>, bound_upper <dbl>, bounds_template <chr>,
+      #   value_template <chr>, equation <chr>
 
 ---
 

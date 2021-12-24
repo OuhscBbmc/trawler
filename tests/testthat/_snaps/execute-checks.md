@@ -3,21 +3,21 @@
     Code
       result$ds_smell_result
     Output
-      # A tibble: 12 x 13
-         check_name  pass  description   priority active debug bound_lower bound_upper
-         <chr>       <lgl> <chr>            <int> <lgl>  <lgl>       <dbl>       <dbl>
-       1 proportion~ FALSE Proportion f~        1 TRUE   FALSE        0.5         0.5 
-       2 proportion~ FALSE Proportion m~        1 TRUE   FALSE        0.5         0.5 
-       3 mean_age    TRUE  Mean age of ~        1 TRUE   FALSE       20          80   
-       4 mean_serum~ FALSE Mean serum p~        1 TRUE   FALSE       32          39   
-       5 mean_serum~ FALSE Mean serum c~        1 TRUE   FALSE        3          15   
-       6 average_bm~ FALSE Average BMI ~        1 TRUE   FALSE       18          24   
-       7 mean_serum~ TRUE  Average Chol~        1 TRUE   FALSE      100         140   
-       8 dialysis_a~ TRUE  Normal range~        1 TRUE   FALSE        1.2         5   
-       9 average_se~ TRUE  Mean serum f~        1 TRUE   FALSE      501        1200   
-      10 nutritiona~ TRUE  Most patient~        1 TRUE   FALSE        0.85        0.99
-      11 definitive~ TRUE  A 100 percen~        1 TRUE   FALSE        1           1   
-      12 normalized~ FALSE Average Norm~        1 TRUE   FALSE        0           0.12
+      # A tibble: 12 x 12
+         check_name     pass  description       priority debug bound_lower bound_upper
+         <chr>          <lgl> <chr>                <int> <lgl>       <dbl>       <dbl>
+       1 proportion_fe~ FALSE Proportion femal~        1 FALSE        0.5         0.5 
+       2 proportion_ma~ FALSE Proportion male ~        1 FALSE        0.5         0.5 
+       3 mean_age       TRUE  Mean age of part~        1 FALSE       20          80   
+       4 mean_serum_pr~ FALSE Mean serum pre-a~        1 FALSE       32          39   
+       5 mean_serum_cr~ FALSE Mean serum creat~        1 FALSE        3          15   
+       6 average_bmi_a~ FALSE Average BMI is b~        1 FALSE       18          24   
+       7 mean_serum_ch~ TRUE  Average Choleste~        1 FALSE      100         140   
+       8 dialysis_adeq~ TRUE  Normal range for~        1 FALSE        1.2         5   
+       9 average_serum~ TRUE  Mean serum ferri~        1 FALSE      501        1200   
+      10 nutritional_c~ TRUE  Most patients ag~        1 FALSE        0.85        0.99
+      11 definitive_di~ TRUE  A 100 percent of~        1 FALSE        1           1   
+      12 normalized_pr~ FALSE Average Normaliz~        1 FALSE        0           0.12
       # ... with 5 more variables: bounds_template <chr>, value_template <chr>,
       #   equation <chr>, boundaries <chr>, value <dbl>
 
@@ -52,19 +52,19 @@
       10                                                   Most patients agreed to receiving nutritional counseling
       11 A 100 percent of study participants were diagnosed with malnutrition associated with Chronic Renal Disease
       12                                                 Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
-         priority active debug bound_lower bound_upper bounds_template value_template
-      1         1   TRUE FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
-      2         1   TRUE FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
-      3         1   TRUE FALSE       20.00       80.00    [%.2f, %.2f]           %.4f
-      4         1   TRUE FALSE       32.00       39.00    [%.2f, %.2f]           %.4f
-      5         1   TRUE FALSE        3.00       15.00    [%.2f, %.2f]           %.4f
-      6         1   TRUE FALSE       18.00       24.00    [%.2f, %.2f]           %.4f
-      7         1   TRUE FALSE      100.00      140.00    [%.2f, %.2f]           %.4f
-      8         1   TRUE FALSE        1.20        5.00    [%.2f, %.2f]           %.4f
-      9         1   TRUE FALSE      501.00     1200.00    [%.0f, %.0f]           %.2f
-      10        1   TRUE FALSE        0.85        0.99    [%.2f, %.2f]           %.4f
-      11        1   TRUE FALSE        1.00        1.00    [%.2f, %.2f]           %.4f
-      12        1   TRUE FALSE        0.00        0.12    [%.2f, %.2f]           %.4f
+         priority debug bound_lower bound_upper bounds_template value_template
+      1         1 FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
+      2         1 FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
+      3         1 FALSE       20.00       80.00    [%.2f, %.2f]           %.4f
+      4         1 FALSE       32.00       39.00    [%.2f, %.2f]           %.4f
+      5         1 FALSE        3.00       15.00    [%.2f, %.2f]           %.4f
+      6         1 FALSE       18.00       24.00    [%.2f, %.2f]           %.4f
+      7         1 FALSE      100.00      140.00    [%.2f, %.2f]           %.4f
+      8         1 FALSE        1.20        5.00    [%.2f, %.2f]           %.4f
+      9         1 FALSE      501.00     1200.00    [%.0f, %.0f]           %.2f
+      10        1 FALSE        0.85        0.99    [%.2f, %.2f]           %.4f
+      11        1 FALSE        1.00        1.00    [%.2f, %.2f]           %.4f
+      12        1 FALSE        0.00        0.12    [%.2f, %.2f]           %.4f
                                                                                    equation
       1                             function (d) {\n  mean(d$sex == "female", na.rm=T)\n}\n
       2                               function (d) {\n  mean(d$sex == "male", na.rm=T)\n}\n

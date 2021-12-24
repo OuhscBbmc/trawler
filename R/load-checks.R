@@ -25,8 +25,10 @@ load_checks <- function (path_checks) {
 
   list(
     github_file_prefix  = misc$github_file_prefix,
+
     ds_smell            = smells$ds_smell,
     ds_smell_inactive   = smells$ds_smell_inactive,
+
     ds_rule             = rules$ds_rule,
     ds_rule_inactive    = rules$ds_rule_inactive
   )
@@ -42,28 +44,49 @@ load_misc <- function (checks) {
 
 #' @importFrom rlang .data
 load_smells <- function (checks) {
-  ds_smell <-
+  ds_smell_all <-
     checks$smells |>
-    purrr::map_df(tibble::as_tibble) |>
+    purrr::map_df(tibble::as_tibble)
+
+  if ("active" %in% colnames(ds_smell_all)) {
+    # Fill missing cells with TRUEs.
+    ds_smell_all$active   <- dplyr::coalesce(ds_smell_all$active, TRUE)
+  } else {
+    # If the column doesn't exist at all, create it and fill with TRUEs.
+    ds_smell_all$active   <- TRUE
+  }
+
+  if ("debug" %in% colnames(ds_smell_all)) {
+    # Fill missing cells with TRUEs.
+    ds_smell_all$debug   <- dplyr::coalesce(ds_smell_all$debug, TRUE)
+  } else {
+    # If the column doesn't exist at all, create it and fill with TRUEs.
+    ds_smell_all$debug   <- TRUE
+  }
+
+  ds_smell <-
+    ds_smell_all |>
     dplyr::filter(.data$active) |>
-    dplyr::mutate(
-      debug         = dplyr::coalesce(.data$debug, FALSE),
+    dplyr::select(
+      -.data$active
     )
 
   ds_smell_inactive <-
-    checks$smells |>
-    purrr::map_df(tibble::as_tibble) |>
-    dplyr::filter(!.data$active)
+    ds_smell_all |>
+    dplyr::filter(!.data$active) |>
+    dplyr::select(
+      -.data$active
+    )
 
   # The smell columns (in the yaml checks file) should be correct.
   checkmate::assert_subset(
     colnames(ds_smell),
-    c("check_name", "description", "priority", "active", "debug", "bound_lower", "bound_upper", "bounds_template", "value_template", "equation")
+    c("check_name", "description", "priority", "debug", "bound_lower", "bound_upper", "bounds_template", "value_template", "equation")
   )
 
   testit::assert(
-    "The count of distinct rule columns (in the yaml checks file) should be 10.",
-    ncol(ds_smell) == 10L
+    "The count of distinct rule columns (in the yaml checks file) should be 9L, after removing `active`",
+    ncol(ds_smell) == 9L
   )
 
   ds_smell <-
@@ -77,7 +100,6 @@ load_smells <- function (checks) {
   checkmate::assert_character(ds_smell$check_name      , any.missing = FALSE , pattern="^.{4,99}$"  , unique = TRUE)
   checkmate::assert_character(ds_smell$description     , any.missing = FALSE , pattern="^.{4,255}$" , unique = TRUE)
   checkmate::assert_integer(  ds_smell$priority        , any.missing = FALSE , lower=1, upper=5     )
-  checkmate::assert_logical(  ds_smell$active          , any.missing = FALSE                        )
   checkmate::assert_logical(  ds_smell$debug           , any.missing = FALSE                        )
   checkmate::assert_numeric(  ds_smell$bound_lower     , any.missing = FALSE                        )
   checkmate::assert_numeric(  ds_smell$bound_upper     , any.missing = FALSE                        )
@@ -133,8 +155,11 @@ load_rules <- function (checks) {
   checkmate::assert_character(ds_rule$instrument    , any.missing = FALSE , pattern="^.{2,255}$"  )
   checkmate::assert_character(ds_rule$passing_test  , any.missing = FALSE , pattern="^.{5,}$"     , unique = TRUE)
 
-  list(
-    ds_rule           = ds_rule,
-    ds_rule_inactive  = ds_rule_inactive
+  structure(
+    list(
+      ds_rule           = ds_rule,
+      ds_rule_inactive  = ds_rule_inactive
+    ),
+    class = "trawler_checks"
   )
 }
