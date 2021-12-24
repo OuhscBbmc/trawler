@@ -26,7 +26,6 @@ load_checks <- function (path_checks) {
 
 #' @importFrom rlang .data
 load_smells <- function (checks) {
-
     ds_smell <-
       checks$smells |>
       purrr::map_df(tibble::as_tibble) |>
@@ -40,10 +39,15 @@ load_smells <- function (checks) {
       purrr::map_df(tibble::as_tibble) |>
       dplyr::filter(!.data$active)
 
-    testit::assert("The count of distinct rule columns (in the yaml checks file) should be 10.", ncol(ds_smell) == 10L)
-    testit::assert( # dput(colnames(ds_smell))
-      "The smell columns (in the yaml checks file) should be correct.",
-      colnames(ds_smell) == c("check_name", "description", "priority", "active", "debug", "bound_lower", "bound_upper", "bounds_template", "value_template", "equation")
+    # The smell columns (in the yaml checks file) should be correct.
+    checkmate::assert_subset(
+      colnames(ds_smell),
+      c("check_name", "description", "priority", "active", "debug", "bound_lower", "bound_upper", "bounds_template", "value_template", "equation")
+    )
+
+    testit::assert(
+      "The count of distinct rule columns (in the yaml checks file) should be 10.",
+      ncol(ds_smell) == 10L
     )
 
     ds_smell <-
@@ -51,6 +55,7 @@ load_smells <- function (checks) {
       dplyr::mutate(
         boundaries            = sprintf(.data$bounds_template, .data$bound_lower, .data$bound_upper),
       )
+
     # table(ds_smell$check_name)
     # OuhscMunge::verify_value_headstart(ds_smell)
     checkmate::assert_character(ds_smell$check_name      , any.missing=F , pattern="^.{4,99}$"  , unique=T)
@@ -88,11 +93,17 @@ load_rules <- function (checks) {
     purrr::map_df(tibble::as_tibble) |>
     dplyr::filter(!.data$active)
 
-  #testit::assert("The count of distinct rule columns (in the yaml checks file) should be 7.", ncol(ds_rule) == 10L)
-  testit::assert( # dput(colnames(ds_rule))
-    "The rule columns (in the yaml checks file) should be correct.",
-    colnames(ds_rule) == c("check_name", "error_message", "priority", "active", "debug", "instrument", "passing_test")
+  # The rule columns (in the yaml checks file) should be correct.
+  checkmate::assert_subset(
+    colnames(ds_rule),
+    c("check_name", "error_message", "priority", "active", "debug", "instrument", "passing_test")
   )
+
+  testit::assert(
+    "The count of distinct rule columns (in the yaml checks file) should be 7.",
+    ncol(ds_rule) == 7L
+  )
+
   # table(ds_rule$check_name)
   # table(ds_rule$error_message)
   # table(ds_rule$passing_test)
