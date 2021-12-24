@@ -71,7 +71,7 @@ load_smells <- function (checks) {
   )
 
   testit::assert(
-    "The count of distinct rule columns (in the yaml checks file) should be 9L, after removing `active`",
+    "The count of distinct rule columns (in the yaml checks file) should be 9, after removing `active`.",
     ncol(ds_smell) == 9L
   )
 
@@ -103,29 +103,36 @@ load_smells <- function (checks) {
 #' @importFrom rlang .data
 load_rules <- function (checks) {
     # https://stackoverflow.com/questions/47242697/denormalize-coerce-list-with-nested-vectors-to-data-frame-in-r
-  ds_rule <-
+  ds_rule_all <-
     checks$rules |>
     purrr::map_df(tibble::as_tibble) |>
-    # dplyr::rename(check_name = name) |>
+    fill_column("active") |>
+    fill_column("debug")
+
+  ds_rule <-
+    ds_rule_all |>
     dplyr::filter(.data$active) |>
-    dplyr::mutate(
-      debug         = dplyr::coalesce(.data$debug, FALSE),
+    dplyr::select(
+      -.data$active
     )
 
   ds_rule_inactive <-
     checks$rules |>
     purrr::map_df(tibble::as_tibble) |>
-    dplyr::filter(!.data$active)
+    dplyr::filter(!.data$active) |>
+    dplyr::select(
+      -.data$active
+    )
 
   # The rule columns (in the yaml checks file) should be correct.
   checkmate::assert_subset(
     colnames(ds_rule),
-    c("check_name", "error_message", "priority", "active", "debug", "instrument", "passing_test")
+    c("check_name", "error_message", "priority", "debug", "instrument", "passing_test")
   )
 
   testit::assert(
-    "The count of distinct rule columns (in the yaml checks file) should be 7.",
-    ncol(ds_rule) == 7L
+    "The count of distinct rule columns (in the yaml checks file) should be 6, after removing `active`.",
+    ncol(ds_rule) == 6L
   )
 
   # table(ds_rule$check_name)
@@ -136,7 +143,6 @@ load_rules <- function (checks) {
   checkmate::assert_character(ds_rule$check_name    , any.missing = FALSE , pattern="^.{4,99}$"  , unique = TRUE)
   checkmate::assert_character(ds_rule$error_message , any.missing = FALSE , pattern="^.{4,255}$" , unique = TRUE)
   checkmate::assert_integer(  ds_rule$priority      , any.missing = FALSE , lower=1, upper=5      )
-  checkmate::assert_logical(  ds_rule$active        , any.missing = FALSE                         )
   checkmate::assert_logical(  ds_rule$debug         , any.missing = FALSE                         )
   checkmate::assert_character(ds_rule$instrument    , any.missing = FALSE , pattern="^.{2,255}$"  )
   checkmate::assert_character(ds_rule$passing_test  , any.missing = FALSE , pattern="^.{5,}$"     , unique = TRUE)
