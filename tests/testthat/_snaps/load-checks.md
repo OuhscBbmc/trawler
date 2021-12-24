@@ -105,7 +105,7 @@
 ---
 
     Code
-      checks$ds_rule
+      checks$rules
     Output
       # A tibble: 14 x 6
          check_name    error_message     priority debug instrument    passing_test    
@@ -128,7 +128,7 @@
 ---
 
     Code
-      as.data.frame(checks$ds_rule)
+      as.data.frame(checks$rules)
     Output
                                           check_name
       1                   baseline_prealbumin_levels
@@ -209,7 +209,7 @@
 ---
 
     Code
-      checks$ds_rule_inactive
+      checks$rules_inactive
     Output
       # A tibble: 1 x 6
         check_name         error_message   priority debug instrument  passing_test    

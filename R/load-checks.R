@@ -25,7 +25,7 @@ new_trawler_checks <- function (checks) {
 
   misc    <- load_misc(checks)
   smells_all  <- load_smells(checks)
-  rules   <- load_rules(checks)
+  rules_all   <- load_rules(checks)
 
   structure(
     list(
@@ -34,8 +34,8 @@ new_trawler_checks <- function (checks) {
       smells            = smells_all$smells,
       smells_inactive   = smells_all$smells_inactive,
 
-      ds_rule             = rules$ds_rule,
-      ds_rule_inactive    = rules$ds_rule_inactive
+      rules             = rules_all$rules,
+      rules_inactive    = rules_all$rules_inactive
     ),
     class = "trawler_checks_definition"
   )
@@ -116,14 +116,14 @@ load_rules <- function (checks) {
     fill_column("active") |>
     fill_column("debug")
 
-  ds_rule <-
+  rules <-
     ds_rule_all |>
     dplyr::filter(.data$active) |>
     dplyr::select(
       -.data$active
     )
 
-  ds_rule_inactive <-
+  rules_inactive <-
     checks$rules |>
     purrr::map_df(tibble::as_tibble) |>
     dplyr::filter(!.data$active) |>
@@ -133,30 +133,30 @@ load_rules <- function (checks) {
 
   # The rule columns (in the yaml checks file) should be correct.
   checkmate::assert_subset(
-    colnames(ds_rule),
+    colnames(rules),
     c("check_name", "error_message", "priority", "debug", "instrument", "passing_test")
   )
 
   testit::assert(
     "The count of distinct rule columns (in the yaml checks file) should be 6, after removing `active`.",
-    ncol(ds_rule) == 6L
+    ncol(rules) == 6L
   )
 
-  # table(ds_rule$check_name)
-  # table(ds_rule$error_message)
-  # table(ds_rule$passing_test)
-  # which(is.na(ds_rule$error_message))
-  # OuhscMunge::verify_value_headstart(ds_rule)
-  checkmate::assert_character(ds_rule$check_name    , any.missing = FALSE , pattern="^.{4,99}$"  , unique = TRUE)
-  checkmate::assert_character(ds_rule$error_message , any.missing = FALSE , pattern="^.{4,255}$" , unique = TRUE)
-  checkmate::assert_integer(  ds_rule$priority      , any.missing = FALSE , lower=1, upper=5      )
-  checkmate::assert_logical(  ds_rule$debug         , any.missing = FALSE                         )
-  checkmate::assert_character(ds_rule$instrument    , any.missing = FALSE , pattern="^.{2,255}$"  )
-  checkmate::assert_character(ds_rule$passing_test  , any.missing = FALSE , pattern="^.{5,}$"     , unique = TRUE)
+  # table(rules$check_name)
+  # table(rules$error_message)
+  # table(rules$passing_test)
+  # which(is.na(rules$error_message))
+  # OuhscMunge::verify_value_headstart(rules)
+  checkmate::assert_character(rules$check_name    , any.missing = FALSE , pattern="^.{4,99}$"  , unique = TRUE)
+  checkmate::assert_character(rules$error_message , any.missing = FALSE , pattern="^.{4,255}$" , unique = TRUE)
+  checkmate::assert_integer(  rules$priority      , any.missing = FALSE , lower=1, upper=5      )
+  checkmate::assert_logical(  rules$debug         , any.missing = FALSE                         )
+  checkmate::assert_character(rules$instrument    , any.missing = FALSE , pattern="^.{2,255}$"  )
+  checkmate::assert_character(rules$passing_test  , any.missing = FALSE , pattern="^.{5,}$"     , unique = TRUE)
 
   list(
-    ds_rule           = ds_rule,
-    ds_rule_inactive  = ds_rule_inactive
+    rules           = rules,
+    rules_inactive  = rules_inactive
   )
 }
 
