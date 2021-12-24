@@ -24,15 +24,15 @@ new_trawler_checks <- function (checks) {
   checkmate::assert_list(checks, any.missing = FALSE, null.ok = FALSE)
 
   misc    <- load_misc(checks)
-  smells  <- load_smells(checks)
+  smells_all  <- load_smells(checks)
   rules   <- load_rules(checks)
 
   structure(
     list(
       github_file_prefix  = misc$github_file_prefix,
 
-      ds_smell            = smells$ds_smell,
-      ds_smell_inactive   = smells$ds_smell_inactive,
+      smells            = smells_all$smells,
+      smells_inactive   = smells_all$smells_inactive,
 
       ds_rule             = rules$ds_rule,
       ds_rule_inactive    = rules$ds_rule_inactive
@@ -57,14 +57,14 @@ load_smells <- function (checks) {
     fill_column("active") |>
     fill_column("debug")
 
-  ds_smell <-
+  smells <-
     ds_smell_all |>
     dplyr::filter(.data$active) |>
     dplyr::select(
       -.data$active
     )
 
-  ds_smell_inactive <-
+  smells_inactive <-
     ds_smell_all |>
     dplyr::filter(!.data$active) |>
     dplyr::select(
@@ -73,37 +73,37 @@ load_smells <- function (checks) {
 
   # The smell columns (in the yaml checks file) should be correct.
   checkmate::assert_subset(
-    colnames(ds_smell),
+    colnames(smells),
     c("check_name", "description", "priority", "debug", "bound_lower", "bound_upper", "bounds_template", "value_template", "equation")
   )
 
   testit::assert(
     "The count of distinct rule columns (in the yaml checks file) should be 9, after removing `active`.",
-    ncol(ds_smell) == 9L
+    ncol(smells) == 9L
   )
 
-  ds_smell <-
-    ds_smell |>
+  smells <-
+    smells |>
     dplyr::mutate(
       boundaries            = sprintf(.data$bounds_template, .data$bound_lower, .data$bound_upper),
     )
 
-  # table(ds_smell$check_name)
-  # OuhscMunge::verify_value_headstart(ds_smell)
-  checkmate::assert_character(ds_smell$check_name      , any.missing = FALSE , pattern="^.{4,99}$"  , unique = TRUE)
-  checkmate::assert_character(ds_smell$description     , any.missing = FALSE , pattern="^.{4,255}$" , unique = TRUE)
-  checkmate::assert_integer(  ds_smell$priority        , any.missing = FALSE , lower=1, upper=5     )
-  checkmate::assert_logical(  ds_smell$debug           , any.missing = FALSE                        )
-  checkmate::assert_numeric(  ds_smell$bound_lower     , any.missing = FALSE                        )
-  checkmate::assert_numeric(  ds_smell$bound_upper     , any.missing = FALSE                        )
-  checkmate::assert_character(ds_smell$bounds_template , any.missing = FALSE , pattern="^.{2,255}$" )
-  checkmate::assert_character(ds_smell$value_template  , any.missing = FALSE , pattern="^.{2,255}$" )
-  checkmate::assert_character(ds_smell$equation        , any.missing = FALSE , pattern="^.{5,}$"    , unique = TRUE)
-  checkmate::assert_character(ds_smell$boundaries      , any.missing = FALSE , pattern="^.{6,}$"  )
+  # table(smells$check_name)
+  # OuhscMunge::verify_value_headstart(smells)
+  checkmate::assert_character(smells$check_name      , any.missing = FALSE , pattern="^.{4,99}$"  , unique = TRUE)
+  checkmate::assert_character(smells$description     , any.missing = FALSE , pattern="^.{4,255}$" , unique = TRUE)
+  checkmate::assert_integer(  smells$priority        , any.missing = FALSE , lower=1, upper=5     )
+  checkmate::assert_logical(  smells$debug           , any.missing = FALSE                        )
+  checkmate::assert_numeric(  smells$bound_lower     , any.missing = FALSE                        )
+  checkmate::assert_numeric(  smells$bound_upper     , any.missing = FALSE                        )
+  checkmate::assert_character(smells$bounds_template , any.missing = FALSE , pattern="^.{2,255}$" )
+  checkmate::assert_character(smells$value_template  , any.missing = FALSE , pattern="^.{2,255}$" )
+  checkmate::assert_character(smells$equation        , any.missing = FALSE , pattern="^.{5,}$"    , unique = TRUE)
+  checkmate::assert_character(smells$boundaries      , any.missing = FALSE , pattern="^.{6,}$"  )
 
   list(
-    ds_smell            = ds_smell,
-    ds_smell_inactive   = ds_smell_inactive
+    smells            = smells,
+    smells_inactive   = smells_inactive
   )
 }
 

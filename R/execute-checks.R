@@ -17,7 +17,7 @@
 #' @export
 execute_checks <- function (ds, checks) {
   checkmate::assert_data_frame(ds)
-  checkmate::assert_data_frame(checks$ds_smell)
+  checkmate::assert_data_frame(checks$smells)
 
   ds_smell_result <- execute_smells(ds, checks)
 
@@ -30,20 +30,20 @@ execute_checks <- function (ds, checks) {
 #' @importFrom rlang .data
 execute_smells <- function (ds, checks) {
   checkmate::assert_data_frame(ds)
-  checkmate::assert_data_frame(checks$ds_smell)
+  checkmate::assert_data_frame(checks$smells)
 
   # cat(
-  #   glue::glue("{nrow(ds_smell)} smells [have been defined]({checks$github_file_prefix}/{path_checks}):\n\n"),
-  #   ds_smell |>
+  #   glue::glue("{nrow(smells)} smells [have been defined]({checks$github_file_prefix}/{path_checks}):\n\n"),
+  #   smells |>
   #     glue::glue_data("1. {check_name};"),
   #   sep = "\n"
   # )
 
-  # fs <- ds_smell$equation |>
+  # fs <- smells$equation |>
   #   purrr::invoke_map(function(x) eval(parse(text=x)), .)
 
   ds_smell_result <-
-    checks$ds_smell |>
+    checks$smells |>
     dplyr::mutate(
       # f             = purrr::invoke_map(function(x) eval(parse(text=x)), .data$equation),
       value   = NA_real_,
@@ -53,20 +53,20 @@ execute_smells <- function (ds, checks) {
   # for( i in 1:14 ) {
   for (i in seq_len(nrow(ds_smell_result))) { # i <- 2L
 
-    if (checks$ds_smell$debug[i]) {
+    if (checks$smells$debug[i]) {
       browser() #nocov
     }
 
     tryCatch({
-      f <- eval(parse(text = checks$ds_smell$equation[i]))
+      f <- eval(parse(text = checks$smells$equation[i]))
     }, error = function(e) {
-      stop("Problem parsing the equation for smell `", checks$ds_smell$check_name[i], "`.\n", e)
+      stop("Problem parsing the equation for smell `", checks$smells$check_name[i], "`.\n", e)
     })
 
     tryCatch({
       ds_smell_result$value[i]   <- f(ds)
     }, error = function(e) {
-      stop("Problem executing the equation for smell `", checks$ds_smell$check_name[i], "`.\n", e)
+      stop("Problem executing the equation for smell `", checks$smells$check_name[i], "`.\n", e)
     })
 
     # ds_smell_result$smell_value[i]   <- f[[i]](ds)

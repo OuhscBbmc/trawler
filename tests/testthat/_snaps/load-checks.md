@@ -1,7 +1,7 @@
 # load-checks-biochemical
 
     Code
-      checks$ds_smell
+      checks$smells
     Output
       # A tibble: 12 x 10
          check_name description priority debug bound_lower bound_upper bounds_template
@@ -24,7 +24,7 @@
 ---
 
     Code
-      as.data.frame(checks$ds_smell)
+      as.data.frame(checks$smells)
     Output
                                         check_name
       1             proportion_female_participants
@@ -95,7 +95,7 @@
 ---
 
     Code
-      checks$ds_smell_inactive
+      checks$smells_inactive
     Output
       # A tibble: 0 x 9
       # ... with 9 variables: check_name <chr>, description <chr>, priority <int>,
