@@ -13,14 +13,24 @@ load_checks <- function (path_checks) {
 
   checks <- config::get(file = path_checks)
 
-  smells <- load_smells(checks)
-  rules  <- load_rules(checks)
+  misc    <- load_misc(checks)
+  smells  <- load_smells(checks)
+  rules   <- load_rules(checks)
 
   list(
+    github_file_prefix  = misc$github_file_prefix,
     ds_smell            = smells$ds_smell,
     ds_smell_inactive   = smells$ds_smell_inactive,
     ds_rule             = rules$ds_rule,
     ds_rule_inactive    = rules$ds_rule_inactive
+  )
+}
+
+load_misc <- function (checks) {
+  checkmate::assert_character(checks$github_file_prefix, min.chars = 10, len = 1, any.missing = FALSE)
+
+  list(
+    github_file_prefix     = checks$github_file_prefix
   )
 }
 
