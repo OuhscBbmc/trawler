@@ -54,7 +54,7 @@ execute_smells <- function (ds, checks) {
   for (i in seq_len(nrow(ds_smell_result))) { # i <- 2L
 
     if (checks$ds_smell$debug[i]) {
-      browser()
+      browser() #nocov
     }
 
     tryCatch({
