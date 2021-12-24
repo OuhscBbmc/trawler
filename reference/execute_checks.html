@@ -79,21 +79,21 @@ of useful objects.</p>
 <span class="r-in"><span class="fu">execute_checks</span><span class="op">(</span><span class="va">ds_pt_event</span>, <span class="va">checks</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 12 smells have been sniffed  6 violation(s) were found.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ds_smell_result</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 13</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    check_name  pass  description   priority active debug bound_lower bound_upper</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> proportion… FALSE Proportion f…        1 TRUE   FALSE        0.5         0.5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> proportion… FALSE Proportion m…        1 TRUE   FALSE        0.5         0.5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> mean_age    TRUE  Mean age of …        1 TRUE   FALSE       20          80   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> mean_serum… FALSE Mean serum p…        1 TRUE   FALSE       32          39   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> mean_serum… FALSE Mean serum c…        1 TRUE   FALSE        3          15   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> average_bm… FALSE Average BMI …        1 TRUE   FALSE       18          24   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> mean_serum… TRUE  Average Chol…        1 TRUE   FALSE      100         140   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> dialysis_a… TRUE  Normal range…        1 TRUE   FALSE        1.2         5   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> average_se… TRUE  Mean serum f…        1 TRUE   FALSE      501        <span style="text-decoration: underline;">1</span>200   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> nutritiona… TRUE  Most patient…        1 TRUE   FALSE        0.85        0.99</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> definitive… TRUE  A 100 percen…        1 TRUE   FALSE        1           1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> normalized… FALSE Average Norm…        1 TRUE   FALSE        0           0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 12</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    check_name     pass  description       priority debug bound_lower bound_upper</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> proportion_fe… FALSE Proportion femal…        1 FALSE        0.5         0.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> proportion_ma… FALSE Proportion male …        1 FALSE        0.5         0.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> mean_age       TRUE  Mean age of part…        1 FALSE       20          80   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> mean_serum_pr… FALSE Mean serum pre-a…        1 FALSE       32          39   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> mean_serum_cr… FALSE Mean serum creat…        1 FALSE        3          15   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> average_bmi_a… FALSE Average BMI is b…        1 FALSE       18          24   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> mean_serum_ch… TRUE  Average Choleste…        1 FALSE      100         140   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> dialysis_adeq… TRUE  Normal range for…        1 FALSE        1.2         5   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> average_serum… TRUE  Mean serum ferri…        1 FALSE      501        <span style="text-decoration: underline;">1</span>200   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> nutritional_c… TRUE  Most patients ag…        1 FALSE        0.85        0.99</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> definitive_di… TRUE  A 100 percent of…        1 FALSE        1           1   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> normalized_pr… FALSE Average Normaliz…        1 FALSE        0           0.12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 5 more variables: bounds_template &lt;chr&gt;, value_template &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   equation &lt;chr&gt;, boundaries &lt;chr&gt;, value &lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
