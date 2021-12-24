@@ -1,5 +1,6 @@
 ^\.Rproj\.user$
 ^\.github$
+^for-developers
 
 ^codecov\.yml$
 ^cran-comments\.md$
