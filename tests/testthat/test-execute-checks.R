@@ -6,7 +6,7 @@ test_that("execute-checks-biochemical", {
 
   ds_pt_event   <- readr::read_rds(path_data)
   checks        <- load_checks(path_checks)
-  result        <- execute_checks(ds_pt_event, checks$ds_smell)
+  result        <- execute_checks(ds_pt_event, checks)
 
   expect_snapshot(result$ds_smell_result)
   expect_snapshot(as.data.frame(result$ds_smell_result))

@@ -5,12 +5,13 @@
 \title{Load and parse checks in a yaml file, and return a list
 of useful objects.}
 \usage{
-execute_checks(ds, ds_smell)
+execute_checks(ds, checks)
 }
 \arguments{
 \item{ds}{The \link{data.frame} to be checked.  Required.}
 
-\item{ds_smell}{The \link{data.frame} describing the smells to check.  Required.}
+\item{checks}{The \link{list} describing the check.  Is the output of
+\code{\link[=load_checks]{load_checks()}}.  Required.}
 }
 \description{
 Load and parse checks in a yaml file, and return a list
@@ -24,6 +25,6 @@ path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler"
 ds_pt_event  <- readr::read_rds(path_data)
 checks       <- load_checks(path_checks)
 
-execute_checks(ds_pt_event, checks$ds_smell)
+execute_checks(ds_pt_event, checks)
 
 }
