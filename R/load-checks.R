@@ -11,26 +11,33 @@
 load_checks <- function (path_checks) {
   checkmate::assert_file_exists(path_checks, extension = c("yml", "yaml"))
 
-  # checks <- config::get(file = path_checks)
   checks <-
     yaml::read_yaml(
       file      = path_checks,
       eval.expr = FALSE
     )
 
+  new_trawler_checks(checks)
+}
+
+new_trawler_checks <- function (checks) {
+  checkmate::assert_list(checks, any.missing = FALSE, null.ok = FALSE)
 
   misc    <- load_misc(checks)
   smells  <- load_smells(checks)
   rules   <- load_rules(checks)
 
-  list(
-    github_file_prefix  = misc$github_file_prefix,
+  structure(
+    list(
+      github_file_prefix  = misc$github_file_prefix,
 
-    ds_smell            = smells$ds_smell,
-    ds_smell_inactive   = smells$ds_smell_inactive,
+      ds_smell            = smells$ds_smell,
+      ds_smell_inactive   = smells$ds_smell_inactive,
 
-    ds_rule             = rules$ds_rule,
-    ds_rule_inactive    = rules$ds_rule_inactive
+      ds_rule             = rules$ds_rule,
+      ds_rule_inactive    = rules$ds_rule_inactive
+    ),
+    class = "trawler_checks_definition"
   )
 }
 
@@ -147,12 +154,9 @@ load_rules <- function (checks) {
   checkmate::assert_character(ds_rule$instrument    , any.missing = FALSE , pattern="^.{2,255}$"  )
   checkmate::assert_character(ds_rule$passing_test  , any.missing = FALSE , pattern="^.{5,}$"     , unique = TRUE)
 
-  structure(
-    list(
-      ds_rule           = ds_rule,
-      ds_rule_inactive  = ds_rule_inactive
-    ),
-    class = "trawler_checks"
+  list(
+    ds_rule           = ds_rule,
+    ds_rule_inactive  = ds_rule_inactive
   )
 }
 
