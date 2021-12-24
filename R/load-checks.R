@@ -46,23 +46,9 @@ load_misc <- function (checks) {
 load_smells <- function (checks) {
   ds_smell_all <-
     checks$smells |>
-    purrr::map_df(tibble::as_tibble)
-
-  if ("active" %in% colnames(ds_smell_all)) {
-    # Fill missing cells with TRUEs.
-    ds_smell_all$active   <- dplyr::coalesce(ds_smell_all$active, TRUE)
-  } else {
-    # If the column doesn't exist at all, create it and fill with TRUEs.
-    ds_smell_all$active   <- TRUE
-  }
-
-  if ("debug" %in% colnames(ds_smell_all)) {
-    # Fill missing cells with TRUEs.
-    ds_smell_all$debug   <- dplyr::coalesce(ds_smell_all$debug, TRUE)
-  } else {
-    # If the column doesn't exist at all, create it and fill with TRUEs.
-    ds_smell_all$debug   <- TRUE
-  }
+    purrr::map_df(tibble::as_tibble) |>
+    fill_column("active") |>
+    fill_column("debug")
 
   ds_smell <-
     ds_smell_all |>
@@ -162,4 +148,16 @@ load_rules <- function (checks) {
     ),
     class = "trawler_checks"
   )
+}
+
+fill_column <- function (.d, column_name) {
+  if (column_name %in% colnames(.d)) {
+    # Fill missing cells with TRUEs.
+    .d[[column_name]]   <- dplyr::coalesce(.d[[column_name]], TRUE)
+  } else {
+    # If the column doesn't exist at all, create it and fill with TRUEs.
+    .d[[column_name]]   <- TRUE
+  }
+
+  .d
 }
