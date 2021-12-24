@@ -33,6 +33,7 @@ new_trawler_checks <- function (checks) {
 
       smells            = smells_all$smells,
       smells_inactive   = smells_all$smells_inactive,
+      smell_names_md    = smells_all$smell_names_md,
 
       rules             = rules_all$rules,
       rules_inactive    = rules_all$rules_inactive
@@ -101,9 +102,31 @@ load_smells <- function (checks) {
   checkmate::assert_character(smells$equation        , any.missing = FALSE , pattern="^.{5,}$"    , unique = TRUE)
   checkmate::assert_character(smells$boundaries      , any.missing = FALSE , pattern="^.{6,}$"  )
 
+  smell_names_md <-
+    paste0(
+      sprintf(
+        "%i smells have been defined:\n\n",
+        nrow(smells)
+        # checks$github_file_prefix,
+        # path_checks
+      ),
+      # glue::glue("{nrow(smells)} smells [have been defined]({checks$github_file_prefix}/{path_checks}):\n\n"),
+      paste0(
+        smells |>
+          tibble::rowid_to_column() |>
+          {\(d)
+            sprintf("%i. %s;", d$rowid, d$check_name)
+          }(),
+          # glue::glue_data(, "1. {check_name};\n"),
+        collapse = "\n"
+      ),
+      sep = "\n"
+    )
+
   list(
-    smells            = smells,
-    smells_inactive   = smells_inactive
+    smells              = smells,
+    smells_inactive     = smells_inactive,
+    smell_names_md      = smell_names_md
   )
 }
 

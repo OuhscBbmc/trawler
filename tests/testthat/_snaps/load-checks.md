@@ -105,6 +105,26 @@
 ---
 
     Code
+      cat(checks$smell_names_md)
+    Output
+      12 smells have been defined:
+      
+      1. proportion_female_participants;
+      2. proportion_male_participants;
+      3. mean_age;
+      4. mean_serum_prealbumin_level_at_baseline;
+      5. mean_serum_creatinine_level_at_baseline;
+      6. average_bmi_at_baseline;
+      7. mean_serum_cholesterol_levels_at_baseline;
+      8. dialysis_adequacy;
+      9. average_serum_ferritin_levels_at_baseline;
+      10. nutritional_counseling;
+      11. definitive_diagnosis;
+      12. normalized_protein_catabolic_rate;
+
+---
+
+    Code
       checks$rules
     Output
       # A tibble: 14 x 6

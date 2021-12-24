@@ -32,13 +32,6 @@ execute_smells <- function (ds, checks) {
   checkmate::assert_data_frame(ds)
   checkmate::assert_data_frame(checks$smells)
 
-  # cat(
-  #   glue::glue("{nrow(smells)} smells [have been defined]({checks$github_file_prefix}/{path_checks}):\n\n"),
-  #   smells |>
-  #     glue::glue_data("1. {check_name};"),
-  #   sep = "\n"
-  # )
-
   # fs <- smells$equation |>
   #   purrr::invoke_map(function(x) eval(parse(text=x)), .)
 

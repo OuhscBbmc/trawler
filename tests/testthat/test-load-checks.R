@@ -11,6 +11,7 @@ test_that("load-checks-biochemical", {
   expect_snapshot(checks$smells)
   expect_snapshot(as.data.frame(checks$smells))
   expect_snapshot(checks$smells_inactive)
+  expect_snapshot(cat(checks$smell_names_md))
 
   expect_snapshot(checks$rules)
   expect_snapshot(as.data.frame(checks$rules))
