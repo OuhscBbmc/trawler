@@ -1,398 +1,397 @@
-default:
-  project_id          : 1612 # This is located in config.yml also.
-  path_output_rule    : "data-public/derived/validator-1-rule.csv"
-  path_output_rule_rds: "data-public/derived/validator-1-rule.rds"
-  path_output_smell_csv: "data-public/derived/validator-1-smell.csv"
-  path_output_smell_rds: "data-public/derived/validator-1-smell.rds"
+project_id          : 1612 # This is located in config.yml also.
+path_output_rule    : "data-public/derived/validator-1-rule.csv"
+path_output_rule_rds: "data-public/derived/validator-1-rule.rds"
+path_output_smell_csv: "data-public/derived/validator-1-smell.csv"
+path_output_smell_rds: "data-public/derived/validator-1-smell.rds"
 
-  redcap_version      : 10.5.1
-  default_arm         : 1
-  consent_date_name   : date_enrolled
-  link_specific       : '<a href="https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s" target="_blank">%s</a>'
-  github_file_prefix  : https://github.com/OuhscBbmc/validator-1/blob/master
-  github_link_arch    : https://github.com/OuhscBbmc/validator-1/blob/master/manipulation/validator-1-arch.R
-  github_link_report  : https://github.com/OuhscBbmc/validator-1/tree/master/analysis/validator-1
-  redcap_codebook     : https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/Design/data_dictionary_codebook.php?pid=1612
+redcap_version      : 10.5.1
+default_arm         : 1
+consent_date_name   : date_enrolled
+link_specific       : '<a href="https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s" target="_blank">%s</a>'
+github_file_prefix  : https://github.com/OuhscBbmc/validator-1/blob/master
+github_link_arch    : https://github.com/OuhscBbmc/validator-1/blob/master/manipulation/validator-1-arch.R
+github_link_report  : https://github.com/OuhscBbmc/validator-1/tree/master/analysis/validator-1
+redcap_codebook     : https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/Design/data_dictionary_codebook.php?pid=1612
 
-  smells:
-  - check_name           : proportion_female_participants
-    description          : Proportion female participants is half the participants till study conclusion
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : .5
-    bound_upper          : .5
-    bounds_template      : "[%.2f, %.2f]"
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$sex == "female", na.rm=T)
-      }
-  - check_name           : proportion_male_participants
-    description          : Proportion male participants is half the participants till study conclusion
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : .5
-    bound_upper          : .5
-    bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$sex == "male", na.rm=T)
-      }
-  - check_name           : mean_age
-    description          : Mean age of participants is between 18 years to 20 years
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : 20
-    bound_upper          : 80
-    bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$age, na.rm=T)
-      }
-  - check_name           : mean_serum_prealbumin_level_at_baseline
-    description          : Mean serum pre-albumin levels at baseline are between 31mg/dl and 39mg/dl
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : 32
-    bound_upper          : 39
-    bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$baseline_prealbumin_level, na.rm=T)
-      }
-  - check_name           : mean_serum_creatinine_level_at_baseline
-    description          : Mean serum creatinine levels at baseline are between 3mg/dl and 15mg/dl
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : 3
-    bound_upper          : 15
-    bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$baseline_creatinine_level, na.rm=T)
-      }
-  - check_name           : average_bmi_at_baseline
-    description          : Average BMI is between 18 and 24
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : 18
-    bound_upper          : 24
-    bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$baseline_bmi, na.rm=T)
-      }
-  - check_name           : mean_serum_cholesterol_levels_at_baseline
-    description          : Average Cholesterol levels range is between 100mg/dl-140mg/dl at baseline level
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : 100
-    bound_upper          : 140
-    bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$baseline_cholesterol, na.rm=T)
-      }
-  - check_name           : dialysis_adequacy
-    description          : Normal range for Kt/V values are between 1.2 and 5
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : 1.2
-    bound_upper          : 5
-    bounds_template      : "[%.2f, %.2f]"
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$completion_project_questionnaire_ktv_value, na.rm=T)
-      }
-  - check_name           : average_serum_ferritin_levels_at_baseline
-    description          : Mean serum ferritin levels are in the recommended range of > 500ng/dl-1200ng/dl
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : 501
-    bound_upper          : 1200
-    bounds_template      : "[%.0f, %.0f]"
-    value_template       : "%.2f"
-    equation             : |
-      function (d) {
-        mean(d$baseline_ferritin_level, na.rm=T)
-      }
-  - check_name           : nutritional_counseling
-    description          : Most patients agreed to receiving nutritional counseling
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : .85
-    bound_upper          : .99
-    bounds_template      : "[%.2f, %.2f]"
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$nutritional_counseling, na.rm=T)
-      }
-  - check_name           : definitive_diagnosis
-    description          : A 100 percent of study participants were diagnosed with malnutrition associated with Chronic Renal Disease
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : 1.0
-    bound_upper          : 1.0
-    bounds_template      : "[%.2f, %.2f]"
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$differential_diagnoses_malnutrition, na.rm=T)
-      }
-  - check_name           : normalized_protein_catabolic_rate
-    description          : Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    bound_lower          : 0
-    bound_upper          : 0.12
-    bounds_template      : "[%.2f, %.2f]"
-    value_template       : "%.4f"
-    equation             : |
-      function (d) {
-        mean(d$baseline_normalized_protein_catabolic_rate, na.rm=T)
-      }
-  rules:
-  - check_name           : baseline_prealbumin_levels
-    error_message        : "Serum pre-albumin level of all enrolled patients do not meet the study criterion"                         # Tranferrin level <100 indicates severe protein-energy malnutrition
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : baseline_data                                                                                    # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
-    passing_test         : |
-      function (d) {
-        ifelse(
-          !is.na(d$date_enrolled),
-          (30 < d$baseline_prealbumin_level &  d$baseline_prealbumin_level < 40),
-          TRUE
-        )
-      }
-  - check_name           : missing_serum_marker_levels
-    error_message        : "Relevant nutritional serum markers are missing"   # All these parameters together, should not be missing
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : baseline_data
-    passing_test         : |
-      function (d) {
-        ifelse(
-          !is.na(d$date_enrolled),
-          !is.na(d$baseline_prealbumin_level) & !is.na(d$baseline_creatinine_level) & !is.na(d$baseline_transferrin_level),
-          TRUE
-        )
-      }
-  - check_name           : serum_prealbumin_levels_1
-    error_message        : "Baseline prealbumin levels are not missing however levels were not carefully monitored in the subsequent visit"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : baseline_data, visit_lab_date
-    passing_test         : |
-      function (d) {
-        events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
-        ifelse(
-          d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level),
-          !is.na(d$visit_lab_prealbumin_level),
-          TRUE
-        )
-      }
-  - check_name           : serum_prealbumin_levels_2
-    error_message        : "Baseline prealbumin levels and pre-albumin levels during the 1st visit are not missing however levels in the next reading are missing"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : baseline_data, visit_lab_date, visit_blood_workup
-    passing_test         : |
-      function (d) {
-        events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
-        ifelse(
-          d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level),
-          !is.na(d$visit_blood_workup_prealbumin_level),
-          TRUE
-        )
-      }
-  - check_name           : serum_prealbumin_levels_completion_data
-    error_message        : "Baseline prealbumin levels are not missing however readings are not carefully monitored at completion"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
-    passing_test         : |
-      function (d) {
-        events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
-        ifelse(
-          d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level)
-          & !is.na(d$visit_blood_workup_prealbumin_level),
-          !is.na(d$completion_data_prealbumin_level),
-          TRUE
-        )
-      }
-  - check_name           : serum_prealbumin_levels_expectations
-    error_message        : "serum prealbumin levels are not missing however subsequent readings did not come as expected"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
-    passing_test         : |
-      function (d) {
-        events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
-        ifelse(
-          d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level) &
-          !is.na(d$visit_blood_workup_prealbumin_level) & !is.na(d$completion_data_prealbumin_level),
-          (d$completion_data_prealbumin_level > d$visit_lab_prealbumin_level),
-          TRUE
-        )
-      }
-  - check_name           : pre_albumin_levels
-    error_message        : "pre_albumin levels are not improving"
-    priority             : 1
-    active               : FALSE
-    debug                : FALSE
-    instrument           : visit_lab_date
-    passing_test         : |
-      function (d) {
-        events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
-        ifelse(
-          (d$redcap_event_name %in% events_to_check) & !is.na(d$baseline_prealbumin_level),
-          TRUE,
-          # here i want to say that d$visit_lab_prealbumin_level of visit 2 is greater than visit 1
-          TRUE
-        )
-      }
-  - check_name           : baseline_first_visit_lab_parameters
-    error_message        : "Serum prealbumin levels are low and protein intake at baseline is less than optimal"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : baseline_data, visit_lab_data
-    passing_test         : |
-      function (d) {
-        events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
-        ifelse(
-           d$redcap_event_name %in% events_to_check &
-          (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2),
-          (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),
-          TRUE
-        )
-      }
-  - check_name           : daily_first_visit_lab_and_workup_parameters
-    error_message        : "In-addition to baseline & visit lab protein parameters, blood work-up npcr levels are also low"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : baseline_data, patient_morale_questionnaire
-    passing_test         : |
-      function (d) {
-        events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
-        ifelse(
-          d$redcap_event_name %in% events_to_check &
-          (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
-          (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),
-          (d$visit_lab_npcr <= d$visit_blood_workup_npcr),
-          TRUE
-        )
-      }
-  - check_name           : daily_protein_intake
-    error_message        : "npcr levels in study have not improved as intended"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : baseline_data, patient_morale_questionnaire
-    passing_test         : |
-      function (d) {
-        events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
-        ifelse(
-          d$redcap_event_name %in% events_to_check &
-          (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
-          (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr) &
-          (d$visit_lab_npcr <= d$visit_blood_workup_npcr),
-          (d$visit_blood_workup_npcr< d$completion_data_npcr),
-          TRUE
-        )
-      }
-  - check_name           : hospitalization_reason
-    error_message        : "Patient was hospitalized but reason and the date of hospitalization is missing"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : completion_project_questionnaire
-    passing_test         : |
-      function (d) {
-        ifelse(
-          d$completion_project_questionnaire_hospitalization %in% 1,
-          !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),
-          TRUE
-        )
-      }
-  - check_name           : optimal_daily_protein_intake
-    error_message        : "Daily protein intake is optimal but one of the nutritional marker is not within the normal range"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : completion_project_questionnaire, completion_data
-    passing_test         : |
-      function (d) {
-        ifelse(
-          d$completion_data_npcr >= 1.2,
-          d$completion_data_prealbumin_level > 30 & d$completion_data_prealbumin_level < 40,
-          TRUE
-        )
-      }
-  - check_name           : recommended_npcr_range
-    error_message        : "NPCR values are not within the recommended range at completion"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : completion_data                                                              # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
-    passing_test         : |
-      function (d) {
-         ( 1.4 <= d$completion_data_npcr | d$completion_data_npcr >= 1.2)
-      }
-  - check_name           : npcr
-    error_message        : "NPCR at completion is missing"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : completion_data
-    passing_test         : |
-      function (d) {
-        events_to_check <- c("final_visit_arm_1")
-        dplyr::if_else(
-          d$redcap_event_name %in% events_to_check,
-          !is.na(d$completion_data_npcr),                                                                # If this row exists in the desired event, then check for nonmissingness.
-          TRUE                                                                                           # Otherwise, the test passes for rows associated with all other events.
-        )
-      }
-  - check_name           : npcr_comparison                                                               # Showing improvement in nutritional status
-    error_message        : "NPCR at completion is not greater than npcr at baseline"
-    priority             : 1
-    active               : TRUE
-    debug                : FALSE
-    instrument           : completion_data
-    passing_test         : |
-      function (d) {
-        ifelse(
-        !is.na(d$completion_data_npcr),
-        (d$npcr_at_baseline < d$completion_data_npcr),
+smells:
+- check_name           : proportion_female_participants
+  description          : Proportion female participants is half the participants till study conclusion
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : .5
+  bound_upper          : .5
+  bounds_template      : "[%.2f, %.2f]"
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$sex == "female", na.rm=T)
+    }
+- check_name           : proportion_male_participants
+  description          : Proportion male participants is half the participants till study conclusion
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : .5
+  bound_upper          : .5
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$sex == "male", na.rm=T)
+    }
+- check_name           : mean_age
+  description          : Mean age of participants is between 18 years to 20 years
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : 20
+  bound_upper          : 80
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$age, na.rm=T)
+    }
+- check_name           : mean_serum_prealbumin_level_at_baseline
+  description          : Mean serum pre-albumin levels at baseline are between 31mg/dl and 39mg/dl
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : 32
+  bound_upper          : 39
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$baseline_prealbumin_level, na.rm=T)
+    }
+- check_name           : mean_serum_creatinine_level_at_baseline
+  description          : Mean serum creatinine levels at baseline are between 3mg/dl and 15mg/dl
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : 3
+  bound_upper          : 15
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$baseline_creatinine_level, na.rm=T)
+    }
+- check_name           : average_bmi_at_baseline
+  description          : Average BMI is between 18 and 24
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : 18
+  bound_upper          : 24
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$baseline_bmi, na.rm=T)
+    }
+- check_name           : mean_serum_cholesterol_levels_at_baseline
+  description          : Average Cholesterol levels range is between 100mg/dl-140mg/dl at baseline level
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : 100
+  bound_upper          : 140
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$baseline_cholesterol, na.rm=T)
+    }
+- check_name           : dialysis_adequacy
+  description          : Normal range for Kt/V values are between 1.2 and 5
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : 1.2
+  bound_upper          : 5
+  bounds_template      : "[%.2f, %.2f]"
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$completion_project_questionnaire_ktv_value, na.rm=T)
+    }
+- check_name           : average_serum_ferritin_levels_at_baseline
+  description          : Mean serum ferritin levels are in the recommended range of > 500ng/dl-1200ng/dl
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : 501
+  bound_upper          : 1200
+  bounds_template      : "[%.0f, %.0f]"
+  value_template       : "%.2f"
+  equation             : |
+    function (d) {
+      mean(d$baseline_ferritin_level, na.rm=T)
+    }
+- check_name           : nutritional_counseling
+  description          : Most patients agreed to receiving nutritional counseling
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : .85
+  bound_upper          : .99
+  bounds_template      : "[%.2f, %.2f]"
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$nutritional_counseling, na.rm=T)
+    }
+- check_name           : definitive_diagnosis
+  description          : A 100 percent of study participants were diagnosed with malnutrition associated with Chronic Renal Disease
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : 1.0
+  bound_upper          : 1.0
+  bounds_template      : "[%.2f, %.2f]"
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$differential_diagnoses_malnutrition, na.rm=T)
+    }
+- check_name           : normalized_protein_catabolic_rate
+  description          : Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  bound_lower          : 0
+  bound_upper          : 0.12
+  bounds_template      : "[%.2f, %.2f]"
+  value_template       : "%.4f"
+  equation             : |
+    function (d) {
+      mean(d$baseline_normalized_protein_catabolic_rate, na.rm=T)
+    }
+rules:
+- check_name           : baseline_prealbumin_levels
+  error_message        : "Serum pre-albumin level of all enrolled patients do not meet the study criterion"                         # Tranferrin level <100 indicates severe protein-energy malnutrition
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : baseline_data                                                                                    # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
+  passing_test         : |
+    function (d) {
+      ifelse(
+        !is.na(d$date_enrolled),
+        (30 < d$baseline_prealbumin_level &  d$baseline_prealbumin_level < 40),
         TRUE
-        )
-      }
+      )
+    }
+- check_name           : missing_serum_marker_levels
+  error_message        : "Relevant nutritional serum markers are missing"   # All these parameters together, should not be missing
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : baseline_data
+  passing_test         : |
+    function (d) {
+      ifelse(
+        !is.na(d$date_enrolled),
+        !is.na(d$baseline_prealbumin_level) & !is.na(d$baseline_creatinine_level) & !is.na(d$baseline_transferrin_level),
+        TRUE
+      )
+    }
+- check_name           : serum_prealbumin_levels_1
+  error_message        : "Baseline prealbumin levels are not missing however levels were not carefully monitored in the subsequent visit"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : baseline_data, visit_lab_date
+  passing_test         : |
+    function (d) {
+      events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
+      ifelse(
+        d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level),
+        !is.na(d$visit_lab_prealbumin_level),
+        TRUE
+      )
+    }
+- check_name           : serum_prealbumin_levels_2
+  error_message        : "Baseline prealbumin levels and pre-albumin levels during the 1st visit are not missing however levels in the next reading are missing"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : baseline_data, visit_lab_date, visit_blood_workup
+  passing_test         : |
+    function (d) {
+      events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
+      ifelse(
+        d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level),
+        !is.na(d$visit_blood_workup_prealbumin_level),
+        TRUE
+      )
+    }
+- check_name           : serum_prealbumin_levels_completion_data
+  error_message        : "Baseline prealbumin levels are not missing however readings are not carefully monitored at completion"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
+  passing_test         : |
+    function (d) {
+      events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
+      ifelse(
+        d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level)
+        & !is.na(d$visit_blood_workup_prealbumin_level),
+        !is.na(d$completion_data_prealbumin_level),
+        TRUE
+      )
+    }
+- check_name           : serum_prealbumin_levels_expectations
+  error_message        : "serum prealbumin levels are not missing however subsequent readings did not come as expected"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
+  passing_test         : |
+    function (d) {
+      events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
+      ifelse(
+        d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level) &
+        !is.na(d$visit_blood_workup_prealbumin_level) & !is.na(d$completion_data_prealbumin_level),
+        (d$completion_data_prealbumin_level > d$visit_lab_prealbumin_level),
+        TRUE
+      )
+    }
+- check_name           : pre_albumin_levels
+  error_message        : "pre_albumin levels are not improving"
+  priority             : 1
+  active               : FALSE
+  debug                : FALSE
+  instrument           : visit_lab_date
+  passing_test         : |
+    function (d) {
+      events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
+      ifelse(
+        (d$redcap_event_name %in% events_to_check) & !is.na(d$baseline_prealbumin_level),
+        TRUE,
+        # here i want to say that d$visit_lab_prealbumin_level of visit 2 is greater than visit 1
+        TRUE
+      )
+    }
+- check_name           : baseline_first_visit_lab_parameters
+  error_message        : "Serum prealbumin levels are low and protein intake at baseline is less than optimal"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : baseline_data, visit_lab_data
+  passing_test         : |
+    function (d) {
+      events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
+      ifelse(
+          d$redcap_event_name %in% events_to_check &
+        (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2),
+        (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),
+        TRUE
+      )
+    }
+- check_name           : daily_first_visit_lab_and_workup_parameters
+  error_message        : "In-addition to baseline & visit lab protein parameters, blood work-up npcr levels are also low"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : baseline_data, patient_morale_questionnaire
+  passing_test         : |
+    function (d) {
+      events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
+      ifelse(
+        d$redcap_event_name %in% events_to_check &
+        (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
+        (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),
+        (d$visit_lab_npcr <= d$visit_blood_workup_npcr),
+        TRUE
+      )
+    }
+- check_name           : daily_protein_intake
+  error_message        : "npcr levels in study have not improved as intended"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : baseline_data, patient_morale_questionnaire
+  passing_test         : |
+    function (d) {
+      events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
+      ifelse(
+        d$redcap_event_name %in% events_to_check &
+        (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
+        (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr) &
+        (d$visit_lab_npcr <= d$visit_blood_workup_npcr),
+        (d$visit_blood_workup_npcr< d$completion_data_npcr),
+        TRUE
+      )
+    }
+- check_name           : hospitalization_reason
+  error_message        : "Patient was hospitalized but reason and the date of hospitalization is missing"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : completion_project_questionnaire
+  passing_test         : |
+    function (d) {
+      ifelse(
+        d$completion_project_questionnaire_hospitalization %in% 1,
+        !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),
+        TRUE
+      )
+    }
+- check_name           : optimal_daily_protein_intake
+  error_message        : "Daily protein intake is optimal but one of the nutritional marker is not within the normal range"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : completion_project_questionnaire, completion_data
+  passing_test         : |
+    function (d) {
+      ifelse(
+        d$completion_data_npcr >= 1.2,
+        d$completion_data_prealbumin_level > 30 & d$completion_data_prealbumin_level < 40,
+        TRUE
+      )
+    }
+- check_name           : recommended_npcr_range
+  error_message        : "NPCR values are not within the recommended range at completion"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : completion_data                                                              # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
+  passing_test         : |
+    function (d) {
+        ( 1.4 <= d$completion_data_npcr | d$completion_data_npcr >= 1.2)
+    }
+- check_name           : npcr
+  error_message        : "NPCR at completion is missing"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : completion_data
+  passing_test         : |
+    function (d) {
+      events_to_check <- c("final_visit_arm_1")
+      dplyr::if_else(
+        d$redcap_event_name %in% events_to_check,
+        !is.na(d$completion_data_npcr),                                                                # If this row exists in the desired event, then check for nonmissingness.
+        TRUE                                                                                           # Otherwise, the test passes for rows associated with all other events.
+      )
+    }
+- check_name           : npcr_comparison                                                               # Showing improvement in nutritional status
+  error_message        : "NPCR at completion is not greater than npcr at baseline"
+  priority             : 1
+  active               : TRUE
+  debug                : FALSE
+  instrument           : completion_data
+  passing_test         : |
+    function (d) {
+      ifelse(
+      !is.na(d$completion_data_npcr),
+      (d$npcr_at_baseline < d$completion_data_npcr),
+      TRUE
+      )
+    }

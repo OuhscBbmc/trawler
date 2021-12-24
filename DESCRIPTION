@@ -12,12 +12,12 @@ Depends:
     R (>= 4.1.0)
 Imports:
     checkmate  (>= 1.8.4),
-    config,
     dplyr (>= 1.0),
     readr (>= 2.0),
     rlang (>= 0.4.12),
     tibble (>= 1.4.0),
-    tidyselect
+    tidyselect,
+    yaml
 Suggests:
     covr,
     devtools (>= 1.13.0),

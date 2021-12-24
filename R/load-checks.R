@@ -11,7 +11,13 @@
 load_checks <- function (path_checks) {
   checkmate::assert_file_exists(path_checks, extension = c("yml", "yaml"))
 
-  checks <- config::get(file = path_checks)
+  # checks <- config::get(file = path_checks)
+  checks <-
+    yaml::read_yaml(
+      file      = path_checks,
+      eval.expr = FALSE
+    )
+
 
   misc    <- load_misc(checks)
   smells  <- load_smells(checks)
