@@ -102,6 +102,14 @@ load_smells <- function (checks) {
   checkmate::assert_character(smells$equation        , any.missing = FALSE , pattern="^.{5,}$"    , unique = TRUE)
   checkmate::assert_character(smells$boundaries      , any.missing = FALSE , pattern="^.{6,}$"  )
 
+  for (i in seq_len(nrow(smells))) { # i <- 2L
+    if (smells$debug[i]) {
+      browser() #nocov
+    }
+
+    fx <- convert_equation(smells$equation[i], smells$check_name[i])
+  }
+
   smell_names_md <-
     paste0(
       sprintf(
@@ -128,6 +136,14 @@ load_smells <- function (checks) {
     smells_inactive     = smells_inactive,
     smell_names_md      = smell_names_md
   )
+}
+
+convert_equation <- function (equation, check_name) {
+  tryCatch({
+    fx <- eval(parse(text = equation))
+  }, error = function(e) {
+    stop("Problem parsing the equation for smell `", check_name, "`.\n", e)
+  })
 }
 
 #' @importFrom rlang .data

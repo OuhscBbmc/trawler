@@ -50,11 +50,7 @@ execute_smells <- function (ds, checks) {
       browser() #nocov
     }
 
-    tryCatch({
-      f <- eval(parse(text = checks$smells$equation[i]))
-    }, error = function(e) {
-      stop("Problem parsing the equation for smell `", checks$smells$check_name[i], "`.\n", e)
-    })
+    f <- convert_equation(checks$smells$equation[i], checks$smells$check_name[i])
 
     tryCatch({
       ds_smell_result$value[i]   <- f(ds)
