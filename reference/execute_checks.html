@@ -77,8 +77,7 @@ of useful objects.</p>
 <span class="r-in"><span class="va">checks</span>       <span class="op">&lt;-</span> <span class="fu"><a href="load_checks.html">load_checks</a></span><span class="op">(</span><span class="va">path_checks</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">execute_checks</span><span class="op">(</span><span class="va">ds_pt_event</span>, <span class="va">checks</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 12 smells have been sniffed  6 violation(s) were found.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ds_smell_result</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $smells</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    check_name     pass  description       priority debug bound_lower bound_upper</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -97,6 +96,11 @@ of useful objects.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 5 more variables: bounds_template &lt;chr&gt;, value_template &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   equation &lt;chr&gt;, boundaries &lt;chr&gt;, value &lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $smell_status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "12 smells have been sniffed.  6 violation(s) were found."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "trawler_checks"</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
