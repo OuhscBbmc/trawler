@@ -9,8 +9,9 @@ test_that("execute-checks-biochemical", {
   result        <- execute_checks(ds_pt_event, checks)
 
   expect_s3_class(result, class = "trawler_checks")
-  expect_snapshot(result$ds_smell_result)
-  expect_snapshot(as.data.frame(result$ds_smell_result))
+  expect_snapshot(result$smells)
+  expect_snapshot(as.data.frame(result$smells))
+  expect_snapshot(result$smell_status)
 })
 
 # result$ds_smell_result |>

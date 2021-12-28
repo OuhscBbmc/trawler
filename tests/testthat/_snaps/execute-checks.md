@@ -1,7 +1,7 @@
 # execute-checks-biochemical
 
     Code
-      result$ds_smell_result
+      result$smells
     Output
       # A tibble: 12 x 12
          check_name     pass  description       priority debug bound_lower bound_upper
@@ -24,7 +24,7 @@
 ---
 
     Code
-      as.data.frame(result$ds_smell_result)
+      as.data.frame(result$smells)
     Output
                                         check_name  pass
       1             proportion_female_participants FALSE
@@ -91,4 +91,11 @@
       10     [0.85, 0.99]   0.8888889
       11     [1.00, 1.00]   1.0000000
       12     [0.00, 0.12]   0.9312500
+
+---
+
+    Code
+      result$smell_status
+    Output
+      [1] "12 smells have been sniffed.  6 violation(s) were found."
 

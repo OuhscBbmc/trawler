@@ -19,11 +19,12 @@ execute_checks <- function (ds, checks) {
   checkmate::assert_data_frame(ds)
   checkmate::assert_data_frame(checks$smells)
 
-  ds_smell_result <- execute_smells(ds, checks)
+  smells <- execute_smells(ds, checks)
 
   structure(
     list(
-      ds_smell_result = ds_smell_result
+      smells        = smells$ds_smell_result,
+      smell_status  = smells$smell_status
     ),
     class = "trawler_checks"
   )
@@ -64,12 +65,18 @@ execute_smells <- function (ds, checks) {
     ds_smell_result$pass[i]    <- dplyr::between(ds_smell_result$value[i], left = ds_smell_result$bound_lower[i], right = ds_smell_result$bound_upper[i])
   }
 
-  message(nrow(ds_smell_result), " smells have been sniffed  ", sum(!ds_smell_result$pass), " violation(s) were found.\n")
+  ds_smell_result <-
+    ds_smell_result |>
+      dplyr::select(
+        .data$check_name,
+        .data$pass,
+        tidyselect::everything()
+      )
 
-  ds_smell_result |>
-    dplyr::select(
-      .data$check_name,
-      .data$pass,
-      tidyselect::everything()
-    )
+  smell_status <- paste0(nrow(ds_smell_result), " smells have been sniffed.  ", sum(!ds_smell_result$pass), " violation(s) were found.")
+
+  list(
+    ds_smell_result = ds_smell_result,
+    smell_status    = smell_status
+  )
 }
