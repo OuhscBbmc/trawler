@@ -73,7 +73,12 @@ execute_smells <- function (ds, checks) {
         tidyselect::everything()
       )
 
-  smell_status <- paste0(nrow(ds_smell_result), " smells have been sniffed.  ", sum(!ds_smell_result$pass), " violation(s) were found.")
+  smell_status <-
+    sprintf(
+      "%i smells have been sniffed.  %i violation(s) were found.",
+      nrow(ds_smell_result),
+      sum(!ds_smell_result$pass)
+    )
 
   list(
     ds_smell_result = ds_smell_result,
