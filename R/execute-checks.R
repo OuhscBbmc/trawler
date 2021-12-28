@@ -21,10 +21,12 @@ execute_checks <- function (ds, checks) {
 
   ds_smell_result <- execute_smells(ds, checks)
 
-  list(
-    ds_smell_result = ds_smell_result
+  structure(
+    list(
+      ds_smell_result = ds_smell_result
+    ),
+    class = "trawler_checks"
   )
-
 }
 
 #' @importFrom rlang .data

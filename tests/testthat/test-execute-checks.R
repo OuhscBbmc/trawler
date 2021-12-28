@@ -8,6 +8,13 @@ test_that("execute-checks-biochemical", {
   checks        <- load_checks(path_checks)
   result        <- execute_checks(ds_pt_event, checks)
 
+  expect_s3_class(result, class = "trawler_checks")
   expect_snapshot(result$ds_smell_result)
   expect_snapshot(as.data.frame(result$ds_smell_result))
 })
+
+# result$ds_smell_result |>
+#   dplyr::group_by(check_name) |>
+#   tidyr::nest(
+#     result = -check_name
+#   )
