@@ -208,7 +208,9 @@ execute_rules <- function (ds, checks) {
 
     rule_status <-
       sprintf(
-        "%i violations have been found across the rules.",
+        "%i rules were examined. %i rule(s) had at least 1 violation. %i total violation(s) were found.",
+        nrow(checks$rules),
+        length(ds_rule_results$results),
         sum(purrr::map_int(ds_rule_results$results, nrow))
       )
 
