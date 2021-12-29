@@ -35,7 +35,7 @@ smells:
   debug                : FALSE
   bound_lower          : .5
   bound_upper          : .5
-  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates up to how many decimal points and "f" means string formatting.
   value_template       : "%.4f"
   equation             : |
     function (d) {
@@ -48,7 +48,7 @@ smells:
   debug                : FALSE
   bound_lower          : 20
   bound_upper          : 80
-  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates up to how many decimal points and "f" means string formatting.
   value_template       : "%.4f"
   equation             : |
     function (d) {
@@ -61,7 +61,7 @@ smells:
   debug                : FALSE
   bound_lower          : 32
   bound_upper          : 39
-  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates up to how many decimal points and "f" means string formatting.
   value_template       : "%.4f"
   equation             : |
     function (d) {
@@ -74,7 +74,7 @@ smells:
   debug                : FALSE
   bound_lower          : 3
   bound_upper          : 15
-  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates up to how many decimal points and "f" means string formatting.
   value_template       : "%.4f"
   equation             : |
     function (d) {
@@ -87,7 +87,7 @@ smells:
   debug                : FALSE
   bound_lower          : 18
   bound_upper          : 24
-  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates up to how many decimal points and "f" means string formatting.
   value_template       : "%.4f"
   equation             : |
     function (d) {
@@ -100,7 +100,7 @@ smells:
   debug                : FALSE
   bound_lower          : 100
   bound_upper          : 140
-  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates upto how many decimal points and "f" means string formatting.
+  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates up to how many decimal points and "f" means string formatting.
   value_template       : "%.4f"
   equation             : |
     function (d) {
@@ -173,11 +173,11 @@ smells:
     }
 rules:
 - check_name           : baseline_prealbumin_levels
-  error_message        : "Serum pre-albumin level of all enrolled patients do not meet the study criterion"                         # Tranferrin level <100 indicates severe protein-energy malnutrition
+  error_message        : "Serum pre-albumin level of all enrolled patients do not meet the study criterion"                         # Transferrin level <100 indicates severe protein-energy malnutrition
   priority             : 1
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data                                                                                    # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
+  instrument           : baseline_data                                                                                    # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
   passing_test         : |
     function (d) {
       ifelse(
@@ -362,7 +362,7 @@ rules:
   priority             : 1
   active               : TRUE
   debug                : FALSE
-  instrument           : completion_data                                                              # At baseline the study is enrolling malnurished patients or patients with chronic renal failure
+  instrument           : completion_data                                                              # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
   passing_test         : |
     function (d) {
         ( 1.4 <= d$completion_data_npcr | d$completion_data_npcr >= 1.2)

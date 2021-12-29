@@ -27,4 +27,6 @@ checks       <- load_checks(path_checks)
 
 execute_checks(ds_pt_event, checks)
 
+# saveRDS(execute_checks(ds_pt_event, checks), "inst/derived/biochemical.rds")
+
 }
