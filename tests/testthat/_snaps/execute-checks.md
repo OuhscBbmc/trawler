@@ -282,5 +282,5 @@
     Code
       result$rule_status
     Output
-      [1] "47 violations have been found across the rules."
+      [1] "14 rules were examined. 8 rules had at least 1 violation. 47 total violation(s) were found."
 
