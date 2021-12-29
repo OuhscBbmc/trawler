@@ -33,6 +33,7 @@ execute_checks <- function (ds, checks) {
       smells        = smells$ds_smell_result,
       smell_status  = smells$smell_status,
 
+      rules         = rules$rules,
       rule_results  = rules$ds_rule_result
     ),
     class = "trawler_checks"
@@ -193,6 +194,7 @@ execute_rules <- function (ds, checks) {
 
 
   list(
+    rules           = checks$rules,
     ds_rule_result = ds_rule_violation
     # smell_status    = smell_status
   )

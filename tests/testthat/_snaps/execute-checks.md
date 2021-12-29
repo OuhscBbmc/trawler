@@ -102,6 +102,110 @@
 ---
 
     Code
+      result$rules
+    Output
+      # A tibble: 14 x 6
+         check_name    error_message     priority debug instrument    passing_test    
+         <chr>         <chr>                <int> <lgl> <chr>         <chr>           
+       1 baseline_pre~ Serum pre-albumi~        1 FALSE baseline_data "function (d) {~
+       2 missing_seru~ Relevant nutriti~        1 FALSE baseline_data "function (d) {~
+       3 serum_prealb~ Baseline prealbu~        1 FALSE baseline_dat~ "function (d) {~
+       4 serum_prealb~ Baseline prealbu~        1 FALSE baseline_dat~ "function (d) {~
+       5 serum_prealb~ Baseline prealbu~        1 FALSE baseline_dat~ "function (d) {~
+       6 serum_prealb~ serum prealbumin~        1 FALSE baseline_dat~ "function (d) {~
+       7 baseline_fir~ Serum prealbumin~        1 FALSE baseline_dat~ "function (d) {~
+       8 daily_first_~ In-addition to b~        1 FALSE baseline_dat~ "function (d) {~
+       9 daily_protei~ npcr levels in s~        1 FALSE baseline_dat~ "function (d) {~
+      10 hospitalizat~ Patient was hosp~        1 FALSE completion_p~ "function (d) {~
+      11 optimal_dail~ Daily protein in~        1 FALSE completion_p~ "function (d) {~
+      12 recommended_~ NPCR values are ~        1 FALSE completion_d~ "function (d) {~
+      13 npcr          NPCR at completi~        1 FALSE completion_d~ "function (d) {~
+      14 npcr_compari~ NPCR at completi~        1 FALSE completion_d~ "function (d) {~
+
+---
+
+    Code
+      as.data.frame(result$rules)
+    Output
+                                          check_name
+      1                   baseline_prealbumin_levels
+      2                  missing_serum_marker_levels
+      3                    serum_prealbumin_levels_1
+      4                    serum_prealbumin_levels_2
+      5      serum_prealbumin_levels_completion_data
+      6         serum_prealbumin_levels_expectations
+      7          baseline_first_visit_lab_parameters
+      8  daily_first_visit_lab_and_workup_parameters
+      9                         daily_protein_intake
+      10                      hospitalization_reason
+      11                optimal_daily_protein_intake
+      12                      recommended_npcr_range
+      13                                        npcr
+      14                             npcr_comparison
+                                                                                                                                 error_message
+      1                                                       Serum pre-albumin level of all enrolled patients do not meet the study criterion
+      2                                                                                         Relevant nutritional serum markers are missing
+      3                         Baseline prealbumin levels are not missing however levels were not carefully monitored in the subsequent visit
+      4  Baseline prealbumin levels and pre-albumin levels during the 1st visit are not missing however levels in the next reading are missing
+      5                                  Baseline prealbumin levels are not missing however readings are not carefully monitored at completion
+      6                                           serum prealbumin levels are not missing however subsequent readings did not come as expected
+      7                                                    Serum prealbumin levels are low and protein intake at baseline is less than optimal
+      8                                         In-addition to baseline & visit lab protein parameters, blood work-up npcr levels are also low
+      9                                                                                     npcr levels in study have not improved as intended
+      10                                                        Patient was hospitalized but reason and the date of hospitalization is missing
+      11                                      Daily protein intake is optimal but one of the nutritional marker is not within the normal range
+      12                                                                        NPCR values are not within the recommended range at completion
+      13                                                                                                         NPCR at completion is missing
+      14                                                                               NPCR at completion is not greater than npcr at baseline
+         priority debug
+      1         1 FALSE
+      2         1 FALSE
+      3         1 FALSE
+      4         1 FALSE
+      5         1 FALSE
+      6         1 FALSE
+      7         1 FALSE
+      8         1 FALSE
+      9         1 FALSE
+      10        1 FALSE
+      11        1 FALSE
+      12        1 FALSE
+      13        1 FALSE
+      14        1 FALSE
+                                                                 instrument
+      1                                                       baseline_data
+      2                                                       baseline_data
+      3                                       baseline_data, visit_lab_date
+      4                   baseline_data, visit_lab_date, visit_blood_workup
+      5  baseline_data, visit_lab_date, visit_blood_workup, completion_date
+      6  baseline_data, visit_lab_date, visit_blood_workup, completion_date
+      7                                       baseline_data, visit_lab_data
+      8                         baseline_data, patient_morale_questionnaire
+      9                         baseline_data, patient_morale_questionnaire
+      10                                   completion_project_questionnaire
+      11                  completion_project_questionnaire, completion_data
+      12                                                    completion_data
+      13                                                    completion_data
+      14                                                    completion_data
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              passing_test
+      1                                                                                                                                                                                                                                                                                                                                           function (d) {\n  ifelse(\n    !is.na(d$date_enrolled),\n    (30 < d$baseline_prealbumin_level &  d$baseline_prealbumin_level < 40),\n    TRUE\n  )\n}\n
+      2                                                                                                                                                                                                                                                                                                 function (d) {\n  ifelse(\n    !is.na(d$date_enrolled),\n    !is.na(d$baseline_prealbumin_level) & !is.na(d$baseline_creatinine_level) & !is.na(d$baseline_transferrin_level),\n    TRUE\n  )\n}\n
+      3                                                                                                                                                                                                                                                         function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  ifelse(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level),\n    !is.na(d$visit_lab_prealbumin_level),\n    TRUE\n  )\n}\n
+      4                                                                                                                                                                                                            function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")\n  ifelse(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level),\n    !is.na(d$visit_blood_workup_prealbumin_level),\n    TRUE\n  )\n}\n
+      5                                                                                                                                     function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  ifelse(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level)\n    & !is.na(d$visit_blood_workup_prealbumin_level),\n    !is.na(d$completion_data_prealbumin_level),\n    TRUE\n  )\n}\n
+      6                                                               function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  ifelse(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level) &\n    !is.na(d$visit_blood_workup_prealbumin_level) & !is.na(d$completion_data_prealbumin_level),\n    (d$completion_data_prealbumin_level > d$visit_lab_prealbumin_level),\n    TRUE\n  )\n}\n
+      7                                                                                                                                                              function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  ifelse(\n      d$redcap_event_name %in% events_to_check &\n    (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2),\n    (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),\n    TRUE\n  )\n}\n
+      8                                                                                                         function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  ifelse(\n    d$redcap_event_name %in% events_to_check &\n    (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &\n    (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),\n    (d$visit_lab_npcr <= d$visit_blood_workup_npcr),\n    TRUE\n  )\n}\n
+      9        function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  ifelse(\n    d$redcap_event_name %in% events_to_check &\n    (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &\n    (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr) &\n    (d$visit_lab_npcr <= d$visit_blood_workup_npcr),\n    (d$visit_blood_workup_npcr< d$completion_data_npcr),\n    TRUE\n  )\n}\n
+      10                                                                                                                                                                                                                                            function (d) {\n  ifelse(\n    d$completion_project_questionnaire_hospitalization %in% 1,\n    !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),\n    TRUE\n  )\n}\n
+      11                                                                                                                                                                                                                                                                                                                         function (d) {\n  ifelse(\n    d$completion_data_npcr >= 1.2,\n    d$completion_data_prealbumin_level > 30 & d$completion_data_prealbumin_level < 40,\n    TRUE\n  )\n}\n
+      12                                                                                                                                                                                                                                                                                                                                                                                                         function (d) {\n    ( 1.4 <= d$completion_data_npcr | d$completion_data_npcr >= 1.2)\n}\n
+      13 function (d) {\n  events_to_check <- c("final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check,\n    !is.na(d$completion_data_npcr),                                                                # If this row exists in the desired event, then check for nonmissingness.\n    TRUE                                                                                           # Otherwise, the test passes for rows associated with all other events.\n  )\n}\n
+      14                                                                                                                                                                                                                                                                                                                                                                    function (d) {\n  ifelse(\n  !is.na(d$completion_data_npcr),\n  (d$npcr_at_baseline < d$completion_data_npcr),\n  TRUE\n  )\n}
+
+---
+
+    Code
       result$rule_results
     Output
       # A tibble: 47 x 7

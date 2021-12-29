@@ -13,6 +13,8 @@ test_that("execute-checks-biochemical", {
   expect_snapshot(as.data.frame(result$smells))
   expect_snapshot(result$smell_status)
 
+  expect_snapshot(result$rules)
+  expect_snapshot(as.data.frame(result$rules))
   expect_snapshot(result$rule_results)
 })
 
