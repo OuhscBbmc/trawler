@@ -140,7 +140,7 @@ execute_rules <- function (ds, checks) {
         dplyr::select(
           record_id               = checks$record_id_name,
           "data_collector",
-          consent_date            = checks$baseline_date_name
+          baseline_date           = checks$baseline_date_name
         ) |>
         dplyr::mutate(
           check_name                = checks$rules$check_name[i],
@@ -148,7 +148,7 @@ execute_rules <- function (ds, checks) {
           priority                  = checks$rules$priority[i],
           instrument                = checks$rules$instrument[i]
         ) |>
-        dplyr::select(.data$check_name, .data$record_id, .data$data_collector, .data$error_message, .data$priority, .data$instrument, .data$consent_date)
+        dplyr::select(.data$check_name, .data$record_id, .data$data_collector, .data$error_message, .data$priority, .data$instrument, .data$baseline_date)
     }
     rm(f, index, violations, ds_violation_single)
   } # End for loop
@@ -198,7 +198,7 @@ execute_rules <- function (ds, checks) {
       .data$check_name,
       .data$record_id,
       .data$data_collector,
-      .data$consent_date,
+      .data$baseline_date,
     ) |>
     dplyr::arrange(.data$check_name, .data$record_id) |>
     dplyr::group_by(.data$check_name) |>

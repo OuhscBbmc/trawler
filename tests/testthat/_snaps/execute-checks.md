@@ -209,18 +209,18 @@
       ds_result_unnested
     Output
       # A tibble: 47 x 4
-         check_name                 record_id data_collector consent_date
-         <chr>                          <int>          <int> <date>      
-       1 baseline_prealbumin_levels         1              1 2015-01-02  
-       2 baseline_prealbumin_levels         2              2 2015-01-02  
-       3 baseline_prealbumin_levels         3              3 2015-01-05  
-       4 baseline_prealbumin_levels         8              1 2015-02-03  
-       5 baseline_prealbumin_levels         9              3 2015-02-08  
-       6 baseline_prealbumin_levels        12              3 2015-03-06  
-       7 baseline_prealbumin_levels        13              1 2015-03-15  
-       8 baseline_prealbumin_levels        14              1 2015-03-10  
-       9 baseline_prealbumin_levels        15              3 2015-03-03  
-      10 baseline_prealbumin_levels        16              2 2015-03-09  
+         check_name                 record_id data_collector baseline_date
+         <chr>                          <int>          <int> <date>       
+       1 baseline_prealbumin_levels         1              1 2015-01-02   
+       2 baseline_prealbumin_levels         2              2 2015-01-02   
+       3 baseline_prealbumin_levels         3              3 2015-01-05   
+       4 baseline_prealbumin_levels         8              1 2015-02-03   
+       5 baseline_prealbumin_levels         9              3 2015-02-08   
+       6 baseline_prealbumin_levels        12              3 2015-03-06   
+       7 baseline_prealbumin_levels        13              1 2015-03-15   
+       8 baseline_prealbumin_levels        14              1 2015-03-10   
+       9 baseline_prealbumin_levels        15              3 2015-03-03   
+      10 baseline_prealbumin_levels        16              2 2015-03-09   
       # ... with 37 more rows
 
 ---
@@ -228,54 +228,54 @@
     Code
       as.data.frame(ds_result_unnested)
     Output
-                           check_name record_id data_collector consent_date
-      1    baseline_prealbumin_levels         1              1   2015-01-02
-      2    baseline_prealbumin_levels         2              2   2015-01-02
-      3    baseline_prealbumin_levels         3              3   2015-01-05
-      4    baseline_prealbumin_levels         8              1   2015-02-03
-      5    baseline_prealbumin_levels         9              3   2015-02-08
-      6    baseline_prealbumin_levels        12              3   2015-03-06
-      7    baseline_prealbumin_levels        13              1   2015-03-15
-      8    baseline_prealbumin_levels        14              1   2015-03-10
-      9    baseline_prealbumin_levels        15              3   2015-03-03
-      10   baseline_prealbumin_levels        16              2   2015-03-09
-      11   baseline_prealbumin_levels       100              1   2015-04-02
-      12   baseline_prealbumin_levels       220              1   2015-04-02
-      13  missing_serum_marker_levels         7              2   2015-01-27
-      14  missing_serum_marker_levels        10            255   2015-02-13
-      15  missing_serum_marker_levels        11              2   2015-02-19
-      16    serum_prealbumin_levels_1         1              1   2015-01-02
-      17    serum_prealbumin_levels_1         2              2   2015-01-02
-      18    serum_prealbumin_levels_1         3              3   2015-01-05
-      19    serum_prealbumin_levels_1         4            255   2015-01-10
-      20    serum_prealbumin_levels_1         5              1   2015-01-13
-      21    serum_prealbumin_levels_1         6              3   2015-01-16
-      22    serum_prealbumin_levels_1         8              1   2015-02-03
-      23    serum_prealbumin_levels_1         9              3   2015-02-08
-      24    serum_prealbumin_levels_1        12              3   2015-03-06
-      25    serum_prealbumin_levels_1        13              1   2015-03-15
-      26    serum_prealbumin_levels_1        14              1   2015-03-10
-      27    serum_prealbumin_levels_1        15              3   2015-03-03
-      28    serum_prealbumin_levels_1        16              2   2015-03-09
-      29    serum_prealbumin_levels_1       100              1   2015-04-02
-      30    serum_prealbumin_levels_1       220              1   2015-04-02
-      31       hospitalization_reason         8             NA         <NA>
-      32       hospitalization_reason        14             NA         <NA>
-      33 optimal_daily_protein_intake         3             NA         <NA>
-      34 optimal_daily_protein_intake         5             NA         <NA>
-      35 optimal_daily_protein_intake         6             NA         <NA>
-      36 optimal_daily_protein_intake         7             NA         <NA>
-      37 optimal_daily_protein_intake         8             NA         <NA>
-      38 optimal_daily_protein_intake         9             NA         <NA>
-      39 optimal_daily_protein_intake        11             NA         <NA>
-      40 optimal_daily_protein_intake        15             NA         <NA>
-      41 optimal_daily_protein_intake        16             NA         <NA>
-      42 optimal_daily_protein_intake       100             NA         <NA>
-      43       recommended_npcr_range         1             NA         <NA>
-      44       recommended_npcr_range        12             NA         <NA>
-      45                         npcr        10             NA         <NA>
-      46              npcr_comparison         1             NA         <NA>
-      47              npcr_comparison        12             NA         <NA>
+                           check_name record_id data_collector baseline_date
+      1    baseline_prealbumin_levels         1              1    2015-01-02
+      2    baseline_prealbumin_levels         2              2    2015-01-02
+      3    baseline_prealbumin_levels         3              3    2015-01-05
+      4    baseline_prealbumin_levels         8              1    2015-02-03
+      5    baseline_prealbumin_levels         9              3    2015-02-08
+      6    baseline_prealbumin_levels        12              3    2015-03-06
+      7    baseline_prealbumin_levels        13              1    2015-03-15
+      8    baseline_prealbumin_levels        14              1    2015-03-10
+      9    baseline_prealbumin_levels        15              3    2015-03-03
+      10   baseline_prealbumin_levels        16              2    2015-03-09
+      11   baseline_prealbumin_levels       100              1    2015-04-02
+      12   baseline_prealbumin_levels       220              1    2015-04-02
+      13  missing_serum_marker_levels         7              2    2015-01-27
+      14  missing_serum_marker_levels        10            255    2015-02-13
+      15  missing_serum_marker_levels        11              2    2015-02-19
+      16    serum_prealbumin_levels_1         1              1    2015-01-02
+      17    serum_prealbumin_levels_1         2              2    2015-01-02
+      18    serum_prealbumin_levels_1         3              3    2015-01-05
+      19    serum_prealbumin_levels_1         4            255    2015-01-10
+      20    serum_prealbumin_levels_1         5              1    2015-01-13
+      21    serum_prealbumin_levels_1         6              3    2015-01-16
+      22    serum_prealbumin_levels_1         8              1    2015-02-03
+      23    serum_prealbumin_levels_1         9              3    2015-02-08
+      24    serum_prealbumin_levels_1        12              3    2015-03-06
+      25    serum_prealbumin_levels_1        13              1    2015-03-15
+      26    serum_prealbumin_levels_1        14              1    2015-03-10
+      27    serum_prealbumin_levels_1        15              3    2015-03-03
+      28    serum_prealbumin_levels_1        16              2    2015-03-09
+      29    serum_prealbumin_levels_1       100              1    2015-04-02
+      30    serum_prealbumin_levels_1       220              1    2015-04-02
+      31       hospitalization_reason         8             NA          <NA>
+      32       hospitalization_reason        14             NA          <NA>
+      33 optimal_daily_protein_intake         3             NA          <NA>
+      34 optimal_daily_protein_intake         5             NA          <NA>
+      35 optimal_daily_protein_intake         6             NA          <NA>
+      36 optimal_daily_protein_intake         7             NA          <NA>
+      37 optimal_daily_protein_intake         8             NA          <NA>
+      38 optimal_daily_protein_intake         9             NA          <NA>
+      39 optimal_daily_protein_intake        11             NA          <NA>
+      40 optimal_daily_protein_intake        15             NA          <NA>
+      41 optimal_daily_protein_intake        16             NA          <NA>
+      42 optimal_daily_protein_intake       100             NA          <NA>
+      43       recommended_npcr_range         1             NA          <NA>
+      44       recommended_npcr_range        12             NA          <NA>
+      45                         npcr        10             NA          <NA>
+      46              npcr_comparison         1             NA          <NA>
+      47              npcr_comparison        12             NA          <NA>
 
 ---
 
