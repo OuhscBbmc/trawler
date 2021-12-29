@@ -1,6 +1,6 @@
 ---
 title: REDCapR Validator Example 1     # Change this value for new validators.
-date: "Date: 2021-12-29 17:13:59"
+date: "Date: 2021-12-29 17:49:10"
 output:
   html_document:
     keep_md: yes
@@ -8,6 +8,8 @@ output:
     toc_float: true
     number_sections: true
     # css: ../analysis/common/styles-1.css
+params:
+  path_checks: "not-set"
 ---
 
 
@@ -21,9 +23,6 @@ output:
 
 
 <!-- Load any global functions and variables declared in the R file.  Suppress the output. -->
-
-
-<!-- Declare any global functions specific to a Rmd output.  Suppress the output. -->
 
 
 <!-- Load the datasets.   -->

@@ -8,6 +8,8 @@ output:
     toc_float: true
     number_sections: true
     # css: ../analysis/common/styles-1.css
+params:
+  path_checks: "not-set"
 ---
 
 
@@ -50,16 +52,20 @@ requireNamespace("DT")
 
 <!-- Load any global functions and variables declared in the R file.  Suppress the output. -->
 ```{r declare-globals, echo=echo_chunks, results='show', message=FALSE}
-```
+path_checks <- 
+  if (params$path_checks == "not-set") {
+    system.file("derived/biochemical.rds", package = "trawler")
+  } else {
+    params$path_checks
+  }
 
-<!-- Declare any global functions specific to a Rmd output.  Suppress the output. -->
-```{r, echo=echo_chunks, message=FALSE}
-  #Put presentation-specific code in here.  It doesn't call a chunk in the codebehind file.
+checkmate::assert_character(path_checks, any.missing = FALSE, len = 1)
+checkmate::assert_file_exists(path_checks, extension = "rds")
 ```
 
 <!-- Load the datasets.   -->
 ```{r load-data, echo=echo_chunks, results='show', message=FALSE}
-checks <- readRDS(system.file("derived/biochemical.rds", package = "trawler"))
+checks <- readRDS(path_checks)
 ```
 
 <!-- Tweak the datasets.   -->
