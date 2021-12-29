@@ -180,7 +180,7 @@ rules:
   instrument           : baseline_data                                                                                    # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
   passing_test         : |
     function (d) {
-      ifelse(
+      dplyr::if_else(
         !is.na(d$date_enrolled),
         (30 < d$baseline_prealbumin_level &  d$baseline_prealbumin_level < 40),
         TRUE
@@ -194,7 +194,7 @@ rules:
   instrument           : baseline_data
   passing_test         : |
     function (d) {
-      ifelse(
+      dplyr::if_else(
         !is.na(d$date_enrolled),
         !is.na(d$baseline_prealbumin_level) & !is.na(d$baseline_creatinine_level) & !is.na(d$baseline_transferrin_level),
         TRUE
@@ -209,7 +209,7 @@ rules:
   passing_test         : |
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
-      ifelse(
+      dplyr::if_else(
         d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level),
         !is.na(d$visit_lab_prealbumin_level),
         TRUE
@@ -224,7 +224,7 @@ rules:
   passing_test         : |
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
-      ifelse(
+      dplyr::if_else(
         d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level),
         !is.na(d$visit_blood_workup_prealbumin_level),
         TRUE
@@ -239,7 +239,7 @@ rules:
   passing_test         : |
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
-      ifelse(
+      dplyr::if_else(
         d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level)
         & !is.na(d$visit_blood_workup_prealbumin_level),
         !is.na(d$completion_data_prealbumin_level),
@@ -255,7 +255,7 @@ rules:
   passing_test         : |
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
-      ifelse(
+      dplyr::if_else(
         d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level) &
         !is.na(d$visit_blood_workup_prealbumin_level) & !is.na(d$completion_data_prealbumin_level),
         (d$completion_data_prealbumin_level > d$visit_lab_prealbumin_level),
@@ -271,7 +271,7 @@ rules:
   passing_test         : |
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
-      ifelse(
+      dplyr::if_else(
         (d$redcap_event_name %in% events_to_check) & !is.na(d$baseline_prealbumin_level),
         TRUE,
         # here i want to say that d$visit_lab_prealbumin_level of visit 2 is greater than visit 1
@@ -287,7 +287,7 @@ rules:
   passing_test         : |
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
-      ifelse(
+      dplyr::if_else(
           d$redcap_event_name %in% events_to_check &
         (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2),
         (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),
@@ -303,7 +303,7 @@ rules:
   passing_test         : |
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
-      ifelse(
+      dplyr::if_else(
         d$redcap_event_name %in% events_to_check &
         (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
         (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),
@@ -320,7 +320,7 @@ rules:
   passing_test         : |
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
-      ifelse(
+      dplyr::if_else(
         d$redcap_event_name %in% events_to_check &
         (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
         (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr) &
@@ -337,7 +337,7 @@ rules:
   instrument           : completion_project_questionnaire
   passing_test         : |
     function (d) {
-      ifelse(
+      dplyr::if_else(
         d$completion_project_questionnaire_hospitalization %in% 1,
         !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),
         TRUE
@@ -351,7 +351,7 @@ rules:
   instrument           : completion_project_questionnaire, completion_data
   passing_test         : |
     function (d) {
-      ifelse(
+      dplyr::if_else(
         d$completion_data_npcr >= 1.2,
         d$completion_data_prealbumin_level > 30 & d$completion_data_prealbumin_level < 40,
         TRUE
@@ -390,7 +390,7 @@ rules:
   instrument           : completion_data
   passing_test         : |
     function (d) {
-      ifelse(
+      dplyr::if_else(
       !is.na(d$completion_data_npcr),
       (d$npcr_at_baseline < d$completion_data_npcr),
       TRUE
