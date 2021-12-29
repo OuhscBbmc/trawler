@@ -59,108 +59,68 @@ requireNamespace("DT")
 
 <!-- Load the datasets.   -->
 ```{r load-data, echo=echo_chunks, results='show', message=FALSE}
+checks <- readRDS(system.file("derived/biochemical.rds", package = "trawler"))
 ```
 
 <!-- Tweak the datasets.   -->
 ```{r tweak-data, echo=echo_chunks, results='show', message=TRUE}
 ```
 
-```{r groom-rules, echo=echo_chunks, results='show', message=TRUE}
-```
-
-```{r groom-smells, echo=echo_chunks, results='show', message=TRUE}
-```
-
-Set Up {.tabset .tabset-fade}
-=============================
-
-Instructions
------------------------------
-
-1. Work through each line in the table to discover & correct entry mistakes in the database.  Be aware that a single mistake may manifest in multiple rows; fixing one value may clear several rows.
-1. Click the `record id` value in a row to be taken to the participant's Event Grid in REDCap (*i.e.*, the 'stop light page').
-1. Double-check that your manual corrections in REDCap are reflected in `r checks$path_output_rule`.  Be careful not to move this file to somewhere unsafe.
-1. To help discover the dataflow and problematic location, use the
-    * project's [codebook](`r checks$redcap_codebook`) in REDCap,
-    * [validator-1-arch](`r checks$github_link_arch`) file, and
-    * [validator-1](`r checks$github_link_report`) report.
-1. If you create a new rule or smell check, make sure the error message won't reveal any PHI.
-
-Execute Rules
------------------------------
-```{r execute-rules, echo=echo_chunks, message=TRUE, results='asis'}
-```
-
-Execute Smells
------------------------------
-```{r execute-smells, echo=echo_chunks, message=TRUE, results='asis'}
-```
-
-Inactive Rules
------------------------------
-
-`r nrow(ds_rule_inactive)` rules are defined, but disabled for this report:
-
-```{r  echo=echo_chunks, results='asis'}
-# glue::collapse(paste0("1. ", ds_rule_inactive$check_name), sep="; \n", last=", and \n")
-ds_rule_inactive |>
-  glue::glue_data("1. {check_name};")
-```
-
-Inactive Smells
------------------------------
-
-`r nrow(ds_smell_inactive)` smells are defined, but disabled for this report:
-
-```{r  echo=echo_chunks, results='asis'}
-ds_smell_inactive |>
-  glue::glue_data("1. {check_name};")
-# if( nrow(ds_smell_inactive) == 0L ) {
-#   cat("* *no smells are disabled*.")
-# } else {
-#   glue::collapse(paste0("1. ", ds_smell_inactive$smell_name), sep="; \n", last=", and \n")
-# }
-```
-
-Rules {.tabset .tabset-fade}
-=============================
-
-A *rule* is very exact.  Each record is examined, and determined if it passes each specific rule.
-
-Rule Detail
------------------------------
-```{r table-rule-detail, echo=echo_chunks, message=TRUE}
-```
-
-Rule Summary
------------------------------
-```{r table-rule-summary, echo=echo_chunks, message=TRUE}
-```
 
 Smells {.tabset .tabset-fade}
 =============================
 
-A *smell* test won't validate a given record (like the rules above), but it will make sure the dataset overall smells correct.
+A *smell* test won't validate a specific record (like the rules below), but it will make sure the dataset overall smells correct.
 
 Smell Summary
 -----------------------------
 ```{r table-smell-summary, echo=echo_chunks, message=TRUE}
+palette_summary <- list(warm = "#fde0ef", hot = "#f1b6da", header = "#555") #http://colrd.com/palette/18841/
+
+ds_smell_result_pretty <-
+  checks$smells |>
+  dplyr::transmute(
+    check_name            = gsub("_", " ", check_name),
+    priority,             # = wrap_violation(n, priority),
+    description,
+    boundaries            = sprintf(.data$bounds_template, .data$bound_lower, .data$bound_upper),
+    value                 = sprintf(.data$value_template , .data$value),
+    pass
+    # n
+  ) |>
+  dplyr::arrange(priority, check_name) 
+
+ds_smell_result_pretty |>
+  knitr::kable(
+    col.names = c("Smell Name", "Priority", "Proportion of...", "Legal Boundaries", "Value", "Pass"),
+    align     = "lrllrl",
+    escape    = FALSE,
+    format    = "html"
+  ) |>
+  kableExtra::kable_styling(
+    bootstrap_options = c("hover", "condensed", "responsive"), #"striped",
+    full_width        = FALSE,
+    position          = "left"
+  ) |>
+  kableExtra::row_spec(
+    row         = 0,
+    bold        = T,
+    color       = "white",
+    background  = palette_summary$header
+  ) |>
+  kableExtra::row_spec(
+    row         = seq_len(nrow(ds_smell_result_pretty)),
+    color       = "#555"
+  ) |>
+  kableExtra::row_spec(
+    row         = which(!ds_smell_result_pretty$pass & ds_smell_result_pretty$priority == 1L),
+    bold        = T,
+    background  = palette_summary$hot
+  ) |>
+  kableExtra::row_spec(
+    row         = which(!ds_smell_result_pretty$pass & ds_smell_result_pretty$priority >= 2L),
+    bold        = T,
+    background  = palette_summary$warm
+  )
+
 ```
-
-Termination {.tabset .tabset-fade}
-=============================
-
-### Save To Disk
-
-```{r verify-values, echo=echo_chunks, message=TRUE}
-```
-
-```{r specify-columns-to-upload, echo=echo_chunks, message=TRUE}
-```
-
-```{r save-to-disk, echo=echo_chunks, message=TRUE}
-```
-
-
-<!-- The footer that's common to all reports. -->
-<!--  ```{r, child = "analysis/common/footer-1.Rmd"}``` -->

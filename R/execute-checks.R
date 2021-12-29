@@ -14,6 +14,8 @@
 #'
 #' execute_checks(ds_pt_event, checks)
 #'
+#' saveRDS(execute_checks(ds_pt_event, checks), "inst/derived/biochemical.rds")
+#'
 #' @export
 execute_checks <- function (ds, checks) {
   checkmate::assert_data_frame(ds)
