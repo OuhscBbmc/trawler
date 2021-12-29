@@ -9,10 +9,13 @@ test_that("execute-checks-biochemical", {
   result        <- execute_checks(ds_pt_event, checks)
 
   expect_s3_class(result, class = "trawler_checks")
+
+  # Compare smells
   expect_snapshot(result$smells)
   expect_snapshot(as.data.frame(result$smells))
   expect_snapshot(result$smell_status)
 
+  # Compare rules
   expect_snapshot(result$rules)
   result$rules |>
     dplyr::select(
@@ -31,6 +34,7 @@ test_that("execute-checks-biochemical", {
 
   expect_snapshot(ds_result_unnested)
   expect_snapshot(as.data.frame(ds_result_unnested))
+  expect_snapshot(result$rule_status)
 })
 
 

@@ -33,7 +33,8 @@ execute_checks <- function (ds, checks) {
       smells        = smells$ds_smell_result,
       smell_status  = smells$smell_status,
 
-      rules         = rules$rules
+      rules         = rules$rules,
+      rule_status   = rules$rule_status
     ),
     class = "trawler_checks"
   )
@@ -205,13 +206,18 @@ execute_rules <- function (ds, checks) {
       results = -.data$check_name
     )
 
+    rule_status <-
+      sprintf(
+        "%i violations have been found across the rules.",
+        sum(purrr::map_int(ds_rule_results$results, nrow))
+      )
+
   checks$rules <-
     checks$rules |>
     dplyr::left_join(ds_rule_results, by = "check_name")
 
   list(
-    rules           = checks$rules
-    # rule_status    = rule_status
+    rules           = checks$rules,
+    rule_status     = rule_status
   )
-
 }

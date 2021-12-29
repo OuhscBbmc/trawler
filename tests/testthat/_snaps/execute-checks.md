@@ -277,3 +277,10 @@
       46              npcr_comparison         1             NA         <NA>
       47              npcr_comparison        12             NA         <NA>
 
+---
+
+    Code
+      result$rule_status
+    Output
+      [1] "47 violations have been found across the rules."
+
