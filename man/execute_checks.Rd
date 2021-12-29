@@ -18,7 +18,7 @@ Load and parse checks in a yaml file, and return a list
 of useful objects.
 }
 \examples{
-# Replace the paths for your specific project
+# Replace the two paths for your specific project
 path_data    <- system.file("datasets/pt-event-biochemical.rds", package = "trawler")
 path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
 

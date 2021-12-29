@@ -1,6 +1,34 @@
 # load-checks-biochemical
 
     Code
+      checks$record_id_name
+    Output
+      [1] "record_id"
+
+---
+
+    Code
+      checks$baseline_date_name
+    Output
+      [1] "date_enrolled"
+
+---
+
+    Code
+      checks$record_id_link
+    Output
+      [1] "<a href=\"https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s\" target=\"_blank\">%s</a>"
+
+---
+
+    Code
+      checks$github_file_prefix
+    Output
+      [1] "https://github.com/OuhscBbmc/validator-1/blob/master"
+
+---
+
+    Code
       checks$smells
     Output
       # A tibble: 12 x 10

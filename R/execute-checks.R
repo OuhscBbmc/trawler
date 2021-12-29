@@ -5,7 +5,7 @@
 #' [trawler::load_checks()].  Required.
 #'
 #' @examples
-#' # Replace the paths for your specific project
+#' # Replace the two paths for your specific project
 #' path_data    <- system.file("datasets/pt-event-biochemical.rds", package = "trawler")
 #' path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
 #'
@@ -17,12 +17,19 @@
 #' @export
 execute_checks <- function (ds, checks) {
   checkmate::assert_data_frame(ds)
+  checkmate::assert_class(checks, "trawler_checks_definition")
   checkmate::assert_data_frame(checks$smells)
 
-  smells <- execute_smells(ds, checks)
+  smells  <- execute_smells(ds, checks)
+  rules   <- execute_rules(ds , checks)
 
   structure(
     list(
+      record_id_name      = checks$record_id_name,
+      baseline_date_name  = checks$baseline_date_name,
+      record_id_link      = checks$record_id_link,
+      github_file_prefix  = checks$github_file_prefix,
+
       smells        = smells$ds_smell_result,
       smell_status  = smells$smell_status
     ),
@@ -33,6 +40,7 @@ execute_checks <- function (ds, checks) {
 #' @importFrom rlang .data
 execute_smells <- function (ds, checks) {
   checkmate::assert_data_frame(ds)
+  checkmate::assert_class(checks, "trawler_checks_definition")
   checkmate::assert_data_frame(checks$smells)
 
   # fs <- smells$equation |>

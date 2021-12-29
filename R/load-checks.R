@@ -23,12 +23,15 @@ load_checks <- function (path_checks) {
 new_trawler_checks <- function (checks) {
   checkmate::assert_list(checks, any.missing = FALSE, null.ok = FALSE)
 
-  misc    <- load_misc(checks)
+  misc        <- load_misc(checks)
   smells_all  <- load_smells(checks)
   rules_all   <- load_rules(checks)
 
   structure(
     list(
+      record_id_name      = misc$record_id_name,
+      baseline_date_name  = misc$baseline_date_name,
+      record_id_link      = misc$record_id_link,
       github_file_prefix  = misc$github_file_prefix,
 
       smells            = smells_all$smells,
@@ -43,10 +46,16 @@ new_trawler_checks <- function (checks) {
 }
 
 load_misc <- function (checks) {
+  checkmate::assert_character(checks$record_id_name    , min.chars =  1, len = 1, any.missing = FALSE)
+  checkmate::assert_character(checks$baseline_date_name, min.chars =  1, len = 1, any.missing = FALSE)
+  checkmate::assert_character(checks$record_id_link    , min.chars = 10, len = 1, any.missing = FALSE)
   checkmate::assert_character(checks$github_file_prefix, min.chars = 10, len = 1, any.missing = FALSE)
 
   list(
-    github_file_prefix     = checks$github_file_prefix
+    record_id_name          = checks$record_id_name,
+    baseline_date_name      = checks$baseline_date_name,
+    record_id_link          = checks$record_id_link,
+    github_file_prefix      = checks$github_file_prefix
   )
 }
 

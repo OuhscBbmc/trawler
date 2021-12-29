@@ -8,6 +8,11 @@ test_that("load-checks-biochemical", {
   expect_s3_class(checks$smells, "tbl_df")
   expect_s3_class(checks$rules , "tbl_df")
 
+  expect_snapshot(checks$record_id_name)
+  expect_snapshot(checks$baseline_date_name)
+  expect_snapshot(checks$record_id_link)
+  expect_snapshot(checks$github_file_prefix)
+
   expect_snapshot(checks$smells)
   expect_snapshot(as.data.frame(checks$smells))
   expect_snapshot(checks$smells_inactive)

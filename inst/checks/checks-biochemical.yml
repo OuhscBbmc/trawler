@@ -6,8 +6,9 @@ path_output_smell_rds: "data-public/derived/validator-1-smell.rds"
 
 redcap_version      : 10.5.1
 default_arm         : 1
-consent_date_name   : date_enrolled
-link_specific       : '<a href="https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s" target="_blank">%s</a>'
+baseline_date_name  : date_enrolled
+record_id_name      : record_id
+record_id_link      : '<a href="https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s" target="_blank">%s</a>'
 github_file_prefix  : https://github.com/OuhscBbmc/validator-1/blob/master
 github_link_arch    : https://github.com/OuhscBbmc/validator-1/blob/master/manipulation/validator-1-arch.R
 github_link_report  : https://github.com/OuhscBbmc/validator-1/tree/master/analysis/validator-1
