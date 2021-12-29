@@ -5,6 +5,7 @@ options(device = deviceType) #https://support.rstudio.org/help/discussions/probl
 spelling::spell_check_package()
 # spelling::update_wordlist()
 
+devtools::build_readme()
 devtools::document()
 devtools::check_man() #Should return NULL
 devtools::clean_vignettes()
