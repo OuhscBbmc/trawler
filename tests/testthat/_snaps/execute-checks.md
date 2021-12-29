@@ -104,28 +104,28 @@
     Code
       result$rules
     Output
-      # A tibble: 14 x 6
-         check_name    error_message     priority debug instrument    passing_test    
-         <chr>         <chr>                <int> <lgl> <chr>         <chr>           
-       1 baseline_pre~ Serum pre-albumi~        1 FALSE baseline_data "function (d) {~
-       2 missing_seru~ Relevant nutriti~        1 FALSE baseline_data "function (d) {~
-       3 serum_prealb~ Baseline prealbu~        1 FALSE baseline_dat~ "function (d) {~
-       4 serum_prealb~ Baseline prealbu~        1 FALSE baseline_dat~ "function (d) {~
-       5 serum_prealb~ Baseline prealbu~        1 FALSE baseline_dat~ "function (d) {~
-       6 serum_prealb~ serum prealbumin~        1 FALSE baseline_dat~ "function (d) {~
-       7 baseline_fir~ Serum prealbumin~        1 FALSE baseline_dat~ "function (d) {~
-       8 daily_first_~ In-addition to b~        1 FALSE baseline_dat~ "function (d) {~
-       9 daily_protei~ npcr levels in s~        1 FALSE baseline_dat~ "function (d) {~
-      10 hospitalizat~ Patient was hosp~        1 FALSE completion_p~ "function (d) {~
-      11 optimal_dail~ Daily protein in~        1 FALSE completion_p~ "function (d) {~
-      12 recommended_~ NPCR values are ~        1 FALSE completion_d~ "function (d) {~
-      13 npcr          NPCR at completi~        1 FALSE completion_d~ "function (d) {~
-      14 npcr_compari~ NPCR at completi~        1 FALSE completion_d~ "function (d) {~
+      # A tibble: 14 x 7
+         check_name  error_message   priority debug instrument   passing_test  results
+         <chr>       <chr>              <int> <lgl> <chr>        <chr>         <list> 
+       1 baseline_p~ Serum pre-albu~        1 FALSE baseline_da~ "function (d~ <tibbl~
+       2 missing_se~ Relevant nutri~        1 FALSE baseline_da~ "function (d~ <tibbl~
+       3 serum_prea~ Baseline preal~        1 FALSE baseline_da~ "function (d~ <tibbl~
+       4 serum_prea~ Baseline preal~        1 FALSE baseline_da~ "function (d~ <NULL> 
+       5 serum_prea~ Baseline preal~        1 FALSE baseline_da~ "function (d~ <NULL> 
+       6 serum_prea~ serum prealbum~        1 FALSE baseline_da~ "function (d~ <NULL> 
+       7 baseline_f~ Serum prealbum~        1 FALSE baseline_da~ "function (d~ <NULL> 
+       8 daily_firs~ In-addition to~        1 FALSE baseline_da~ "function (d~ <NULL> 
+       9 daily_prot~ npcr levels in~        1 FALSE baseline_da~ "function (d~ <NULL> 
+      10 hospitaliz~ Patient was ho~        1 FALSE completion_~ "function (d~ <tibbl~
+      11 optimal_da~ Daily protein ~        1 FALSE completion_~ "function (d~ <tibbl~
+      12 recommende~ NPCR values ar~        1 FALSE completion_~ "function (d~ <tibbl~
+      13 npcr        NPCR at comple~        1 FALSE completion_~ "function (d~ <tibbl~
+      14 npcr_compa~ NPCR at comple~        1 FALSE completion_~ "function (d~ <tibbl~
 
 ---
 
     Code
-      as.data.frame(result$rules)
+      as.data.frame(dplyr::select(result$rules, !tidyselect::contains("results")))
     Output
                                           check_name
       1                   baseline_prealbumin_levels
@@ -206,20 +206,74 @@
 ---
 
     Code
-      result$rule_results
+      ds_result_unnested
     Output
-      # A tibble: 47 x 7
-         check_name   record_id data_collector error_message       priority instrument
-         <chr>            <int>          <int> <chr>                  <int> <chr>     
-       1 baseline_pr~         1              1 Serum pre-albumin ~        1 baseline_~
-       2 baseline_pr~         2              2 Serum pre-albumin ~        1 baseline_~
-       3 baseline_pr~         3              3 Serum pre-albumin ~        1 baseline_~
-       4 baseline_pr~         8              1 Serum pre-albumin ~        1 baseline_~
-       5 baseline_pr~         9              3 Serum pre-albumin ~        1 baseline_~
-       6 baseline_pr~        12              3 Serum pre-albumin ~        1 baseline_~
-       7 baseline_pr~        13              1 Serum pre-albumin ~        1 baseline_~
-       8 baseline_pr~        14              1 Serum pre-albumin ~        1 baseline_~
-       9 baseline_pr~        15              3 Serum pre-albumin ~        1 baseline_~
-      10 baseline_pr~        16              2 Serum pre-albumin ~        1 baseline_~
-      # ... with 37 more rows, and 1 more variable: consent_date <date>
+      # A tibble: 47 x 4
+         check_name                 record_id data_collector consent_date
+         <chr>                          <int>          <int> <date>      
+       1 baseline_prealbumin_levels         1              1 2015-01-02  
+       2 baseline_prealbumin_levels         2              2 2015-01-02  
+       3 baseline_prealbumin_levels         3              3 2015-01-05  
+       4 baseline_prealbumin_levels         8              1 2015-02-03  
+       5 baseline_prealbumin_levels         9              3 2015-02-08  
+       6 baseline_prealbumin_levels        12              3 2015-03-06  
+       7 baseline_prealbumin_levels        13              1 2015-03-15  
+       8 baseline_prealbumin_levels        14              1 2015-03-10  
+       9 baseline_prealbumin_levels        15              3 2015-03-03  
+      10 baseline_prealbumin_levels        16              2 2015-03-09  
+      # ... with 37 more rows
+
+---
+
+    Code
+      as.data.frame(ds_result_unnested)
+    Output
+                           check_name record_id data_collector consent_date
+      1    baseline_prealbumin_levels         1              1   2015-01-02
+      2    baseline_prealbumin_levels         2              2   2015-01-02
+      3    baseline_prealbumin_levels         3              3   2015-01-05
+      4    baseline_prealbumin_levels         8              1   2015-02-03
+      5    baseline_prealbumin_levels         9              3   2015-02-08
+      6    baseline_prealbumin_levels        12              3   2015-03-06
+      7    baseline_prealbumin_levels        13              1   2015-03-15
+      8    baseline_prealbumin_levels        14              1   2015-03-10
+      9    baseline_prealbumin_levels        15              3   2015-03-03
+      10   baseline_prealbumin_levels        16              2   2015-03-09
+      11   baseline_prealbumin_levels       100              1   2015-04-02
+      12   baseline_prealbumin_levels       220              1   2015-04-02
+      13  missing_serum_marker_levels         7              2   2015-01-27
+      14  missing_serum_marker_levels        10            255   2015-02-13
+      15  missing_serum_marker_levels        11              2   2015-02-19
+      16    serum_prealbumin_levels_1         1              1   2015-01-02
+      17    serum_prealbumin_levels_1         2              2   2015-01-02
+      18    serum_prealbumin_levels_1         3              3   2015-01-05
+      19    serum_prealbumin_levels_1         4            255   2015-01-10
+      20    serum_prealbumin_levels_1         5              1   2015-01-13
+      21    serum_prealbumin_levels_1         6              3   2015-01-16
+      22    serum_prealbumin_levels_1         8              1   2015-02-03
+      23    serum_prealbumin_levels_1         9              3   2015-02-08
+      24    serum_prealbumin_levels_1        12              3   2015-03-06
+      25    serum_prealbumin_levels_1        13              1   2015-03-15
+      26    serum_prealbumin_levels_1        14              1   2015-03-10
+      27    serum_prealbumin_levels_1        15              3   2015-03-03
+      28    serum_prealbumin_levels_1        16              2   2015-03-09
+      29    serum_prealbumin_levels_1       100              1   2015-04-02
+      30    serum_prealbumin_levels_1       220              1   2015-04-02
+      31       hospitalization_reason         8             NA         <NA>
+      32       hospitalization_reason        14             NA         <NA>
+      33 optimal_daily_protein_intake         3             NA         <NA>
+      34 optimal_daily_protein_intake         5             NA         <NA>
+      35 optimal_daily_protein_intake         6             NA         <NA>
+      36 optimal_daily_protein_intake         7             NA         <NA>
+      37 optimal_daily_protein_intake         8             NA         <NA>
+      38 optimal_daily_protein_intake         9             NA         <NA>
+      39 optimal_daily_protein_intake        11             NA         <NA>
+      40 optimal_daily_protein_intake        15             NA         <NA>
+      41 optimal_daily_protein_intake        16             NA         <NA>
+      42 optimal_daily_protein_intake       100             NA         <NA>
+      43       recommended_npcr_range         1             NA         <NA>
+      44       recommended_npcr_range        12             NA         <NA>
+      45                         npcr        10             NA         <NA>
+      46              npcr_comparison         1             NA         <NA>
+      47              npcr_comparison        12             NA         <NA>
 

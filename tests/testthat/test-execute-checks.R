@@ -14,9 +14,25 @@ test_that("execute-checks-biochemical", {
   expect_snapshot(result$smell_status)
 
   expect_snapshot(result$rules)
-  expect_snapshot(as.data.frame(result$rules))
-  expect_snapshot(result$rule_results)
+  result$rules |>
+    dplyr::select(
+      !tidyselect::contains("results")
+    ) |>
+    as.data.frame() |>
+    expect_snapshot()
+
+  ds_result_unnested <-
+    result$rules |>
+    dplyr::select(
+      check_name,
+      results,
+    ) |>
+    tidyr::unnest(results)
+
+  expect_snapshot(ds_result_unnested)
+  expect_snapshot(as.data.frame(ds_result_unnested))
 })
+
 
 # result$ds_smell_result |>
 #   dplyr::group_by(check_name) |>

@@ -33,8 +33,7 @@ execute_checks <- function (ds, checks) {
       smells        = smells$ds_smell_result,
       smell_status  = smells$smell_status,
 
-      rules         = rules$rules,
-      rule_results  = rules$ds_rule_result
+      rules         = rules$rules
     ),
     class = "trawler_checks"
   )
@@ -153,50 +152,66 @@ execute_rules <- function (ds, checks) {
     rm(f, index, violations, ds_violation_single)
   } # End for loop
 
-  if (length(ds_rule_violation_list) == 0L) {
+  # if (length(ds_rule_violation_list) == 0L) {
+  #
+  #   rule_empty_violation <- function() {
+  #     tibble::tibble(
+  #       check_name                = "all_passed",
+  #       record_id                 = 0L,
+  #       data_collector            = "",
+  #       error_message             = "No violations existed in the dataset",
+  #       priority                  = "",
+  #       instrument                = ""
+  #     )
+  #   }
+  #
+  #   ds_rule_violation        <- rule_empty_violation()   # MAKE SURE THIS IS rule_empty_violation()
+  #   # ds_rule_violation_pretty <- ds_rule_violation
+  # } else {
+  #   ds_rule_violation        <-
+  #     ds_rule_violation_list |>
+  #     dplyr::bind_rows() |>
+  #     dplyr::arrange(.data$priority, .data$check_name, .data$record_id)
+  #
+  #   # ds_rule_violation_pretty <-
+  #   #   ds_rule_violation |>
+  #   #   dplyr::mutate(
+  #   #     # record_id         = sprintf(
+  #   #     #   checks$link_specific,
+  #   #     #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$instrument, .data$record_id
+  #   #     # ),
+  #   #     check_name        = gsub("_", " ", .data$check_name),
+  #   #     data_collector    = gsub("_", " ", .data$data_collector),
+  #   #     instrument        = gsub("_", " ", .data$instrument),
+  #   #     check_name        = factor(.data$check_name),
+  #   #   )
+  #   # colnames(ds_rule_violation_pretty) <- gsub("_", " ", colnames(ds_rule_violation_pretty))
+  # }
+#
+# browser()
 
-    rule_empty_violation <- function() {
-      tibble::tibble(
-        check_name                = "all_passed",
-        record_id                 = 0L,
-        data_collector            = "",
-        error_message             = "No violations existed in the dataset",
-        priority                  = "",
-        instrument                = ""
-      )
-    }
+  ds_rule_results <-
+    ds_rule_violation_list |>
+    dplyr::bind_rows() |>
+    dplyr::select(
+      .data$check_name,
+      .data$record_id,
+      .data$data_collector,
+      .data$consent_date,
+    ) |>
+    dplyr::arrange(.data$check_name, .data$record_id) |>
+    dplyr::group_by(.data$check_name) |>
+    tidyr::nest(
+      results = -.data$check_name
+    )
 
-    ds_rule_violation        <- rule_empty_violation()   # MAKE SURE THIS IS rule_empty_violation()
-    # ds_rule_violation_pretty <- ds_rule_violation
-  } else {
-    ds_rule_violation        <-
-      ds_rule_violation_list |>
-      dplyr::bind_rows() |>
-      dplyr::arrange(.data$priority, .data$check_name, .data$record_id)
-
-    # ds_rule_violation_pretty <-
-    #   ds_rule_violation |>
-    #   dplyr::mutate(
-    #     # record_id         = sprintf(
-    #     #   checks$link_specific,
-    #     #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$instrument, .data$record_id
-    #     # ),
-    #     check_name        = gsub("_", " ", .data$check_name),
-    #     data_collector    = gsub("_", " ", .data$data_collector),
-    #     instrument        = gsub("_", " ", .data$instrument),
-    #     check_name        = factor(.data$check_name),
-    #   )
-    # colnames(ds_rule_violation_pretty) <- gsub("_", " ", colnames(ds_rule_violation_pretty))
-  }
-
-
-
-
+  checks$rules <-
+    checks$rules |>
+    dplyr::left_join(ds_rule_results, by = "check_name")
 
   list(
-    rules           = checks$rules,
-    ds_rule_result = ds_rule_violation
-    # smell_status    = smell_status
+    rules           = checks$rules
+    # rule_status    = rule_status
   )
 
 }
