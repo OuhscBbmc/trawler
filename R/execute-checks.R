@@ -31,7 +31,9 @@ execute_checks <- function (ds, checks) {
       github_file_prefix  = checks$github_file_prefix,
 
       smells        = smells$ds_smell_result,
-      smell_status  = smells$smell_status
+      smell_status  = smells$smell_status,
+
+      rule_results  = rules$ds_rule_result
     ),
     class = "trawler_checks"
   )
@@ -92,4 +94,107 @@ execute_smells <- function (ds, checks) {
     ds_smell_result = ds_smell_result,
     smell_status    = smell_status
   )
+}
+
+#' @importFrom rlang .data
+execute_rules <- function (ds, checks) {
+  checkmate::assert_data_frame(ds)
+  checkmate::assert_class(checks, "trawler_checks_definition")
+  checkmate::assert_data_frame(checks$rules)
+
+  ds_rule_violation_list <- list()
+  # for( i in 1:2 ) { # i <- 1L
+  for (i in seq_len(nrow(checks$rules))) {
+
+    if (checks$rules$debug[i]) {
+      browser()
+    }
+
+    tryCatch({
+      f <- eval(parse(text = checks$rules$passing_test[i]))
+    }, warning = function(e) {
+      stop("Problem parsing the equation for the rule `", checks$rules$check_name[i], "`.\n", e)
+    }, error = function( e ) {
+      stop("Problem parsing the equation for the rule `", checks$rules$check_name[i], "`.\n", e)
+    })
+
+    tryCatch({
+      violations <- !f(ds)
+    }, warning = function(e) {
+      stop("Problem executing the equation for rule `", checks$rules$check_name[i], "`.\n", e)
+    }, error = function(e) {
+      stop("Problem executing the equation for rule `", checks$rules$check_name[i], "`.\n", e)
+    })
+
+    index      <- length(ds_rule_violation_list) + 1L
+    # browser()
+    # print(index)
+    ds_violation_single <- ds |>
+      dplyr::filter(violations)
+
+
+    if (0L < nrow(ds_violation_single)) {
+      ds_rule_violation_list[[index]] <-
+        ds_violation_single |>
+        dplyr::select(
+          record_id               = checks$record_id_name,
+          "data_collector",
+          consent_date            = checks$baseline_date_name
+        ) |>
+        dplyr::mutate(
+          check_name                = checks$rules$check_name[i],
+          error_message             = checks$rules$error_message[i],
+          priority                  = checks$rules$priority[i],
+          instrument                = checks$rules$instrument[i]
+        ) |>
+        dplyr::select(.data$check_name, .data$record_id, .data$data_collector, .data$error_message, .data$priority, .data$instrument, .data$consent_date)
+    }
+    rm(f, index, violations, ds_violation_single)
+  } # End for loop
+
+  if (length(ds_rule_violation_list) == 0L) {
+
+    rule_empty_violation <- function() {
+      tibble::tibble(
+        check_name                = "all_passed",
+        record_id                 = 0L,
+        data_collector            = "",
+        error_message             = "No violations existed in the dataset",
+        priority                  = "",
+        instrument                = ""
+      )
+    }
+
+    ds_rule_violation        <- rule_empty_violation()   # MAKE SURE THIS IS rule_empty_violation()
+    # ds_rule_violation_pretty <- ds_rule_violation
+  } else {
+    ds_rule_violation        <-
+      ds_rule_violation_list |>
+      dplyr::bind_rows() |>
+      dplyr::arrange(.data$priority, .data$check_name, .data$record_id)
+
+    # ds_rule_violation_pretty <-
+    #   ds_rule_violation |>
+    #   dplyr::mutate(
+    #     # record_id         = sprintf(
+    #     #   checks$link_specific,
+    #     #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$instrument, .data$record_id
+    #     # ),
+    #     check_name        = gsub("_", " ", .data$check_name),
+    #     data_collector    = gsub("_", " ", .data$data_collector),
+    #     instrument        = gsub("_", " ", .data$instrument),
+    #     check_name        = factor(.data$check_name),
+    #   )
+    # colnames(ds_rule_violation_pretty) <- gsub("_", " ", colnames(ds_rule_violation_pretty))
+  }
+
+
+
+
+
+  list(
+    ds_rule_result = ds_rule_violation
+    # smell_status    = smell_status
+  )
+
 }

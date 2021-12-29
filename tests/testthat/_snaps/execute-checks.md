@@ -99,3 +99,23 @@
     Output
       [1] "12 smells have been sniffed.  6 violation(s) were found."
 
+---
+
+    Code
+      result$rule_results
+    Output
+      # A tibble: 47 x 7
+         check_name   record_id data_collector error_message       priority instrument
+         <chr>            <int>          <int> <chr>                  <int> <chr>     
+       1 baseline_pr~         1              1 Serum pre-albumin ~        1 baseline_~
+       2 baseline_pr~         2              2 Serum pre-albumin ~        1 baseline_~
+       3 baseline_pr~         3              3 Serum pre-albumin ~        1 baseline_~
+       4 baseline_pr~         8              1 Serum pre-albumin ~        1 baseline_~
+       5 baseline_pr~         9              3 Serum pre-albumin ~        1 baseline_~
+       6 baseline_pr~        12              3 Serum pre-albumin ~        1 baseline_~
+       7 baseline_pr~        13              1 Serum pre-albumin ~        1 baseline_~
+       8 baseline_pr~        14              1 Serum pre-albumin ~        1 baseline_~
+       9 baseline_pr~        15              3 Serum pre-albumin ~        1 baseline_~
+      10 baseline_pr~        16              2 Serum pre-albumin ~        1 baseline_~
+      # ... with 37 more rows, and 1 more variable: consent_date <date>
+
