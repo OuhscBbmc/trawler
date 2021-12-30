@@ -43,6 +43,8 @@ path_checks <-
 
 checkmate::assert_character(path_checks, any.missing = FALSE, len = 1)
 checkmate::assert_file_exists(path_checks, extension = "rds")
+
+palette_summary <- list(warm = "#fde0ef", hot = "#f1b6da", header = "#555") #http://colrd.com/palette/18841/
 ```
 
 <!-- Load the datasets.   -->
@@ -63,6 +65,45 @@ A *rule* is very exact.  Each record is examined, and determined if it passes ea
 Rule Summary
 -----------------------------
 ```{r table-rule-summary, echo = echo_chunks}
+ds_rule_summary <- checks$rules 
+
+ds_rule_summary |>
+  dplyr::select(
+    `Rule Name`           = .data$check_name,   
+    `Priority`            = .data$priority,   
+    `Error Message`       = .data$error_message,   
+    `Violation Count`     = .data$violation_count,  
+  ) |> 
+  knitr::kable(
+    align     = "lrlr",
+    escape    = FALSE,
+    format    = "html"
+  ) |>
+  kableExtra::kable_styling(
+    bootstrap_options = c("hover", "condensed", "responsive"), #"striped",
+    full_width        = FALSE,
+    position          = "left"
+  ) |>
+  kableExtra::row_spec(
+    row         = 0,
+    bold        = TRUE,
+    color       = "white",
+    background  = palette_summary$header
+  ) |>
+  kableExtra::row_spec(
+    row         = seq_len(nrow(ds_rule_summary)),
+    color       = "#555"
+  ) |>
+  kableExtra::row_spec(
+    row         = which(ds_rule_summary$violation_count > 0 & ds_rule_summary$priority == 1L),
+    bold        = TRUE,
+    background  = palette_summary$hot
+  ) |>
+  kableExtra::row_spec(
+    row         = which(ds_rule_summary$violation_count > 0 & ds_rule_summary$priority > 1L),
+    bold        = TRUE,
+    background  = palette_summary$warm
+  )
 ```
 
 Rule Detail
@@ -113,8 +154,6 @@ A *smell* test won't validate a specific record (like the rules above), but it w
 Smell Summary
 -----------------------------
 ```{r table-smell-summary, echo = echo_chunks}
-palette_summary <- list(warm = "#fde0ef", hot = "#f1b6da", header = "#555") #http://colrd.com/palette/18841/
-
 ds_smell_result_pretty <-
   checks$smells |>
   dplyr::transmute(
