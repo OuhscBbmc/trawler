@@ -2,8 +2,7 @@
 % Please edit documentation in R/execute-checks.R
 \name{execute_checks}
 \alias{execute_checks}
-\title{Load and parse checks in a yaml file, and return a list
-of useful objects.}
+\title{Execute the checks against a dataset to return a nested list.}
 \usage{
 execute_checks(ds, checks)
 }
@@ -14,8 +13,7 @@ execute_checks(ds, checks)
 \code{\link[=load_checks]{load_checks()}}.  Required.}
 }
 \description{
-Load and parse checks in a yaml file, and return a list
-of useful objects.
+Execute the checks against a dataset to return a nested list.
 }
 \examples{
 # Replace the two paths for your specific project

@@ -1,5 +1,4 @@
-#' @title Load and parse checks in a yaml file, and return a list
-#' of useful objects.
+#' @title Execute the checks against a dataset to return a nested list.
 #' @param ds The [data.frame] to be checked.  Required.
 #' @param checks The [list] describing the check.  Is the output of
 #' [trawler::load_checks()].  Required.

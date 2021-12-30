@@ -2,4 +2,5 @@
 
 export(execute_checks)
 export(load_checks)
+export(render_rmarkdown)
 importFrom(rlang,.data)
