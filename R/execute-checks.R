@@ -221,7 +221,12 @@ execute_rules <- function (ds, checks) {
 
   checks$rules <-
     checks$rules |>
-    dplyr::left_join(ds_rule_results, by = "check_name")
+    dplyr::left_join(ds_rule_results, by = "check_name") |>
+    dplyr::select(
+      .data$check_name,
+      .data$violation_count,
+      tidyselect::everything(),
+    )
 
   list(
     rules           = checks$rules,

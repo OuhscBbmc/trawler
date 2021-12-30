@@ -105,44 +105,44 @@
       result$rules
     Output
       # A tibble: 14 x 8
-         check_name  error_message   priority debug instrument   passing_test  results
-         <chr>       <chr>              <int> <lgl> <chr>        <chr>         <list> 
-       1 baseline_p~ Serum pre-albu~        1 FALSE baseline_da~ "function (d~ <tibbl~
-       2 missing_se~ Relevant nutri~        1 FALSE baseline_da~ "function (d~ <tibbl~
-       3 serum_prea~ Baseline preal~        1 FALSE baseline_da~ "function (d~ <tibbl~
-       4 serum_prea~ Baseline preal~        1 FALSE baseline_da~ "function (d~ <NULL> 
-       5 serum_prea~ Baseline preal~        1 FALSE baseline_da~ "function (d~ <NULL> 
-       6 serum_prea~ serum prealbum~        1 FALSE baseline_da~ "function (d~ <NULL> 
-       7 baseline_f~ Serum prealbum~        1 FALSE baseline_da~ "function (d~ <NULL> 
-       8 daily_firs~ In-addition to~        1 FALSE baseline_da~ "function (d~ <NULL> 
-       9 daily_prot~ npcr levels in~        1 FALSE baseline_da~ "function (d~ <NULL> 
-      10 hospitaliz~ Patient was ho~        1 FALSE completion_~ "function (d~ <tibbl~
-      11 optimal_da~ Daily protein ~        1 FALSE completion_~ "function (d~ <tibbl~
-      12 recommende~ NPCR values ar~        1 FALSE completion_~ "function (d~ <tibbl~
-      13 npcr        NPCR at comple~        1 FALSE completion_~ "function (d~ <tibbl~
-      14 npcr_compa~ NPCR at comple~        1 FALSE completion_~ "function (d~ <tibbl~
-      # ... with 1 more variable: violation_count <int>
+         check_name    violation_count error_message     priority debug instrument    
+         <chr>                   <int> <chr>                <int> <lgl> <chr>         
+       1 baseline_pre~              10 Serum pre-albumi~        1 FALSE baseline_data 
+       2 missing_seru~               3 Relevant nutriti~        1 FALSE baseline_data 
+       3 serum_prealb~              15 Baseline prealbu~        1 FALSE baseline_data~
+       4 serum_prealb~              NA Baseline prealbu~        1 FALSE baseline_data~
+       5 serum_prealb~              NA Baseline prealbu~        1 FALSE baseline_data~
+       6 serum_prealb~              NA serum prealbumin~        1 FALSE baseline_data~
+       7 baseline_fir~              NA Serum prealbumin~        1 FALSE baseline_data~
+       8 daily_first_~              NA In-addition to b~        1 FALSE baseline_data~
+       9 daily_protei~              NA npcr levels in s~        1 FALSE baseline_data~
+      10 hospitalizat~               2 Patient was hosp~        1 FALSE completion_pr~
+      11 optimal_dail~               7 Daily protein in~        1 FALSE completion_pr~
+      12 recommended_~              10 NPCR values are ~        1 FALSE completion_da~
+      13 npcr                        1 NPCR at completi~        1 FALSE completion_da~
+      14 npcr_compari~               2 NPCR at completi~        1 FALSE completion_da~
+      # ... with 2 more variables: passing_test <chr>, results <list>
 
 ---
 
     Code
       as.data.frame(dplyr::select(result$rules, !tidyselect::contains("results")))
     Output
-                                          check_name
-      1                   baseline_prealbumin_levels
-      2                  missing_serum_marker_levels
-      3                    serum_prealbumin_levels_1
-      4                    serum_prealbumin_levels_2
-      5      serum_prealbumin_levels_completion_data
-      6         serum_prealbumin_levels_expectations
-      7          baseline_first_visit_lab_parameters
-      8  daily_first_visit_lab_and_workup_parameters
-      9                         daily_protein_intake
-      10                      hospitalization_reason
-      11                optimal_daily_protein_intake
-      12                      recommended_npcr_range
-      13                                        npcr
-      14                             npcr_comparison
+                                          check_name violation_count
+      1                   baseline_prealbumin_levels              10
+      2                  missing_serum_marker_levels               3
+      3                    serum_prealbumin_levels_1              15
+      4                    serum_prealbumin_levels_2              NA
+      5      serum_prealbumin_levels_completion_data              NA
+      6         serum_prealbumin_levels_expectations              NA
+      7          baseline_first_visit_lab_parameters              NA
+      8  daily_first_visit_lab_and_workup_parameters              NA
+      9                         daily_protein_intake              NA
+      10                      hospitalization_reason               2
+      11                optimal_daily_protein_intake               7
+      12                      recommended_npcr_range              10
+      13                                        npcr               1
+      14                             npcr_comparison               2
                                                                                                                                  error_message
       1                                                       Serum pre-albumin level of all enrolled patients do not meet the study criterion
       2                                                                                         Relevant nutritional serum markers are missing
@@ -203,21 +203,6 @@
       12                                                                                                                                                                                                                                                                                                                                                                                                                                                           function (d) {\n  dplyr::between(d$completion_data_npcr, 1.2, 1.4)\n}\n
       13                                 function (d) {\n  events_to_check <- c("final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check,\n    !is.na(d$completion_data_npcr),                                                                # If this row exists in the desired event, then check for nonmissingness.\n    TRUE                                                                                           # Otherwise, the test passes for rows associated with all other events.\n  )\n}\n
       14                                                                                                                                                                                                                                                                                                                                                                                      function (d) {\n  dplyr::if_else(\n    !is.na(d$completion_data_npcr),\n    (d$npcr_at_baseline < d$completion_data_npcr),\n    TRUE\n  )\n}
-         violation_count
-      1               10
-      2                3
-      3               15
-      4               NA
-      5               NA
-      6               NA
-      7               NA
-      8               NA
-      9               NA
-      10               2
-      11               7
-      12              10
-      13               1
-      14               2
 
 ---
 
