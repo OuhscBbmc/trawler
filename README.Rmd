@@ -32,18 +32,37 @@ You can install the development version of trawler from [GitHub](https://github.
 devtools::install_github("OuhscBbmc/trawler")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## Standard Trawler Report
 
 ```{r example}
+# Step 0: define paths.
+#   So this package example executes on every machine, temp files are used.
+
 # Replace the two paths for your specific project
 path_data    <- system.file("datasets/pt-event-biochemical.rds", package = "trawler")
-path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
+path_defs    <- system.file("checks/checks-biochemical.yml", package = "trawler")
 
+# In your real code, this will probably in a static directory.
+# If PHI or sensitive info is contained, use a secure location.
+directory_output <- file.path(tempdir(check = TRUE), "trawler")
+if (!dir.exists(directory_output)) dir.create(directory_output)
+path_checks <- tempfile("trawler-checks-", fileext = ".rds", tmpdir = directory_output)
+
+# Step 1: load the check definitions and the dataset to test
 ds_pt_event  <- readr::read_rds(path_data)
-checks       <- trawler::load_checks(path_checks)
+checks       <- trawler::load_checks(path_defs)
 
-trawler::execute_checks(ds_pt_event, checks)
+# Step 2: execute the checks and save to an rds file
+ds_pt_event |>
+  trawler::execute_checks(checks) |>
+  readr::write_rds(path_checks)
+
+# Step 3: render checks as an html report with R Markdown
+trawler::render_rmarkdown(path_checks, directory_output)
+
+# For the sake of this example, clean up temp files.
+#    You probably do NOT want this line in your real code.
+unlink(directory_output, recursive = TRUE)
 ```
 
+The rendered html report will look similar to [this preview](https://htmlpreview.github.io/?https://github.com/OuhscBbmc/trawler/blob/main/inst/report-templates/rmarkdown-1/report-1.html).

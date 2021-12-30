@@ -25,76 +25,44 @@ You can install the development version of trawler from
 devtools::install_github("OuhscBbmc/trawler")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## Standard Trawler Report
 
 ``` r
+# Step 0: define paths.
+#   So this package example executes on every machine, temp files are used.
+
 # Replace the two paths for your specific project
 path_data    <- system.file("datasets/pt-event-biochemical.rds", package = "trawler")
-path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
+path_defs    <- system.file("checks/checks-biochemical.yml", package = "trawler")
 
+# In your real code, this will probably in a static directory.
+# If PHI or sensitive info is contained, use a secure location.
+directory_output <- file.path(tempdir(check = TRUE), "trawler")
+if (!dir.exists(directory_output)) dir.create(directory_output)
+path_checks <- tempfile("trawler-checks-", fileext = ".rds", tmpdir = directory_output)
+
+# Step 1: load the check definitions and the dataset to test
 ds_pt_event  <- readr::read_rds(path_data)
-checks       <- trawler::load_checks(path_checks)
+checks       <- trawler::load_checks(path_defs)
 
-trawler::execute_checks(ds_pt_event, checks)
-#> $record_id_name
-#> [1] "record_id"
+# Step 2: execute the checks and save to an rds file
+ds_pt_event |>
+  trawler::execute_checks(checks) |>
+  readr::write_rds(path_checks)
+
+# Step 3: render checks as an html report with R Markdown
+trawler::render_rmarkdown(path_checks, directory_output)
+#> processing file: report-1.Rmd
+#> Loading required namespace: DT
+#> output file: report-1.knit.md
+#> /usr/lib/rstudio/bin/pandoc/pandoc +RTS -K512m -RTS report-1.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/Rtmpy5PD2b/trawler/report-1.html --lua-filter /home/wibeasley/R/x86_64-pc-linux-gnu-library/4.1/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /home/wibeasley/R/x86_64-pc-linux-gnu-library/4.1/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --variable bs3=TRUE --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /home/wibeasley/R/x86_64-pc-linux-gnu-library/4.1/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --variable theme=bootstrap --include-in-header /tmp/Rtmpy5PD2b/rmarkdown-strb799437a216a.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
 #> 
-#> $baseline_date_name
-#> [1] "date_enrolled"
-#> 
-#> $record_id_link
-#> [1] "<a href=\"https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s\" target=\"_blank\">%s</a>"
-#> 
-#> $github_file_prefix
-#> [1] "https://github.com/OuhscBbmc/validator-1/blob/master"
-#> 
-#> $smells
-#> # A tibble: 12 × 12
-#>    check_name     pass  description       priority debug bound_lower bound_upper
-#>    <chr>          <lgl> <chr>                <int> <lgl>       <dbl>       <dbl>
-#>  1 proportion_fe… TRUE  Proportion femal…        2 FALSE        0.25        0.75
-#>  2 proportion_ma… TRUE  Proportion male …        2 FALSE        0.25        0.75
-#>  3 mean_age       TRUE  Mean age of part…        2 FALSE       20          80   
-#>  4 mean_serum_pr… FALSE Mean serum pre-a…        1 FALSE       32          39   
-#>  5 mean_serum_cr… FALSE Mean serum creat…        1 FALSE        3          15   
-#>  6 average_bmi_a… FALSE Average BMI is b…        2 FALSE       18          24   
-#>  7 mean_serum_ch… TRUE  Average Choleste…        1 FALSE      100         140   
-#>  8 dialysis_adeq… TRUE  Normal range for…        1 FALSE        1.2         5   
-#>  9 average_serum… TRUE  Mean serum ferri…        1 FALSE      501        1200   
-#> 10 nutritional_c… TRUE  Most patients ag…        2 FALSE        0.85        0.99
-#> 11 definitive_di… TRUE  All study partic…        1 FALSE        1           1   
-#> 12 normalized_pr… FALSE Average Normaliz…        1 FALSE        0           0.12
-#> # … with 5 more variables: bounds_template <chr>, value_template <chr>,
-#> #   equation <chr>, boundaries <chr>, value <dbl>
-#> 
-#> $smell_status
-#> [1] "12 smells have been sniffed.  4 violation(s) were found."
-#> 
-#> $rules
-#> # A tibble: 14 × 8
-#>    check_name    violation_count error_message     priority debug instrument    
-#>    <chr>                   <int> <chr>                <int> <lgl> <chr>         
-#>  1 baseline_pre…              10 Serum pre-albumi…        1 FALSE baseline_data 
-#>  2 missing_seru…               3 Relevant nutriti…        1 FALSE baseline_data 
-#>  3 serum_prealb…              15 Baseline prealbu…        1 FALSE baseline_data…
-#>  4 serum_prealb…               0 Baseline prealbu…        1 FALSE baseline_data…
-#>  5 serum_prealb…               0 Baseline prealbu…        1 FALSE baseline_data…
-#>  6 serum_prealb…               0 serum prealbumin…        1 FALSE baseline_data…
-#>  7 baseline_fir…               0 Serum prealbumin…        1 FALSE baseline_data…
-#>  8 daily_first_…               0 In-addition to b…        1 FALSE baseline_data…
-#>  9 daily_protei…               0 npcr levels in s…        1 FALSE baseline_data…
-#> 10 hospitalizat…               2 Patient was hosp…        1 FALSE completion_pr…
-#> 11 optimal_dail…               7 Daily protein in…        1 FALSE completion_pr…
-#> 12 recommended_…              10 NPCR values are …        1 FALSE completion_da…
-#> 13 npcr                        1 NPCR at completi…        1 FALSE completion_da…
-#> 14 npcr_compari…               2 NPCR at completi…        1 FALSE completion_da…
-#> # … with 2 more variables: passing_test <chr>, results <list>
-#> 
-#> $rule_status
-#> [1] "14 rules were examined. 8 rule(s) had at least 1 violation. 50 total violation(s) were found."
-#> 
-#> attr(,"class")
-#> [1] "trawler_checks"
+#> Output created: /tmp/Rtmpy5PD2b/trawler/report-1.html
+
+# For the sake of this example, clean up temp files.
+#    You probably do NOT want this line in your real code.
+unlink(directory_output, recursive = TRUE)
 ```
+
+The rendered html report will look similar to [this
+preview](https://htmlpreview.github.io/?https://github.com/OuhscBbmc/trawler/blob/main/inst/report-templates/rmarkdown-1/report-1.html).
