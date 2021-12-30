@@ -55,10 +55,63 @@ checks <- base::readRDS(path_checks)
 ```
 
 
+Rules {.tabset .tabset-fade}
+=============================
+
+A *rule* is very exact.  Each record is examined, and determined if it passes each specific rule.
+
+Rule Summary
+-----------------------------
+```{r table-rule-summary, echo = echo_chunks}
+```
+
+Rule Detail
+-----------------------------
+```{r table-rule-detail, echo = echo_chunks}
+checks$rules |>
+  dplyr::select(
+    .data$check_name,
+    .data$error_message,
+    .data$priority,
+    # .data$debug,
+    # .data$instrument,
+    # .data$passing_test,
+    # .data$results
+  ) |> 
+  dplyr::mutate(
+    # record_id         = sprintf(
+    #   checks$link_specific,
+    #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$instrument, .data$record_id
+    # ),
+    check_name        = gsub("_", " ", .data$check_name),
+    # data_collector    = gsub("_", " ", .data$data_collector),
+    # instrument        = gsub("_", " ", .data$instrument),
+    check_name        = factor(.data$check_name),
+  ) |> 
+  {\(d)
+    DT::datatable(
+      data         = d,
+      colnames     = gsub("_", " ", colnames(d)),
+      filter       = "top",
+      caption      = paste("Violations at", Sys.time()),
+      escape       = FALSE,
+      options      = list(
+        pageLength = 30,
+        dom = "tip",
+        initComplete = DT::JS(
+          "function(settings, json) {",
+          "$(this.api().table().header()).css({'background-color': '#555', 'color': '#fff'});",
+          "}"
+        )
+      )
+    )
+  }()
+```
+
 Smells {.tabset .tabset-fade}
 =============================
 
-A *smell* test won't validate a specific record (like the rules below), but it will make sure the dataset overall smells correct.
+A *smell* test won't validate a specific record (like the rules above), but it will make sure the dataset overall smells correct.
 
 Smell Summary
 -----------------------------
