@@ -83,9 +83,6 @@ checks$rules |>
     #   checks$link_specific,
     #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$instrument, .data$record_id
     # ),
-    check_name        = gsub("_", " ", .data$check_name),
-    # data_collector    = gsub("_", " ", .data$data_collector),
-    # instrument        = gsub("_", " ", .data$instrument),
     check_name        = factor(.data$check_name),
   ) |> 
   {\(d)
@@ -132,8 +129,15 @@ ds_smell_result_pretty <-
   dplyr::arrange(priority, check_name) 
 
 ds_smell_result_pretty |>
+  dplyr::select(
+    "Smell Name"           = check_name,   
+    "Priority"             = priority,   
+    "Proportion of..."     = description,   
+    "Legal Boundaries"     = boundaries,   
+    "Value"                = value,   
+    "Pass"                 = pass,  
+  ) |> 
   knitr::kable(
-    col.names = c("Smell Name", "Priority", "Proportion of...", "Legal Boundaries", "Value", "Pass"),
     align     = "lrllrl",
     escape    = FALSE,
     format    = "html"
@@ -145,7 +149,7 @@ ds_smell_result_pretty |>
   ) |>
   kableExtra::row_spec(
     row         = 0,
-    bold        = T,
+    bold        = TRUE,
     color       = "white",
     background  = palette_summary$header
   ) |>
@@ -155,12 +159,12 @@ ds_smell_result_pretty |>
   ) |>
   kableExtra::row_spec(
     row         = which(!ds_smell_result_pretty$pass & ds_smell_result_pretty$priority == 1L),
-    bold        = T,
+    bold        = TRUE,
     background  = palette_summary$hot
   ) |>
   kableExtra::row_spec(
     row         = which(!ds_smell_result_pretty$pass & ds_smell_result_pretty$priority >= 2L),
-    bold        = T,
+    bold        = TRUE,
     background  = palette_summary$warm
   )
 
