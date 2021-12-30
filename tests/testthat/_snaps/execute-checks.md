@@ -110,12 +110,12 @@
        1 baseline_pre~              10 Serum pre-albumi~        1 FALSE baseline_data 
        2 missing_seru~               3 Relevant nutriti~        1 FALSE baseline_data 
        3 serum_prealb~              15 Baseline prealbu~        1 FALSE baseline_data~
-       4 serum_prealb~              NA Baseline prealbu~        1 FALSE baseline_data~
-       5 serum_prealb~              NA Baseline prealbu~        1 FALSE baseline_data~
-       6 serum_prealb~              NA serum prealbumin~        1 FALSE baseline_data~
-       7 baseline_fir~              NA Serum prealbumin~        1 FALSE baseline_data~
-       8 daily_first_~              NA In-addition to b~        1 FALSE baseline_data~
-       9 daily_protei~              NA npcr levels in s~        1 FALSE baseline_data~
+       4 serum_prealb~               0 Baseline prealbu~        1 FALSE baseline_data~
+       5 serum_prealb~               0 Baseline prealbu~        1 FALSE baseline_data~
+       6 serum_prealb~               0 serum prealbumin~        1 FALSE baseline_data~
+       7 baseline_fir~               0 Serum prealbumin~        1 FALSE baseline_data~
+       8 daily_first_~               0 In-addition to b~        1 FALSE baseline_data~
+       9 daily_protei~               0 npcr levels in s~        1 FALSE baseline_data~
       10 hospitalizat~               2 Patient was hosp~        1 FALSE completion_pr~
       11 optimal_dail~               7 Daily protein in~        1 FALSE completion_pr~
       12 recommended_~              10 NPCR values are ~        1 FALSE completion_da~
@@ -132,12 +132,12 @@
       1                   baseline_prealbumin_levels              10
       2                  missing_serum_marker_levels               3
       3                    serum_prealbumin_levels_1              15
-      4                    serum_prealbumin_levels_2              NA
-      5      serum_prealbumin_levels_completion_data              NA
-      6         serum_prealbumin_levels_expectations              NA
-      7          baseline_first_visit_lab_parameters              NA
-      8  daily_first_visit_lab_and_workup_parameters              NA
-      9                         daily_protein_intake              NA
+      4                    serum_prealbumin_levels_2               0
+      5      serum_prealbumin_levels_completion_data               0
+      6         serum_prealbumin_levels_expectations               0
+      7          baseline_first_visit_lab_parameters               0
+      8  daily_first_visit_lab_and_workup_parameters               0
+      9                         daily_protein_intake               0
       10                      hospitalization_reason               2
       11                optimal_daily_protein_intake               7
       12                      recommended_npcr_range              10

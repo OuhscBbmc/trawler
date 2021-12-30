@@ -221,6 +221,9 @@ execute_rules <- function (ds, checks) {
   checks$rules <-
     checks$rules |>
     dplyr::left_join(ds_rule_results, by = "check_name") |>
+    dplyr::mutate(
+      violation_count   = dplyr::coalesce(.data$violation_count, 0L),
+    ) |>
     dplyr::select(
       .data$check_name,
       .data$violation_count,
