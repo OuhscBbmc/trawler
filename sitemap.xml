@@ -25,6 +25,9 @@
     <loc>/reference/load_checks.html</loc>
   </url>
   <url>
+    <loc>/reference/render_rmarkdown.html</loc>
+  </url>
+  <url>
     <loc>/reference/trawler-package.html</loc>
   </url>
 </urlset>
