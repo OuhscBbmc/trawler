@@ -56,7 +56,7 @@ smells:
     }
 - check_name           : mean_serum_prealbumin_level_at_baseline
   description          : Mean serum pre-albumin levels at baseline are between 31mg/dl and 39mg/dl
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
   bound_lower          : 32
@@ -69,7 +69,7 @@ smells:
     }
 - check_name           : mean_serum_creatinine_level_at_baseline
   description          : Mean serum creatinine levels at baseline are between 3mg/dl and 15mg/dl
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
   bound_lower          : 3
@@ -174,11 +174,11 @@ smells:
 
 rules:
 - check_name           : baseline_prealbumin_levels
-  error_message        : "Serum pre-albumin level of all enrolled patients do not meet the study criterion"                         # Transferrin level <100 indicates severe protein-energy malnutrition
+  error_message        : "Serum pre-albumin level of all enrolled patients do not meet the study criterion"
   priority             : 1
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data                                                                                    # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
+  instrument           : baseline_data                                                         # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
   passing_test         : |
     function (d) {
       dplyr::if_else(
@@ -207,7 +207,7 @@ rules:
     }
 - check_name           : serum_prealbumin_levels_1
   error_message        : "Baseline prealbumin levels are not missing however levels were not carefully monitored in the subsequent visit"
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
   instrument           : baseline_data, visit_lab_date
@@ -225,7 +225,7 @@ rules:
     }
 - check_name           : serum_prealbumin_levels_2
   error_message        : "Baseline prealbumin levels and pre-albumin levels during the 1st visit are not missing however levels in the next reading are missing"
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
   instrument           : baseline_data, visit_lab_date, visit_blood_workup
@@ -244,7 +244,7 @@ rules:
     }
 - check_name           : serum_prealbumin_levels_completion_data
   error_message        : "Baseline prealbumin levels are not missing however readings are not carefully monitored at completion"
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
   instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
@@ -264,7 +264,7 @@ rules:
     }
 - check_name           : serum_prealbumin_levels_expectations
   error_message        : "serum prealbumin levels are not missing however subsequent readings did not come as expected"
-  priority             : 1
+  priority             : 3
   active               : TRUE
   debug                : FALSE
   instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
@@ -285,7 +285,7 @@ rules:
     }
 - check_name           : pre_albumin_levels
   error_message        : "pre_albumin levels are not improving"
-  priority             : 1
+  priority             : 3
   active               : FALSE
   debug                : FALSE
   instrument           : visit_lab_date
@@ -301,7 +301,7 @@ rules:
     }
 - check_name           : baseline_first_visit_lab_parameters
   error_message        : "Serum prealbumin levels are low and protein intake at baseline is less than optimal"
-  priority             : 1
+  priority             : 3
   active               : TRUE
   debug                : FALSE
   instrument           : baseline_data, visit_lab_data
@@ -320,7 +320,7 @@ rules:
     }
 - check_name           : daily_first_visit_lab_and_workup_parameters
   error_message        : "In-addition to baseline & visit lab protein parameters, blood work-up npcr levels are also low"
-  priority             : 1
+  priority             : 3
   active               : TRUE
   debug                : FALSE
   instrument           : baseline_data, patient_morale_questionnaire
@@ -340,7 +340,7 @@ rules:
     }
 - check_name           : daily_protein_intake
   error_message        : "npcr levels in study have not improved as intended"
-  priority             : 1
+  priority             : 3
   active               : TRUE
   debug                : FALSE
   instrument           : baseline_data, patient_morale_questionnaire
@@ -368,14 +368,14 @@ rules:
   passing_test         : |
     function (d) {
       dplyr::if_else(
-        d$completion_project_questionnaire_hospitalization %in% 1,
+        d$completion_project_questionnaire_hospitalization == 1L,
         !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),
         TRUE
       )
     }
 - check_name           : optimal_daily_protein_intake
   error_message        : "Daily protein intake is optimal but one of the nutritional marker is not within the normal range"
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
   instrument           : completion_project_questionnaire, completion_data
@@ -389,7 +389,7 @@ rules:
     }
 - check_name           : recommended_npcr_range
   error_message        : "NPCR values are not within the recommended range at completion"
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
   instrument           : completion_data                                                              # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
@@ -399,7 +399,7 @@ rules:
     }
 - check_name           : npcr
   error_message        : "NPCR at completion is missing"
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
   instrument           : completion_data
@@ -414,7 +414,7 @@ rules:
     }
 - check_name           : npcr_comparison                                                               # Showing improvement in nutritional status
   error_message        : "NPCR at completion is not greater than npcr at baseline"
-  priority             : 1
+  priority             : 3
   active               : TRUE
   debug                : FALSE
   instrument           : completion_data

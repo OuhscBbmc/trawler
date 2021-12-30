@@ -65,7 +65,9 @@ A *rule* is very exact.  Each record is examined, and determined if it passes ea
 Rule Summary
 -----------------------------
 ```{r table-rule-summary, echo = echo_chunks}
-ds_rule_summary <- checks$rules 
+ds_rule_summary <- 
+  checks$rules |> 
+  dplyr::arrange(.data$priority, .data$check_name) 
 
 ds_rule_summary |>
   dplyr::mutate(
