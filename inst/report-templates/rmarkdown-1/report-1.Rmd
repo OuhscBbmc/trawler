@@ -68,6 +68,9 @@ Rule Summary
 ds_rule_summary <- checks$rules 
 
 ds_rule_summary |>
+  dplyr::mutate(
+    check_name            = gsub("_", " ", check_name),
+  ) |> 
   dplyr::select(
     `Rule Name`           = .data$check_name,   
     `Priority`            = .data$priority,   
@@ -117,19 +120,34 @@ checks$rules |>
     # .data$debug,
     # .data$instrument,
     # .data$passing_test,
-    # .data$results
+    .data$results
   ) |> 
+  tidyr::unnest(results) |> 
   dplyr::mutate(
     # record_id         = sprintf(
     #   checks$link_specific,
     #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$instrument, .data$record_id
     # ),
-    check_name        = factor(.data$check_name),
+    check_name        = gsub("_", " ", .data$check_name),
+  ) |> 
+  dplyr::mutate(
+    # DT provides a drop down filter for factors.
+    check_name        = factor(.data$check_name), 
+    error_message     = factor(.data$error_message), 
+    data_collector    = factor(.data$data_collector),
+  ) |> 
+  dplyr::select(
+    `Rule Name`           = .data$check_name,   
+    `Priority`            = .data$priority,   
+    `Error Message`       = .data$error_message,   
+    `Record ID`           = .data$record_id,
+    `Data Collector`      = .data$data_collector,
+    `Baseline Date`       = .data$baseline_date,
   ) |> 
   {\(d)
     DT::datatable(
       data         = d,
-      colnames     = gsub("_", " ", colnames(d)),
+      # colnames     = gsub("_", " ", colnames(d)),
       filter       = "top",
       caption      = paste("Violations at", Sys.time()),
       escape       = FALSE,
@@ -149,7 +167,7 @@ checks$rules |>
 Smells {.tabset .tabset-fade}
 =============================
 
-A *smell* test won't validate a specific record (like the rules above), but it will make sure the dataset overall smells correct.
+A *smell* test won't validate a specific record (like the rules above), but it will make sure the dataset overall smells as expected.
 
 Smell Summary
 -----------------------------
