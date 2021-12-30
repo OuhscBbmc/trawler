@@ -17,39 +17,39 @@ redcap_codebook     : https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/Design/data_d
 smells:
 - check_name           : proportion_female_participants
   description          : Proportion female participants is half the participants till study conclusion
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
-  bound_lower          : .5
-  bound_upper          : .5
+  bound_lower          : .25
+  bound_upper          : .75
   bounds_template      : "[%.2f, %.2f]"
-  value_template       : "%.4f"
+  value_template       : "%.3f"
   equation             : |
     function (d) {
       mean(d$sex == "female", na.rm=T)
     }
 - check_name           : proportion_male_participants
   description          : Proportion male participants is half the participants till study conclusion
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
-  bound_lower          : .5
-  bound_upper          : .5
+  bound_lower          : .25
+  bound_upper          : .75
   bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates up to how many decimal points and "f" means string formatting.
-  value_template       : "%.4f"
+  value_template       : "%.3f"
   equation             : |
     function (d) {
       mean(d$sex == "male", na.rm=T)
     }
 - check_name           : mean_age
   description          : Mean age of participants is between 18 years to 20 years
-  priority             : 1
+  priority             : 2
   active               : TRUE
   debug                : FALSE
   bound_lower          : 20
   bound_upper          : 80
-  bounds_template      : "[%.2f, %.2f]"     # "%" indicates variable, ".2" indicates up to how many decimal points and "f" means string formatting.
-  value_template       : "%.4f"
+  bounds_template      : "[%.0f, %.0f]"     # "%" indicates variable, ".0" indicates up to how many decimal points and "f" means string formatting.
+  value_template       : "%.1f"
   equation             : |
     function (d) {
       mean(d$age, na.rm=T)

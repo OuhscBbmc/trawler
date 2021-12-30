@@ -1,6 +1,6 @@
 ---
 title: Trawler Report
-date: "Date: 2021-12-30 15:30:11"
+date: "Date: 2021-12-30 15:49:15"
 output:
   html_document:
     keep_md: yes
@@ -136,8 +136,8 @@ Rule Detail
 -----------------------------
 
 ```{=html}
-<div id="htmlwidget-cffa4ac79791596b302f" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cffa4ac79791596b302f">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td><\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;baseline_first_visit_lab_parameters&quot;,&quot;baseline_prealbumin_levels&quot;,&quot;daily_first_visit_lab_and_workup_parameters&quot;,&quot;daily_protein_intake&quot;,&quot;hospitalization_reason&quot;,&quot;missing_serum_marker_levels&quot;,&quot;npcr&quot;,&quot;npcr_comparison&quot;,&quot;optimal_daily_protein_intake&quot;,&quot;recommended_npcr_range&quot;,&quot;serum_prealbumin_levels_1&quot;,&quot;serum_prealbumin_levels_2&quot;,&quot;serum_prealbumin_levels_completion_data&quot;,&quot;serum_prealbumin_levels_expectations&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"disabled\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","caption":"<caption>Violations at 2021-12-30 15:30:12<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],["baseline_prealbumin_levels","missing_serum_marker_levels","serum_prealbumin_levels_1","serum_prealbumin_levels_2","serum_prealbumin_levels_completion_data","serum_prealbumin_levels_expectations","baseline_first_visit_lab_parameters","daily_first_visit_lab_and_workup_parameters","daily_protein_intake","hospitalization_reason","optimal_daily_protein_intake","recommended_npcr_range","npcr","npcr_comparison"],["Serum pre-albumin level of all enrolled patients do not meet the study criterion","Relevant nutritional serum markers are missing","Baseline prealbumin levels are not missing however levels were not carefully monitored in the subsequent visit","Baseline prealbumin levels and pre-albumin levels during the 1st visit are not missing however levels in the next reading are missing","Baseline prealbumin levels are not missing however readings are not carefully monitored at completion","serum prealbumin levels are not missing however subsequent readings did not come as expected","Serum prealbumin levels are low and protein intake at baseline is less than optimal","In-addition to baseline & visit lab protein parameters, blood work-up npcr levels are also low","npcr levels in study have not improved as intended","Patient was hospitalized but reason and the date of hospitalization is missing","Daily protein intake is optimal but one of the nutritional marker is not within the normal range","NPCR values are not within the recommended range at completion","NPCR at completion is missing","NPCR at completion is not greater than npcr at baseline"],[1,1,1,1,1,1,1,1,1,1,1,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>check name<\/th>\n      <th>error message<\/th>\n      <th>priority<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":30,"dom":"tip","initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#555', 'color': '#fff'});\n}","columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[10,25,30,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+<div id="htmlwidget-f72a87238d1f0fab0e97" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f72a87238d1f0fab0e97">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td><\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;baseline_first_visit_lab_parameters&quot;,&quot;baseline_prealbumin_levels&quot;,&quot;daily_first_visit_lab_and_workup_parameters&quot;,&quot;daily_protein_intake&quot;,&quot;hospitalization_reason&quot;,&quot;missing_serum_marker_levels&quot;,&quot;npcr&quot;,&quot;npcr_comparison&quot;,&quot;optimal_daily_protein_intake&quot;,&quot;recommended_npcr_range&quot;,&quot;serum_prealbumin_levels_1&quot;,&quot;serum_prealbumin_levels_2&quot;,&quot;serum_prealbumin_levels_completion_data&quot;,&quot;serum_prealbumin_levels_expectations&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"disabled\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","caption":"<caption>Violations at 2021-12-30 15:49:16<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],["baseline_prealbumin_levels","missing_serum_marker_levels","serum_prealbumin_levels_1","serum_prealbumin_levels_2","serum_prealbumin_levels_completion_data","serum_prealbumin_levels_expectations","baseline_first_visit_lab_parameters","daily_first_visit_lab_and_workup_parameters","daily_protein_intake","hospitalization_reason","optimal_daily_protein_intake","recommended_npcr_range","npcr","npcr_comparison"],["Serum pre-albumin level of all enrolled patients do not meet the study criterion","Relevant nutritional serum markers are missing","Baseline prealbumin levels are not missing however levels were not carefully monitored in the subsequent visit","Baseline prealbumin levels and pre-albumin levels during the 1st visit are not missing however levels in the next reading are missing","Baseline prealbumin levels are not missing however readings are not carefully monitored at completion","serum prealbumin levels are not missing however subsequent readings did not come as expected","Serum prealbumin levels are low and protein intake at baseline is less than optimal","In-addition to baseline & visit lab protein parameters, blood work-up npcr levels are also low","npcr levels in study have not improved as intended","Patient was hospitalized but reason and the date of hospitalization is missing","Daily protein intake is optimal but one of the nutritional marker is not within the normal range","NPCR values are not within the recommended range at completion","NPCR at completion is missing","NPCR at completion is not greater than npcr at baseline"],[1,1,1,1,1,1,1,1,1,1,1,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>check name<\/th>\n      <th>error message<\/th>\n      <th>priority<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":30,"dom":"tip","initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#555', 'color': '#fff'});\n}","columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[10,25,30,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
 ```
 
 Smells {.tabset .tabset-fade}
@@ -192,14 +192,6 @@ Smell Summary
    <td style="text-align:left;color: #555 !important;"> TRUE </td>
   </tr>
   <tr>
-   <td style="text-align:left;color: #555 !important;"> mean age </td>
-   <td style="text-align:right;color: #555 !important;"> 1 </td>
-   <td style="text-align:left;color: #555 !important;"> Mean age of participants is between 18 years to 20 years </td>
-   <td style="text-align:left;color: #555 !important;"> [20.00, 80.00] </td>
-   <td style="text-align:right;color: #555 !important;"> 44.3889 </td>
-   <td style="text-align:left;color: #555 !important;"> TRUE </td>
-  </tr>
-  <tr>
    <td style="text-align:left;color: #555 !important;"> mean serum cholesterol levels at baseline </td>
    <td style="text-align:right;color: #555 !important;"> 1 </td>
    <td style="text-align:left;color: #555 !important;"> Average Cholesterol levels range is between 100mg/dl-140mg/dl at baseline level </td>
@@ -240,20 +232,28 @@ Smell Summary
    <td style="text-align:left;color: #555 !important;"> TRUE </td>
   </tr>
   <tr>
-   <td style="text-align:left;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> proportion female participants </td>
-   <td style="text-align:right;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> 1 </td>
-   <td style="text-align:left;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> Proportion female participants is half the participants till study conclusion </td>
-   <td style="text-align:left;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> [0.50, 0.50] </td>
-   <td style="text-align:right;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> 0.4444 </td>
-   <td style="text-align:left;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> FALSE </td>
+   <td style="text-align:left;color: #555 !important;"> mean age </td>
+   <td style="text-align:right;color: #555 !important;"> 2 </td>
+   <td style="text-align:left;color: #555 !important;"> Mean age of participants is between 18 years to 20 years </td>
+   <td style="text-align:left;color: #555 !important;"> [20, 80] </td>
+   <td style="text-align:right;color: #555 !important;"> 44.4 </td>
+   <td style="text-align:left;color: #555 !important;"> TRUE </td>
   </tr>
   <tr>
-   <td style="text-align:left;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> proportion male participants </td>
-   <td style="text-align:right;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> 1 </td>
-   <td style="text-align:left;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> Proportion male participants is half the participants till study conclusion </td>
-   <td style="text-align:left;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> [0.50, 0.50] </td>
-   <td style="text-align:right;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> 0.5556 </td>
-   <td style="text-align:left;color: #555 !important;font-weight: bold;background-color: #f1b6da !important;"> FALSE </td>
+   <td style="text-align:left;color: #555 !important;"> proportion female participants </td>
+   <td style="text-align:right;color: #555 !important;"> 2 </td>
+   <td style="text-align:left;color: #555 !important;"> Proportion female participants is half the participants till study conclusion </td>
+   <td style="text-align:left;color: #555 !important;"> [0.25, 0.75] </td>
+   <td style="text-align:right;color: #555 !important;"> 0.444 </td>
+   <td style="text-align:left;color: #555 !important;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #555 !important;"> proportion male participants </td>
+   <td style="text-align:right;color: #555 !important;"> 2 </td>
+   <td style="text-align:left;color: #555 !important;"> Proportion male participants is half the participants till study conclusion </td>
+   <td style="text-align:left;color: #555 !important;"> [0.25, 0.75] </td>
+   <td style="text-align:right;color: #555 !important;"> 0.556 </td>
+   <td style="text-align:left;color: #555 !important;"> TRUE </td>
   </tr>
 </tbody>
 </table>
