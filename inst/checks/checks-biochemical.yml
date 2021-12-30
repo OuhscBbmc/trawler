@@ -26,7 +26,7 @@ smells:
   value_template       : "%.3f"
   equation             : |
     function (d) {
-      mean(d$sex == "female", na.rm=T)
+      mean(d$sex == "female", na.rm = TRUE)
     }
 - check_name           : proportion_male_participants
   description          : Proportion male participants is half the participants till study conclusion
@@ -39,7 +39,7 @@ smells:
   value_template       : "%.3f"
   equation             : |
     function (d) {
-      mean(d$sex == "male", na.rm=T)
+      mean(d$sex == "male", na.rm = TRUE)
     }
 - check_name           : mean_age
   description          : Mean age of participants is between 18 years to 20 years
@@ -52,7 +52,7 @@ smells:
   value_template       : "%.1f"
   equation             : |
     function (d) {
-      mean(d$age, na.rm=T)
+      mean(d$age, na.rm = TRUE)
     }
 - check_name           : mean_serum_prealbumin_level_at_baseline
   description          : Mean serum pre-albumin levels at baseline are between 31mg/dl and 39mg/dl
@@ -65,7 +65,7 @@ smells:
   value_template       : "%.1f"
   equation             : |
     function (d) {
-      mean(d$baseline_prealbumin_level, na.rm=T)
+      mean(d$baseline_prealbumin_level, na.rm = TRUE)
     }
 - check_name           : mean_serum_creatinine_level_at_baseline
   description          : Mean serum creatinine levels at baseline are between 3mg/dl and 15mg/dl
@@ -78,7 +78,7 @@ smells:
   value_template       : "%.1f"
   equation             : |
     function (d) {
-      mean(d$baseline_creatinine_level, na.rm=T)
+      mean(d$baseline_creatinine_level, na.rm = TRUE)
     }
 - check_name           : average_bmi_at_baseline
   description          : Average BMI is between 18 and 24
@@ -91,7 +91,7 @@ smells:
   value_template       : "%.1f"
   equation             : |
     function (d) {
-      mean(d$baseline_bmi, na.rm=T)
+      mean(d$baseline_bmi, na.rm = TRUE)
     }
 - check_name           : mean_serum_cholesterol_levels_at_baseline
   description          : Average Cholesterol levels range is between 100mg/dl-140mg/dl at baseline level
@@ -104,7 +104,7 @@ smells:
   value_template       : "%.1f"
   equation             : |
     function (d) {
-      mean(d$baseline_cholesterol, na.rm=T)
+      mean(d$baseline_cholesterol, na.rm = TRUE)
     }
 - check_name           : dialysis_adequacy
   description          : Normal range for Kt/V values are between 1.2 and 5
@@ -117,7 +117,7 @@ smells:
   value_template       : "%.2f"
   equation             : |
     function (d) {
-      mean(d$completion_project_questionnaire_ktv_value, na.rm=T)
+      mean(d$completion_project_questionnaire_ktv_value, na.rm = TRUE)
     }
 - check_name           : average_serum_ferritin_levels_at_baseline
   description          : Mean serum ferritin levels are in the recommended range of > 500ng/dl-1200ng/dl
@@ -130,7 +130,7 @@ smells:
   value_template       : "%.1f"
   equation             : |
     function (d) {
-      mean(d$baseline_ferritin_level, na.rm=T)
+      mean(d$baseline_ferritin_level, na.rm = TRUE)
     }
 - check_name           : nutritional_counseling
   description          : Most patients agreed to receiving nutritional counseling
@@ -143,7 +143,7 @@ smells:
   value_template       : "%.3f"
   equation             : |
     function (d) {
-      mean(d$nutritional_counseling, na.rm=T)
+      mean(d$nutritional_counseling, na.rm = TRUE)
     }
 - check_name           : definitive_diagnosis
   description          : All study participants were diagnosed with malnutrition associated with Chronic Renal Disease
@@ -156,7 +156,7 @@ smells:
   value_template       : "%.2f"
   equation             : |
     function (d) {
-      mean(d$differential_diagnoses_malnutrition, na.rm=T)
+      mean(d$differential_diagnoses_malnutrition, na.rm = TRUE)
     }
 - check_name           : normalized_protein_catabolic_rate
   description          : Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
@@ -169,7 +169,7 @@ smells:
   value_template       : "%.3f"
   equation             : |
     function (d) {
-      mean(d$baseline_normalized_protein_catabolic_rate, na.rm=T)
+      mean(d$baseline_normalized_protein_catabolic_rate, na.rm = TRUE)
     }
 
 rules:

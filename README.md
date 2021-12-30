@@ -54,45 +54,46 @@ trawler::execute_checks(ds_pt_event, checks)
 #> # A tibble: 12 × 12
 #>    check_name     pass  description       priority debug bound_lower bound_upper
 #>    <chr>          <lgl> <chr>                <int> <lgl>       <dbl>       <dbl>
-#>  1 proportion_fe… FALSE Proportion femal…        1 FALSE        0.5         0.5 
-#>  2 proportion_ma… FALSE Proportion male …        1 FALSE        0.5         0.5 
-#>  3 mean_age       TRUE  Mean age of part…        1 FALSE       20          80   
+#>  1 proportion_fe… TRUE  Proportion femal…        2 FALSE        0.25        0.75
+#>  2 proportion_ma… TRUE  Proportion male …        2 FALSE        0.25        0.75
+#>  3 mean_age       TRUE  Mean age of part…        2 FALSE       20          80   
 #>  4 mean_serum_pr… FALSE Mean serum pre-a…        1 FALSE       32          39   
 #>  5 mean_serum_cr… FALSE Mean serum creat…        1 FALSE        3          15   
-#>  6 average_bmi_a… FALSE Average BMI is b…        1 FALSE       18          24   
+#>  6 average_bmi_a… FALSE Average BMI is b…        2 FALSE       18          24   
 #>  7 mean_serum_ch… TRUE  Average Choleste…        1 FALSE      100         140   
 #>  8 dialysis_adeq… TRUE  Normal range for…        1 FALSE        1.2         5   
 #>  9 average_serum… TRUE  Mean serum ferri…        1 FALSE      501        1200   
-#> 10 nutritional_c… TRUE  Most patients ag…        1 FALSE        0.85        0.99
-#> 11 definitive_di… TRUE  A 100 percent of…        1 FALSE        1           1   
+#> 10 nutritional_c… TRUE  Most patients ag…        2 FALSE        0.85        0.99
+#> 11 definitive_di… TRUE  All study partic…        1 FALSE        1           1   
 #> 12 normalized_pr… FALSE Average Normaliz…        1 FALSE        0           0.12
 #> # … with 5 more variables: bounds_template <chr>, value_template <chr>,
 #> #   equation <chr>, boundaries <chr>, value <dbl>
 #> 
 #> $smell_status
-#> [1] "12 smells have been sniffed.  6 violation(s) were found."
+#> [1] "12 smells have been sniffed.  4 violation(s) were found."
 #> 
 #> $rules
-#> # A tibble: 14 × 7
-#>    check_name  error_message   priority debug instrument   passing_test  results
-#>    <chr>       <chr>              <int> <lgl> <chr>        <chr>         <list> 
-#>  1 baseline_p… Serum pre-albu…        1 FALSE baseline_da… "function (d… <tibbl…
-#>  2 missing_se… Relevant nutri…        1 FALSE baseline_da… "function (d… <tibbl…
-#>  3 serum_prea… Baseline preal…        1 FALSE baseline_da… "function (d… <tibbl…
-#>  4 serum_prea… Baseline preal…        1 FALSE baseline_da… "function (d… <NULL> 
-#>  5 serum_prea… Baseline preal…        1 FALSE baseline_da… "function (d… <NULL> 
-#>  6 serum_prea… serum prealbum…        1 FALSE baseline_da… "function (d… <NULL> 
-#>  7 baseline_f… Serum prealbum…        1 FALSE baseline_da… "function (d… <NULL> 
-#>  8 daily_firs… In-addition to…        1 FALSE baseline_da… "function (d… <NULL> 
-#>  9 daily_prot… npcr levels in…        1 FALSE baseline_da… "function (d… <NULL> 
-#> 10 hospitaliz… Patient was ho…        1 FALSE completion_… "function (d… <tibbl…
-#> 11 optimal_da… Daily protein …        1 FALSE completion_… "function (d… <tibbl…
-#> 12 recommende… NPCR values ar…        1 FALSE completion_… "function (d… <tibbl…
-#> 13 npcr        NPCR at comple…        1 FALSE completion_… "function (d… <tibbl…
-#> 14 npcr_compa… NPCR at comple…        1 FALSE completion_… "function (d… <tibbl…
+#> # A tibble: 14 × 8
+#>    check_name    violation_count error_message     priority debug instrument    
+#>    <chr>                   <int> <chr>                <int> <lgl> <chr>         
+#>  1 baseline_pre…              10 Serum pre-albumi…        1 FALSE baseline_data 
+#>  2 missing_seru…               3 Relevant nutriti…        1 FALSE baseline_data 
+#>  3 serum_prealb…              15 Baseline prealbu…        1 FALSE baseline_data…
+#>  4 serum_prealb…               0 Baseline prealbu…        1 FALSE baseline_data…
+#>  5 serum_prealb…               0 Baseline prealbu…        1 FALSE baseline_data…
+#>  6 serum_prealb…               0 serum prealbumin…        1 FALSE baseline_data…
+#>  7 baseline_fir…               0 Serum prealbumin…        1 FALSE baseline_data…
+#>  8 daily_first_…               0 In-addition to b…        1 FALSE baseline_data…
+#>  9 daily_protei…               0 npcr levels in s…        1 FALSE baseline_data…
+#> 10 hospitalizat…               2 Patient was hosp…        1 FALSE completion_pr…
+#> 11 optimal_dail…               7 Daily protein in…        1 FALSE completion_pr…
+#> 12 recommended_…              10 NPCR values are …        1 FALSE completion_da…
+#> 13 npcr                        1 NPCR at completi…        1 FALSE completion_da…
+#> 14 npcr_compari…               2 NPCR at completi…        1 FALSE completion_da…
+#> # … with 2 more variables: passing_test <chr>, results <list>
 #> 
 #> $rule_status
-#> [1] "14 rules were examined. 8 rule(s) had at least 1 violation. 47 total violation(s) were found."
+#> [1] "14 rules were examined. 8 rule(s) had at least 1 violation. 50 total violation(s) were found."
 #> 
 #> attr(,"class")
 #> [1] "trawler_checks"

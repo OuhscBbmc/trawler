@@ -22,7 +22,7 @@ useful too.  Required.}
 \item{path_template}{The
 \href{https://rmarkdown.rstudio.com/articles_intro.html}{rmd file},
 which serves as the report template.  Defaults to the
-\href{https://github.com/OuhscBbmc/trawler/tree/main/inst/report-templates/rmarkdown-1/report-1.Rmd}{standard template}
+\href{https://github.com/OuhscBbmc/trawler/blob/main/inst/report-templates/rmarkdown-1/report-1.Rmd}{standard template}
 built into the trawler package.}
 }
 \description{

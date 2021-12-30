@@ -93,19 +93,19 @@
       10        2 FALSE        0.85        0.99    [%.2f, %.2f]           %.3f
       11        1 FALSE        1.00        1.00    [%.2f, %.2f]           %.2f
       12        1 FALSE        0.00        0.12    [%.2f, %.2f]           %.3f
-                                                                                   equation
-      1                             function (d) {\n  mean(d$sex == "female", na.rm=T)\n}\n
-      2                               function (d) {\n  mean(d$sex == "male", na.rm=T)\n}\n
-      3                                         function (d) {\n  mean(d$age, na.rm=T)\n}\n
-      4                   function (d) {\n  mean(d$baseline_prealbumin_level, na.rm=T)\n}\n
-      5                   function (d) {\n  mean(d$baseline_creatinine_level, na.rm=T)\n}\n
-      6                                function (d) {\n  mean(d$baseline_bmi, na.rm=T)\n}\n
-      7                        function (d) {\n  mean(d$baseline_cholesterol, na.rm=T)\n}\n
-      8  function (d) {\n  mean(d$completion_project_questionnaire_ktv_value, na.rm=T)\n}\n
-      9                     function (d) {\n  mean(d$baseline_ferritin_level, na.rm=T)\n}\n
-      10                     function (d) {\n  mean(d$nutritional_counseling, na.rm=T)\n}\n
-      11        function (d) {\n  mean(d$differential_diagnoses_malnutrition, na.rm=T)\n}\n
-      12 function (d) {\n  mean(d$baseline_normalized_protein_catabolic_rate, na.rm=T)\n}\n
+                                                                                        equation
+      1                             function (d) {\n  mean(d$sex == "female", na.rm = TRUE)\n}\n
+      2                               function (d) {\n  mean(d$sex == "male", na.rm = TRUE)\n}\n
+      3                                         function (d) {\n  mean(d$age, na.rm = TRUE)\n}\n
+      4                   function (d) {\n  mean(d$baseline_prealbumin_level, na.rm = TRUE)\n}\n
+      5                   function (d) {\n  mean(d$baseline_creatinine_level, na.rm = TRUE)\n}\n
+      6                                function (d) {\n  mean(d$baseline_bmi, na.rm = TRUE)\n}\n
+      7                        function (d) {\n  mean(d$baseline_cholesterol, na.rm = TRUE)\n}\n
+      8  function (d) {\n  mean(d$completion_project_questionnaire_ktv_value, na.rm = TRUE)\n}\n
+      9                     function (d) {\n  mean(d$baseline_ferritin_level, na.rm = TRUE)\n}\n
+      10                     function (d) {\n  mean(d$nutritional_counseling, na.rm = TRUE)\n}\n
+      11        function (d) {\n  mean(d$differential_diagnoses_malnutrition, na.rm = TRUE)\n}\n
+      12 function (d) {\n  mean(d$baseline_normalized_protein_catabolic_rate, na.rm = TRUE)\n}\n
            boundaries
       1  [0.25, 0.75]
       2  [0.25, 0.75]
