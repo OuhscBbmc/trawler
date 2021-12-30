@@ -188,10 +188,10 @@
       13                                                    completion_data
       14                                                    completion_data
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               passing_test
-      1                                                                                                                                                                                                                                                                                                                                                                   function (d) {\n  dplyr::if_else(\n    !is.na(d$date_enrolled),\n    (30 < d$baseline_prealbumin_level &  d$baseline_prealbumin_level < 40),\n    TRUE\n  )\n}\n
-      2                                                                                                                                                                                                                                                                                                                         function (d) {\n  dplyr::if_else(\n    !is.na(d$date_enrolled),\n    !is.na(d$baseline_prealbumin_level) & !is.na(d$baseline_creatinine_level) & !is.na(d$baseline_transferrin_level),\n    TRUE\n  )\n}\n
-      3                                                                                                                                                                                                                                                                                 function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level),\n    !is.na(d$visit_lab_prealbumin_level),\n    TRUE\n  )\n}\n
-      4                                                                                                                                                                                                                                    function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level),\n    !is.na(d$visit_blood_workup_prealbumin_level),\n    TRUE\n  )\n}\n
+      1                                                                                                                                                                                                                                                                                                                                                                                      function (d) {\n  dplyr::if_else(\n    !is.na(d$date_enrolled),\n    dplyr::between(d$baseline_prealbumin_level, 30, 40),\n    TRUE\n  )\n}\n
+      2                                                                                                                                                                                                                                                                                           function (d) {\n  dplyr::if_else(\n    !is.na(d$date_enrolled),\n    (\n      !is.na(d$baseline_prealbumin_level) &\n      !is.na(d$baseline_creatinine_level) &\n      !is.na(d$baseline_transferrin_level)\n    ),\n    TRUE\n  )\n}\n
+      3                                                                                                                                                                                                                                                          function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n    (\n      d$redcap_event_name %in% events_to_check &\n      !is.na(d$baseline_prealbumin_level)\n    ),\n    !is.na(d$visit_lab_prealbumin_level),\n    TRUE\n  )\n}\n
+      4                                                                                                                                                                                                      function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")\n  dplyr::if_else(\n    (\n      d$redcap_event_name %in% events_to_check &\n      !is.na(d$baseline_prealbumin_level) &\n      !is.na(d$visit_lab_prealbumin_level)\n    ),\n    !is.na(d$visit_blood_workup_prealbumin_level),\n    TRUE\n  )\n}\n
       5                                                                                                                             function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  dplyr::if_else(\n    (\n      d$redcap_event_name %in% events_to_check &\n      !is.na(d$baseline_prealbumin_level) &\n      !is.na(d$visit_lab_prealbumin_level) &\n      !is.na(d$visit_blood_workup_prealbumin_level)\n    ),\n    !is.na(d$completion_data_prealbumin_level),\n    TRUE\n  )\n}\n
       6                                                function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  dplyr::if_else(\n    (\n      d$redcap_event_name %in% events_to_check &\n      !is.na(d$baseline_prealbumin_level) &\n      !is.na(d$visit_lab_prealbumin_level) &\n      !is.na(d$visit_blood_workup_prealbumin_level) &\n      !is.na(d$completion_data_prealbumin_level)\n    ),\n    (d$visit_lab_prealbumin_level < d$completion_data_prealbumin_level),\n    TRUE\n  )\n}\n
       7                                                                                                                                                               function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n    (\n      d$redcap_event_name %in% events_to_check &\n      (d$baseline_prealbumin_level < 30) &\n      (d$baseline_normalized_protein_catabolic_rate < 1.2)\n    ),\n    (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),\n    TRUE\n  )\n}\n
@@ -208,7 +208,7 @@
     Code
       ds_result_unnested
     Output
-      # A tibble: 52 x 4
+      # A tibble: 50 x 4
          check_name                 record_id data_collector baseline_date
          <chr>                          <int>          <int> <date>       
        1 baseline_prealbumin_levels         1              1 2015-01-02   
@@ -220,8 +220,8 @@
        7 baseline_prealbumin_levels        13              1 2015-03-15   
        8 baseline_prealbumin_levels        14              1 2015-03-10   
        9 baseline_prealbumin_levels        15              3 2015-03-03   
-      10 baseline_prealbumin_levels        16              2 2015-03-09   
-      # ... with 42 more rows
+      10 baseline_prealbumin_levels       100              1 2015-04-02   
+      # ... with 40 more rows
 
 ---
 
@@ -238,54 +238,52 @@
       7    baseline_prealbumin_levels        13              1    2015-03-15
       8    baseline_prealbumin_levels        14              1    2015-03-10
       9    baseline_prealbumin_levels        15              3    2015-03-03
-      10   baseline_prealbumin_levels        16              2    2015-03-09
-      11   baseline_prealbumin_levels       100              1    2015-04-02
-      12   baseline_prealbumin_levels       220              1    2015-04-02
-      13  missing_serum_marker_levels         7              2    2015-01-27
-      14  missing_serum_marker_levels        10            255    2015-02-13
-      15  missing_serum_marker_levels        11              2    2015-02-19
-      16    serum_prealbumin_levels_1         1              1    2015-01-02
-      17    serum_prealbumin_levels_1         2              2    2015-01-02
-      18    serum_prealbumin_levels_1         3              3    2015-01-05
-      19    serum_prealbumin_levels_1         4            255    2015-01-10
-      20    serum_prealbumin_levels_1         5              1    2015-01-13
-      21    serum_prealbumin_levels_1         6              3    2015-01-16
-      22    serum_prealbumin_levels_1         8              1    2015-02-03
-      23    serum_prealbumin_levels_1         9              3    2015-02-08
-      24    serum_prealbumin_levels_1        12              3    2015-03-06
-      25    serum_prealbumin_levels_1        13              1    2015-03-15
-      26    serum_prealbumin_levels_1        14              1    2015-03-10
-      27    serum_prealbumin_levels_1        15              3    2015-03-03
-      28    serum_prealbumin_levels_1        16              2    2015-03-09
-      29    serum_prealbumin_levels_1       100              1    2015-04-02
-      30    serum_prealbumin_levels_1       220              1    2015-04-02
-      31       hospitalization_reason         8             NA          <NA>
-      32       hospitalization_reason        14             NA          <NA>
-      33 optimal_daily_protein_intake         5             NA          <NA>
-      34 optimal_daily_protein_intake         6             NA          <NA>
-      35 optimal_daily_protein_intake         7             NA          <NA>
-      36 optimal_daily_protein_intake         8             NA          <NA>
-      37 optimal_daily_protein_intake        11             NA          <NA>
-      38 optimal_daily_protein_intake        15             NA          <NA>
-      39 optimal_daily_protein_intake       100             NA          <NA>
-      40       recommended_npcr_range         1             NA          <NA>
-      41       recommended_npcr_range         6             NA          <NA>
-      42       recommended_npcr_range         7             NA          <NA>
-      43       recommended_npcr_range         8             NA          <NA>
-      44       recommended_npcr_range        12             NA          <NA>
-      45       recommended_npcr_range        13             NA          <NA>
-      46       recommended_npcr_range        14             NA          <NA>
-      47       recommended_npcr_range        16             NA          <NA>
-      48       recommended_npcr_range       100             NA          <NA>
-      49       recommended_npcr_range       220             NA          <NA>
-      50                         npcr        10             NA          <NA>
-      51              npcr_comparison         1             NA          <NA>
-      52              npcr_comparison        12             NA          <NA>
+      10   baseline_prealbumin_levels       100              1    2015-04-02
+      11  missing_serum_marker_levels         7              2    2015-01-27
+      12  missing_serum_marker_levels        10            255    2015-02-13
+      13  missing_serum_marker_levels        11              2    2015-02-19
+      14    serum_prealbumin_levels_1         1              1    2015-01-02
+      15    serum_prealbumin_levels_1         2              2    2015-01-02
+      16    serum_prealbumin_levels_1         3              3    2015-01-05
+      17    serum_prealbumin_levels_1         4            255    2015-01-10
+      18    serum_prealbumin_levels_1         5              1    2015-01-13
+      19    serum_prealbumin_levels_1         6              3    2015-01-16
+      20    serum_prealbumin_levels_1         8              1    2015-02-03
+      21    serum_prealbumin_levels_1         9              3    2015-02-08
+      22    serum_prealbumin_levels_1        12              3    2015-03-06
+      23    serum_prealbumin_levels_1        13              1    2015-03-15
+      24    serum_prealbumin_levels_1        14              1    2015-03-10
+      25    serum_prealbumin_levels_1        15              3    2015-03-03
+      26    serum_prealbumin_levels_1        16              2    2015-03-09
+      27    serum_prealbumin_levels_1       100              1    2015-04-02
+      28    serum_prealbumin_levels_1       220              1    2015-04-02
+      29       hospitalization_reason         8             NA          <NA>
+      30       hospitalization_reason        14             NA          <NA>
+      31 optimal_daily_protein_intake         5             NA          <NA>
+      32 optimal_daily_protein_intake         6             NA          <NA>
+      33 optimal_daily_protein_intake         7             NA          <NA>
+      34 optimal_daily_protein_intake         8             NA          <NA>
+      35 optimal_daily_protein_intake        11             NA          <NA>
+      36 optimal_daily_protein_intake        15             NA          <NA>
+      37 optimal_daily_protein_intake       100             NA          <NA>
+      38       recommended_npcr_range         1             NA          <NA>
+      39       recommended_npcr_range         6             NA          <NA>
+      40       recommended_npcr_range         7             NA          <NA>
+      41       recommended_npcr_range         8             NA          <NA>
+      42       recommended_npcr_range        12             NA          <NA>
+      43       recommended_npcr_range        13             NA          <NA>
+      44       recommended_npcr_range        14             NA          <NA>
+      45       recommended_npcr_range        16             NA          <NA>
+      46       recommended_npcr_range       100             NA          <NA>
+      47       recommended_npcr_range       220             NA          <NA>
+      48                         npcr        10             NA          <NA>
+      49              npcr_comparison         1             NA          <NA>
+      50              npcr_comparison        12             NA          <NA>
 
 ---
 
     Code
       result$rule_status
     Output
-      [1] "14 rules were examined. 8 rule(s) had at least 1 violation. 52 total violation(s) were found."
+      [1] "14 rules were examined. 8 rule(s) had at least 1 violation. 50 total violation(s) were found."
 
