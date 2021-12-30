@@ -240,8 +240,12 @@ rules:
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
       dplyr::if_else(
-        d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level)
-        & !is.na(d$visit_blood_workup_prealbumin_level),
+        (
+          d$redcap_event_name %in% events_to_check &
+          !is.na(d$baseline_prealbumin_level) &
+          !is.na(d$visit_lab_prealbumin_level) &
+          !is.na(d$visit_blood_workup_prealbumin_level)
+        ),
         !is.na(d$completion_data_prealbumin_level),
         TRUE
       )
@@ -256,9 +260,14 @@ rules:
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
       dplyr::if_else(
-        d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level) &
-        !is.na(d$visit_blood_workup_prealbumin_level) & !is.na(d$completion_data_prealbumin_level),
-        (d$completion_data_prealbumin_level > d$visit_lab_prealbumin_level),
+        (
+          d$redcap_event_name %in% events_to_check &
+          !is.na(d$baseline_prealbumin_level) &
+          !is.na(d$visit_lab_prealbumin_level) &
+          !is.na(d$visit_blood_workup_prealbumin_level) &
+          !is.na(d$completion_data_prealbumin_level)
+        ),
+        (d$visit_lab_prealbumin_level < d$completion_data_prealbumin_level),
         TRUE
       )
     }
@@ -288,8 +297,11 @@ rules:
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
       dplyr::if_else(
+        (
           d$redcap_event_name %in% events_to_check &
-        (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2),
+          (d$baseline_prealbumin_level < 30) &
+          (d$baseline_normalized_protein_catabolic_rate < 1.2)
+        ),
         (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),
         TRUE
       )
