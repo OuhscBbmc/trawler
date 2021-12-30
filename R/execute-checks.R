@@ -206,6 +206,9 @@ execute_rules <- function (ds, checks) {
     dplyr::group_by(.data$check_name) |>
     tidyr::nest(
       results = -.data$check_name
+    ) |>
+    dplyr::mutate(
+      violation_count = purrr::map_int(.data$results, nrow)
     )
 
     rule_status <-
@@ -213,7 +216,7 @@ execute_rules <- function (ds, checks) {
         "%i rules were examined. %i rule(s) had at least 1 violation. %i total violation(s) were found.",
         nrow(checks$rules),
         length(ds_rule_results$results),
-        sum(purrr::map_int(ds_rule_results$results, nrow))
+        sum(ds_rule_results$violation_count)
       )
 
   checks$rules <-

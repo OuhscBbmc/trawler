@@ -104,7 +104,7 @@
     Code
       result$rules
     Output
-      # A tibble: 14 x 7
+      # A tibble: 14 x 8
          check_name  error_message   priority debug instrument   passing_test  results
          <chr>       <chr>              <int> <lgl> <chr>        <chr>         <list> 
        1 baseline_p~ Serum pre-albu~        1 FALSE baseline_da~ "function (d~ <tibbl~
@@ -121,6 +121,7 @@
       12 recommende~ NPCR values ar~        1 FALSE completion_~ "function (d~ <tibbl~
       13 npcr        NPCR at comple~        1 FALSE completion_~ "function (d~ <tibbl~
       14 npcr_compa~ NPCR at comple~        1 FALSE completion_~ "function (d~ <tibbl~
+      # ... with 1 more variable: violation_count <int>
 
 ---
 
@@ -202,6 +203,21 @@
       12                                                                                                                                                                                                                                                                                                                                                                                                                                                           function (d) {\n  dplyr::between(d$completion_data_npcr, 1.2, 1.4)\n}\n
       13                                 function (d) {\n  events_to_check <- c("final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check,\n    !is.na(d$completion_data_npcr),                                                                # If this row exists in the desired event, then check for nonmissingness.\n    TRUE                                                                                           # Otherwise, the test passes for rows associated with all other events.\n  )\n}\n
       14                                                                                                                                                                                                                                                                                                                                                                                      function (d) {\n  dplyr::if_else(\n    !is.na(d$completion_data_npcr),\n    (d$npcr_at_baseline < d$completion_data_npcr),\n    TRUE\n  )\n}
+         violation_count
+      1               10
+      2                3
+      3               15
+      4               NA
+      5               NA
+      6               NA
+      7               NA
+      8               NA
+      9               NA
+      10               2
+      11               7
+      12              10
+      13               1
+      14               2
 
 ---
 
