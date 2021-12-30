@@ -304,10 +304,13 @@ rules:
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
       dplyr::if_else(
-        d$redcap_event_name %in% events_to_check &
-        (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
-        (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),
-        (d$visit_lab_npcr <= d$visit_blood_workup_npcr),
+        (
+          (d$redcap_event_name %in% events_to_check) &
+          (d$baseline_prealbumin_level < 30) &
+          (d$baseline_normalized_protein_catabolic_rate < 1.2) &
+          (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr)
+        ),
+        d$visit_lab_npcr <= d$visit_blood_workup_npcr,
         TRUE
       )
     }
@@ -321,11 +324,14 @@ rules:
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
       dplyr::if_else(
-        d$redcap_event_name %in% events_to_check &
-        (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &
-        (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr) &
-        (d$visit_lab_npcr <= d$visit_blood_workup_npcr),
-        (d$visit_blood_workup_npcr< d$completion_data_npcr),
+        (
+          (d$redcap_event_name %in% events_to_check) &
+          (d$baseline_prealbumin_level < 30) &
+          (d$baseline_normalized_protein_catabolic_rate < 1.2) &
+          (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr) &
+          (d$visit_lab_npcr <= d$visit_blood_workup_npcr)
+        ),
+        d$visit_blood_workup_npcr < d$completion_data_npcr,
         TRUE
       )
     }
@@ -353,7 +359,7 @@ rules:
     function (d) {
       dplyr::if_else(
         d$completion_data_npcr >= 1.2,
-        d$completion_data_prealbumin_level > 30 & d$completion_data_prealbumin_level < 40,
+        dplyr::between(d$completion_data_prealbumin_level, 30, 40),
         TRUE
       )
     }
@@ -365,7 +371,7 @@ rules:
   instrument           : completion_data                                                              # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
   passing_test         : |
     function (d) {
-        ( 1.4 <= d$completion_data_npcr | d$completion_data_npcr >= 1.2)
+      dplyr::between(d$completion_data_npcr, 1.2, 1.4)
     }
 - check_name           : npcr
   error_message        : "NPCR at completion is missing"
@@ -391,8 +397,8 @@ rules:
   passing_test         : |
     function (d) {
       dplyr::if_else(
-      !is.na(d$completion_data_npcr),
-      (d$npcr_at_baseline < d$completion_data_npcr),
-      TRUE
+        !is.na(d$completion_data_npcr),
+        (d$npcr_at_baseline < d$completion_data_npcr),
+        TRUE
       )
     }

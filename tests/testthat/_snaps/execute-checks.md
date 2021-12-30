@@ -187,28 +187,28 @@
       12                                                    completion_data
       13                                                    completion_data
       14                                                    completion_data
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                passing_test
-      1                                                                                                                                                                                                                                                                                                                                     function (d) {\n  dplyr::if_else(\n    !is.na(d$date_enrolled),\n    (30 < d$baseline_prealbumin_level &  d$baseline_prealbumin_level < 40),\n    TRUE\n  )\n}\n
-      2                                                                                                                                                                                                                                                                                           function (d) {\n  dplyr::if_else(\n    !is.na(d$date_enrolled),\n    !is.na(d$baseline_prealbumin_level) & !is.na(d$baseline_creatinine_level) & !is.na(d$baseline_transferrin_level),\n    TRUE\n  )\n}\n
-      3                                                                                                                                                                                                                                                   function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level),\n    !is.na(d$visit_lab_prealbumin_level),\n    TRUE\n  )\n}\n
-      4                                                                                                                                                                                                      function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level),\n    !is.na(d$visit_blood_workup_prealbumin_level),\n    TRUE\n  )\n}\n
-      5                                                                                                                               function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level)\n    & !is.na(d$visit_blood_workup_prealbumin_level),\n    !is.na(d$completion_data_prealbumin_level),\n    TRUE\n  )\n}\n
-      6                                                         function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level) &\n    !is.na(d$visit_blood_workup_prealbumin_level) & !is.na(d$completion_data_prealbumin_level),\n    (d$completion_data_prealbumin_level > d$visit_lab_prealbumin_level),\n    TRUE\n  )\n}\n
-      7                                                                                                                                                        function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n      d$redcap_event_name %in% events_to_check &\n    (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2),\n    (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),\n    TRUE\n  )\n}\n
-      8                                                                                                   function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check &\n    (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &\n    (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),\n    (d$visit_lab_npcr <= d$visit_blood_workup_npcr),\n    TRUE\n  )\n}\n
-      9  function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check &\n    (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2) &\n    (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr) &\n    (d$visit_lab_npcr <= d$visit_blood_workup_npcr),\n    (d$visit_blood_workup_npcr< d$completion_data_npcr),\n    TRUE\n  )\n}\n
-      10                                                                                                                                                                                                                                      function (d) {\n  dplyr::if_else(\n    d$completion_project_questionnaire_hospitalization %in% 1,\n    !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),\n    TRUE\n  )\n}\n
-      11                                                                                                                                                                                                                                                                                                                   function (d) {\n  dplyr::if_else(\n    d$completion_data_npcr >= 1.2,\n    d$completion_data_prealbumin_level > 30 & d$completion_data_prealbumin_level < 40,\n    TRUE\n  )\n}\n
-      12                                                                                                                                                                                                                                                                                                                                                                                                           function (d) {\n    ( 1.4 <= d$completion_data_npcr | d$completion_data_npcr >= 1.2)\n}\n
-      13   function (d) {\n  events_to_check <- c("final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check,\n    !is.na(d$completion_data_npcr),                                                                # If this row exists in the desired event, then check for nonmissingness.\n    TRUE                                                                                           # Otherwise, the test passes for rows associated with all other events.\n  )\n}\n
-      14                                                                                                                                                                                                                                                                                                                                                              function (d) {\n  dplyr::if_else(\n  !is.na(d$completion_data_npcr),\n  (d$npcr_at_baseline < d$completion_data_npcr),\n  TRUE\n  )\n}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              passing_test
+      1                                                                                                                                                                                                                                                                                                                                                                   function (d) {\n  dplyr::if_else(\n    !is.na(d$date_enrolled),\n    (30 < d$baseline_prealbumin_level &  d$baseline_prealbumin_level < 40),\n    TRUE\n  )\n}\n
+      2                                                                                                                                                                                                                                                                                                                         function (d) {\n  dplyr::if_else(\n    !is.na(d$date_enrolled),\n    !is.na(d$baseline_prealbumin_level) & !is.na(d$baseline_creatinine_level) & !is.na(d$baseline_transferrin_level),\n    TRUE\n  )\n}\n
+      3                                                                                                                                                                                                                                                                                 function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level),\n    !is.na(d$visit_lab_prealbumin_level),\n    TRUE\n  )\n}\n
+      4                                                                                                                                                                                                                                    function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level),\n    !is.na(d$visit_blood_workup_prealbumin_level),\n    TRUE\n  )\n}\n
+      5                                                                                                                                                             function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level)\n    & !is.na(d$visit_blood_workup_prealbumin_level),\n    !is.na(d$completion_data_prealbumin_level),\n    TRUE\n  )\n}\n
+      6                                                                                       function (d) {\n  events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check & !is.na(d$baseline_prealbumin_level) & !is.na(d$visit_lab_prealbumin_level) &\n    !is.na(d$visit_blood_workup_prealbumin_level) & !is.na(d$completion_data_prealbumin_level),\n    (d$completion_data_prealbumin_level > d$visit_lab_prealbumin_level),\n    TRUE\n  )\n}\n
+      7                                                                                                                                                                                      function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n      d$redcap_event_name %in% events_to_check &\n    (d$baseline_prealbumin_level < 30) & (d$baseline_normalized_protein_catabolic_rate < 1.2),\n    (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),\n    TRUE\n  )\n}\n
+      8                                                                                                      function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n    (\n      (d$redcap_event_name %in% events_to_check) &\n      (d$baseline_prealbumin_level < 30) &\n      (d$baseline_normalized_protein_catabolic_rate < 1.2) &\n      (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr)\n    ),\n    d$visit_lab_npcr <= d$visit_blood_workup_npcr,\n    TRUE\n  )\n}\n
+      9  function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  dplyr::if_else(\n    (\n      (d$redcap_event_name %in% events_to_check) &\n      (d$baseline_prealbumin_level < 30) &\n      (d$baseline_normalized_protein_catabolic_rate < 1.2) &\n      (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr) &\n      (d$visit_lab_npcr <= d$visit_blood_workup_npcr)\n    ),\n    d$visit_blood_workup_npcr < d$completion_data_npcr,\n    TRUE\n  )\n}\n
+      10                                                                                                                                                                                                                                                                    function (d) {\n  dplyr::if_else(\n    d$completion_project_questionnaire_hospitalization %in% 1,\n    !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),\n    TRUE\n  )\n}\n
+      11                                                                                                                                                                                                                                                                                                                                                                        function (d) {\n  dplyr::if_else(\n    d$completion_data_npcr >= 1.2,\n    dplyr::between(d$completion_data_prealbumin_level, 30, 40),\n    TRUE\n  )\n}\n
+      12                                                                                                                                                                                                                                                                                                                                                                                                                                                           function (d) {\n  dplyr::between(d$completion_data_npcr, 1.2, 1.4)\n}\n
+      13                                 function (d) {\n  events_to_check <- c("final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check,\n    !is.na(d$completion_data_npcr),                                                                # If this row exists in the desired event, then check for nonmissingness.\n    TRUE                                                                                           # Otherwise, the test passes for rows associated with all other events.\n  )\n}\n
+      14                                                                                                                                                                                                                                                                                                                                                                                      function (d) {\n  dplyr::if_else(\n    !is.na(d$completion_data_npcr),\n    (d$npcr_at_baseline < d$completion_data_npcr),\n    TRUE\n  )\n}
 
 ---
 
     Code
       ds_result_unnested
     Output
-      # A tibble: 47 x 4
+      # A tibble: 52 x 4
          check_name                 record_id data_collector baseline_date
          <chr>                          <int>          <int> <date>       
        1 baseline_prealbumin_levels         1              1 2015-01-02   
@@ -221,7 +221,7 @@
        8 baseline_prealbumin_levels        14              1 2015-03-10   
        9 baseline_prealbumin_levels        15              3 2015-03-03   
       10 baseline_prealbumin_levels        16              2 2015-03-09   
-      # ... with 37 more rows
+      # ... with 42 more rows
 
 ---
 
@@ -261,26 +261,31 @@
       30    serum_prealbumin_levels_1       220              1    2015-04-02
       31       hospitalization_reason         8             NA          <NA>
       32       hospitalization_reason        14             NA          <NA>
-      33 optimal_daily_protein_intake         3             NA          <NA>
-      34 optimal_daily_protein_intake         5             NA          <NA>
-      35 optimal_daily_protein_intake         6             NA          <NA>
-      36 optimal_daily_protein_intake         7             NA          <NA>
-      37 optimal_daily_protein_intake         8             NA          <NA>
-      38 optimal_daily_protein_intake         9             NA          <NA>
-      39 optimal_daily_protein_intake        11             NA          <NA>
-      40 optimal_daily_protein_intake        15             NA          <NA>
-      41 optimal_daily_protein_intake        16             NA          <NA>
-      42 optimal_daily_protein_intake       100             NA          <NA>
-      43       recommended_npcr_range         1             NA          <NA>
+      33 optimal_daily_protein_intake         5             NA          <NA>
+      34 optimal_daily_protein_intake         6             NA          <NA>
+      35 optimal_daily_protein_intake         7             NA          <NA>
+      36 optimal_daily_protein_intake         8             NA          <NA>
+      37 optimal_daily_protein_intake        11             NA          <NA>
+      38 optimal_daily_protein_intake        15             NA          <NA>
+      39 optimal_daily_protein_intake       100             NA          <NA>
+      40       recommended_npcr_range         1             NA          <NA>
+      41       recommended_npcr_range         6             NA          <NA>
+      42       recommended_npcr_range         7             NA          <NA>
+      43       recommended_npcr_range         8             NA          <NA>
       44       recommended_npcr_range        12             NA          <NA>
-      45                         npcr        10             NA          <NA>
-      46              npcr_comparison         1             NA          <NA>
-      47              npcr_comparison        12             NA          <NA>
+      45       recommended_npcr_range        13             NA          <NA>
+      46       recommended_npcr_range        14             NA          <NA>
+      47       recommended_npcr_range        16             NA          <NA>
+      48       recommended_npcr_range       100             NA          <NA>
+      49       recommended_npcr_range       220             NA          <NA>
+      50                         npcr        10             NA          <NA>
+      51              npcr_comparison         1             NA          <NA>
+      52              npcr_comparison        12             NA          <NA>
 
 ---
 
     Code
       result$rule_status
     Output
-      [1] "14 rules were examined. 8 rule(s) had at least 1 violation. 47 total violation(s) were found."
+      [1] "14 rules were examined. 8 rule(s) had at least 1 violation. 52 total violation(s) were found."
 
