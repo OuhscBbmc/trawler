@@ -34,17 +34,17 @@
       # A tibble: 12 x 10
          check_name description priority debug bound_lower bound_upper bounds_template
          <chr>      <chr>          <int> <lgl>       <dbl>       <dbl> <chr>          
-       1 proportio~ Proportion~        1 FALSE        0.5         0.5  [%.2f, %.2f]   
-       2 proportio~ Proportion~        1 FALSE        0.5         0.5  [%.2f, %.2f]   
-       3 mean_age   Mean age o~        1 FALSE       20          80    [%.2f, %.2f]   
-       4 mean_seru~ Mean serum~        1 FALSE       32          39    [%.2f, %.2f]   
-       5 mean_seru~ Mean serum~        1 FALSE        3          15    [%.2f, %.2f]   
-       6 average_b~ Average BM~        1 FALSE       18          24    [%.2f, %.2f]   
-       7 mean_seru~ Average Ch~        1 FALSE      100         140    [%.2f, %.2f]   
-       8 dialysis_~ Normal ran~        1 FALSE        1.2         5    [%.2f, %.2f]   
+       1 proportio~ Proportion~        2 FALSE        0.25        0.75 [%.2f, %.2f]   
+       2 proportio~ Proportion~        2 FALSE        0.25        0.75 [%.2f, %.2f]   
+       3 mean_age   Mean age o~        2 FALSE       20          80    [%.0f, %.0f]   
+       4 mean_seru~ Mean serum~        1 FALSE       32          39    [%.0f, %.0f]   
+       5 mean_seru~ Mean serum~        1 FALSE        3          15    [%.0f, %.0f]   
+       6 average_b~ Average BM~        2 FALSE       18          24    [%.0f, %.0f]   
+       7 mean_seru~ Average Ch~        1 FALSE      100         140    [%.0f, %.0f]   
+       8 dialysis_~ Normal ran~        1 FALSE        1.2         5    [%.1f, %.1f]   
        9 average_s~ Mean serum~        1 FALSE      501        1200    [%.0f, %.0f]   
-      10 nutrition~ Most patie~        1 FALSE        0.85        0.99 [%.2f, %.2f]   
-      11 definitiv~ A 100 perc~        1 FALSE        1           1    [%.2f, %.2f]   
+      10 nutrition~ Most patie~        2 FALSE        0.85        0.99 [%.2f, %.2f]   
+      11 definitiv~ All study ~        1 FALSE        1           1    [%.2f, %.2f]   
       12 normalize~ Average No~        1 FALSE        0           0.12 [%.2f, %.2f]   
       # ... with 3 more variables: value_template <chr>, equation <chr>,
       #   boundaries <chr>
@@ -67,32 +67,32 @@
       10                    nutritional_counseling
       11                      definitive_diagnosis
       12         normalized_protein_catabolic_rate
-                                                                                                        description
-      1                               Proportion female participants is half the participants till study conclusion
-      2                                 Proportion male participants is half the participants till study conclusion
-      3                                                    Mean age of participants is between 18 years to 20 years
-      4                                   Mean serum pre-albumin levels at baseline are between 31mg/dl and 39mg/dl
-      5                                     Mean serum creatinine levels at baseline are between 3mg/dl and 15mg/dl
-      6                                                                            Average BMI is between 18 and 24
-      7                             Average Cholesterol levels range is between 100mg/dl-140mg/dl at baseline level
-      8                                                          Normal range for Kt/V values are between 1.2 and 5
-      9                             Mean serum ferritin levels are in the recommended range of > 500ng/dl-1200ng/dl
-      10                                                   Most patients agreed to receiving nutritional counseling
-      11 A 100 percent of study participants were diagnosed with malnutrition associated with Chronic Renal Disease
-      12                                                 Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
+                                                                                           description
+      1                  Proportion female participants is half the participants till study conclusion
+      2                    Proportion male participants is half the participants till study conclusion
+      3                                       Mean age of participants is between 18 years to 20 years
+      4                      Mean serum pre-albumin levels at baseline are between 31mg/dl and 39mg/dl
+      5                        Mean serum creatinine levels at baseline are between 3mg/dl and 15mg/dl
+      6                                                               Average BMI is between 18 and 24
+      7                Average Cholesterol levels range is between 100mg/dl-140mg/dl at baseline level
+      8                                             Normal range for Kt/V values are between 1.2 and 5
+      9                Mean serum ferritin levels are in the recommended range of > 500ng/dl-1200ng/dl
+      10                                      Most patients agreed to receiving nutritional counseling
+      11 All study participants were diagnosed with malnutrition associated with Chronic Renal Disease
+      12                                    Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
          priority debug bound_lower bound_upper bounds_template value_template
-      1         1 FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
-      2         1 FALSE        0.50        0.50    [%.2f, %.2f]           %.4f
-      3         1 FALSE       20.00       80.00    [%.2f, %.2f]           %.4f
-      4         1 FALSE       32.00       39.00    [%.2f, %.2f]           %.4f
-      5         1 FALSE        3.00       15.00    [%.2f, %.2f]           %.4f
-      6         1 FALSE       18.00       24.00    [%.2f, %.2f]           %.4f
-      7         1 FALSE      100.00      140.00    [%.2f, %.2f]           %.4f
-      8         1 FALSE        1.20        5.00    [%.2f, %.2f]           %.4f
-      9         1 FALSE      501.00     1200.00    [%.0f, %.0f]           %.2f
-      10        1 FALSE        0.85        0.99    [%.2f, %.2f]           %.4f
-      11        1 FALSE        1.00        1.00    [%.2f, %.2f]           %.4f
-      12        1 FALSE        0.00        0.12    [%.2f, %.2f]           %.4f
+      1         2 FALSE        0.25        0.75    [%.2f, %.2f]           %.3f
+      2         2 FALSE        0.25        0.75    [%.2f, %.2f]           %.3f
+      3         2 FALSE       20.00       80.00    [%.0f, %.0f]           %.1f
+      4         1 FALSE       32.00       39.00    [%.0f, %.0f]           %.1f
+      5         1 FALSE        3.00       15.00    [%.0f, %.0f]           %.1f
+      6         2 FALSE       18.00       24.00    [%.0f, %.0f]           %.1f
+      7         1 FALSE      100.00      140.00    [%.0f, %.0f]           %.1f
+      8         1 FALSE        1.20        5.00    [%.1f, %.1f]           %.2f
+      9         1 FALSE      501.00     1200.00    [%.0f, %.0f]           %.1f
+      10        2 FALSE        0.85        0.99    [%.2f, %.2f]           %.3f
+      11        1 FALSE        1.00        1.00    [%.2f, %.2f]           %.2f
+      12        1 FALSE        0.00        0.12    [%.2f, %.2f]           %.3f
                                                                                    equation
       1                             function (d) {\n  mean(d$sex == "female", na.rm=T)\n}\n
       2                               function (d) {\n  mean(d$sex == "male", na.rm=T)\n}\n
@@ -106,19 +106,19 @@
       10                     function (d) {\n  mean(d$nutritional_counseling, na.rm=T)\n}\n
       11        function (d) {\n  mean(d$differential_diagnoses_malnutrition, na.rm=T)\n}\n
       12 function (d) {\n  mean(d$baseline_normalized_protein_catabolic_rate, na.rm=T)\n}\n
-               boundaries
-      1      [0.50, 0.50]
-      2      [0.50, 0.50]
-      3    [20.00, 80.00]
-      4    [32.00, 39.00]
-      5     [3.00, 15.00]
-      6    [18.00, 24.00]
-      7  [100.00, 140.00]
-      8      [1.20, 5.00]
-      9       [501, 1200]
-      10     [0.85, 0.99]
-      11     [1.00, 1.00]
-      12     [0.00, 0.12]
+           boundaries
+      1  [0.25, 0.75]
+      2  [0.25, 0.75]
+      3      [20, 80]
+      4      [32, 39]
+      5       [3, 15]
+      6      [18, 24]
+      7    [100, 140]
+      8    [1.2, 5.0]
+      9   [501, 1200]
+      10 [0.85, 0.99]
+      11 [1.00, 1.00]
+      12 [0.00, 0.12]
 
 ---
 
