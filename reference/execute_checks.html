@@ -84,6 +84,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $github_file_prefix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://github.com/OuhscBbmc/validator-1/blob/master"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $redcap_codebook</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/Design/data_dictionary_codebook.php?pid=1612"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $smells</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    check_name     pass  description       priority debug bound_lower bound_upper</span>
@@ -91,8 +94,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> proportion_fe… TRUE  Proportion femal…        2 FALSE        0.25        0.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> proportion_ma… TRUE  Proportion male …        2 FALSE        0.25        0.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> mean_age       TRUE  Mean age of part…        2 FALSE       20          80   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> mean_serum_pr… FALSE Mean serum pre-a…        1 FALSE       32          39   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> mean_serum_cr… FALSE Mean serum creat…        1 FALSE        3          15   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> mean_serum_pr… FALSE Mean serum pre-a…        2 FALSE       32          39   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> mean_serum_cr… FALSE Mean serum creat…        2 FALSE        3          15   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> average_bmi_a… FALSE Average BMI is b…        2 FALSE       18          24   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> mean_serum_ch… TRUE  Average Choleste…        1 FALSE      100         140   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> dialysis_adeq… TRUE  Normal range for…        1 FALSE        1.2         5   </span>
@@ -106,28 +109,40 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $smell_status</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "12 smells have been sniffed.  4 violation(s) were found."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $smells_inactive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 9 variables: check_name &lt;chr&gt;, description &lt;chr&gt;, priority &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   debug &lt;lgl&gt;, bound_lower &lt;dbl&gt;, bound_upper &lt;dbl&gt;, bounds_template &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   value_template &lt;chr&gt;, equation &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rules</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 14 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    check_name    violation_count error_message     priority debug instrument    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> baseline_pre…              10 Serum pre-albumi…        1 FALSE baseline_data </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> missing_seru…               3 Relevant nutriti…        1 FALSE baseline_data </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> serum_prealb…              15 Baseline prealbu…        1 FALSE baseline_data…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> serum_prealb…               0 Baseline prealbu…        1 FALSE baseline_data…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> serum_prealb…               0 Baseline prealbu…        1 FALSE baseline_data…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> serum_prealb…               0 serum prealbumin…        1 FALSE baseline_data…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> baseline_fir…               0 Serum prealbumin…        1 FALSE baseline_data…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> daily_first_…               0 In-addition to b…        1 FALSE baseline_data…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> daily_protei…               0 npcr levels in s…        1 FALSE baseline_data…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> serum_prealb…              15 Baseline prealbu…        2 FALSE baseline_data…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> serum_prealb…               0 Baseline prealbu…        2 FALSE baseline_data…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> serum_prealb…               0 Baseline prealbu…        2 FALSE baseline_data…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> serum_prealb…               0 serum prealbumin…        3 FALSE baseline_data…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> baseline_fir…               0 Serum prealbumin…        3 FALSE baseline_data…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> daily_first_…               0 In-addition to b…        3 FALSE baseline_data…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> daily_protei…               0 npcr levels in s…        3 FALSE baseline_data…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> hospitalizat…               2 Patient was hosp…        1 FALSE completion_pr…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> optimal_dail…               7 Daily protein in…        1 FALSE completion_pr…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> recommended_…              10 NPCR values are …        1 FALSE completion_da…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> npcr                        1 NPCR at completi…        1 FALSE completion_da…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> npcr_compari…               2 NPCR at completi…        1 FALSE completion_da…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> optimal_dail…               7 Daily protein in…        2 FALSE completion_pr…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> recommended_…              10 NPCR values are …        2 FALSE completion_da…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> npcr                        1 NPCR at completi…        2 FALSE completion_da…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> npcr_compari…               2 NPCR at completi…        3 FALSE completion_da…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 more variables: passing_test &lt;chr&gt;, results &lt;list&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rule_status</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "14 rules were examined. 8 rule(s) had at least 1 violation. 50 total violation(s) were found."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rules_inactive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   check_name         error_message   priority debug instrument  passing_test    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> pre_albumin_levels pre_albumin le…        3 FALSE visit_lab_… <span style="color: #949494;">"</span>function (d) {…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "trawler_checks"</span>

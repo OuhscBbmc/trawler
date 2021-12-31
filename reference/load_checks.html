@@ -82,6 +82,9 @@ and rules.  Required.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $github_file_prefix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://github.com/OuhscBbmc/validator-1/blob/master"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $redcap_codebook</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/Design/data_dictionary_codebook.php?pid=1612"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $smells</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    check_name description priority debug bound_lower bound_upper bounds_template</span>
@@ -89,8 +92,8 @@ and rules.  Required.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> proportio… Proportion…        2 FALSE        0.25        0.75 [%.2f, %.2f]   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> proportio… Proportion…        2 FALSE        0.25        0.75 [%.2f, %.2f]   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> mean_age   Mean age o…        2 FALSE       20          80    [%.0f, %.0f]   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> mean_seru… Mean serum…        1 FALSE       32          39    [%.0f, %.0f]   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> mean_seru… Mean serum…        1 FALSE        3          15    [%.0f, %.0f]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> mean_seru… Mean serum…        2 FALSE       32          39    [%.0f, %.0f]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> mean_seru… Mean serum…        2 FALSE        3          15    [%.0f, %.0f]   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> average_b… Average BM…        2 FALSE       18          24    [%.0f, %.0f]   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> mean_seru… Average Ch…        1 FALSE      100         140    [%.0f, %.0f]   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> dialysis_… Normal ran…        1 FALSE        1.2         5    [%.1f, %.1f]   </span>
@@ -116,24 +119,24 @@ and rules.  Required.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> baseline_pre… Serum pre-albumi…        1 FALSE baseline_data <span style="color: #949494;">"</span>function (d) {…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> missing_seru… Relevant nutriti…        1 FALSE baseline_data <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> serum_prealb… Baseline prealbu…        1 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> serum_prealb… Baseline prealbu…        1 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> serum_prealb… Baseline prealbu…        1 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> serum_prealb… serum prealbumin…        1 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> baseline_fir… Serum prealbumin…        1 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> daily_first_… In-addition to b…        1 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> daily_protei… npcr levels in s…        1 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> serum_prealb… Baseline prealbu…        2 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> serum_prealb… Baseline prealbu…        2 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> serum_prealb… Baseline prealbu…        2 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> serum_prealb… serum prealbumin…        3 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> baseline_fir… Serum prealbumin…        3 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> daily_first_… In-addition to b…        3 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> daily_protei… npcr levels in s…        3 FALSE baseline_dat… <span style="color: #949494;">"</span>function (d) {…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> hospitalizat… Patient was hosp…        1 FALSE completion_p… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> optimal_dail… Daily protein in…        1 FALSE completion_p… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> recommended_… NPCR values are …        1 FALSE completion_d… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> npcr          NPCR at completi…        1 FALSE completion_d… <span style="color: #949494;">"</span>function (d) {…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> npcr_compari… NPCR at completi…        1 FALSE completion_d… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> optimal_dail… Daily protein in…        2 FALSE completion_p… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> recommended_… NPCR values are …        2 FALSE completion_d… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> npcr          NPCR at completi…        2 FALSE completion_d… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> npcr_compari… NPCR at completi…        3 FALSE completion_d… <span style="color: #949494;">"</span>function (d) {…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rules_inactive</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   check_name         error_message   priority debug instrument  passing_test    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> pre_albumin_levels pre_albumin le…        1 FALSE visit_lab_… <span style="color: #949494;">"</span>function (d) {…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> pre_albumin_levels pre_albumin le…        3 FALSE visit_lab_… <span style="color: #949494;">"</span>function (d) {…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "trawler_checks_definition"</span>
