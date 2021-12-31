@@ -81,20 +81,7 @@ Instructions
     * the report code.
 1. If you create a new rule or smell check, make sure the error message won't reveal any PHI.
 
-Inactive Checks
------------------------------
 
-`r nrow(checks$rules_inactive)` rules(s) are disabled for this report: 
-
-```{r rules-inactive, echo = echo_chunks, results = 'asis'}
-cat(sprintf("1. %s;", checks$rules_inactive$check_name), sep = "\n")
-```
-
-`r nrow(checks$smells_inactive)` smell(s) are disabled for this report: 
-
-```{r smells-inactive, echo = echo_chunks, results = 'asis'}
-cat(sprintf("1. %s;", checks$smells_inactive$check_name), sep = "\n")
-```
 
 Rules {.tabset .tabset-fade}
 =============================
@@ -209,6 +196,19 @@ checks$rules |>
   }()
 ```
 
+Inactive Rules
+-----------------------------
+
+<div style="background-color:#555;color:white;padding:20px;">
+`r nrow(checks$rules_inactive)` rules(s) are disabled for this report: 
+
+```{r rules-inactive, echo = echo_chunks, results = 'asis'}
+cat(sprintf("1. %s;", checks$rules_inactive$check_name), sep = "\n")
+```
+
+To enable/disable a rule, set the `active` element in the yaml checks file to "true" or "false".
+</div>
+
 Smells {.tabset .tabset-fade}
 =============================
 
@@ -271,5 +271,18 @@ ds_smell_result_pretty |>
     bold        = TRUE,
     background  = palette_summary$warm
   )
-
 ```
+
+Inactive Smells
+-----------------------------
+
+<div style="background-color:#555;color:white;padding:20px;">
+
+`r nrow(checks$smells_inactive)` smell(s) are disabled for this report: 
+
+```{r smells-inactive, echo = echo_chunks, results = 'asis'}
+cat(sprintf("1. %s;", checks$smells_inactive$check_name), sep = "\n")
+```
+
+To enable/disable a smell, set the `active` element in the yaml checks file to "true" or "false".
+</div>
