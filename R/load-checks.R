@@ -33,6 +33,7 @@ new_trawler_checks <- function (checks) {
       baseline_date_name  = misc$baseline_date_name,
       record_id_link      = misc$record_id_link,
       github_file_prefix  = misc$github_file_prefix,
+      redcap_codebook     = misc$redcap_codebook,
 
       smells            = smells_all$smells,
       smells_inactive   = smells_all$smells_inactive,
@@ -50,12 +51,14 @@ load_misc <- function (checks) {
   checkmate::assert_character(checks$baseline_date_name, min.chars =  1, len = 1, any.missing = FALSE)
   checkmate::assert_character(checks$record_id_link    , min.chars = 10, len = 1, any.missing = FALSE)
   checkmate::assert_character(checks$github_file_prefix, min.chars = 10, len = 1, any.missing = FALSE)
+  checkmate::assert_character(checks$redcap_codebook   , min.chars = 10, len = 1, any.missing = FALSE)
 
   list(
     record_id_name          = checks$record_id_name,
     baseline_date_name      = checks$baseline_date_name,
     record_id_link          = checks$record_id_link,
-    github_file_prefix      = checks$github_file_prefix
+    github_file_prefix      = checks$github_file_prefix,
+    redcap_codebook         = checks$redcap_codebook
   )
 }
 

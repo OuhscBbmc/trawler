@@ -30,12 +30,15 @@ execute_checks <- function (ds, checks) {
       baseline_date_name  = checks$baseline_date_name,
       record_id_link      = checks$record_id_link,
       github_file_prefix  = checks$github_file_prefix,
+      redcap_codebook     = checks$redcap_codebook,
 
       smells        = smells$ds_smell_result,
       smell_status  = smells$smell_status,
+      smells_inactive = smells$smells_inactive,
 
       rules         = rules$rules,
-      rule_status   = rules$rule_status
+      rule_status   = rules$rule_status,
+      rules_inactive= rules$rules_inactive
     ),
     class = "trawler_checks"
   )
@@ -94,7 +97,8 @@ execute_smells <- function (ds, checks) {
 
   list(
     ds_smell_result = ds_smell_result,
-    smell_status    = smell_status
+    smell_status    = smell_status,
+    smells_inactive = checks$smells_inactive
   )
 }
 
@@ -194,6 +198,7 @@ execute_rules <- function (ds, checks) {
 
   list(
     rules           = checks$rules,
-    rule_status     = rule_status
+    rule_status     = rule_status,
+    rules_inactive  = checks$rules_inactive
   )
 }

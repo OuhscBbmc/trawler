@@ -9,8 +9,8 @@
        1 proportion_fe~ TRUE  Proportion femal~        2 FALSE        0.25        0.75
        2 proportion_ma~ TRUE  Proportion male ~        2 FALSE        0.25        0.75
        3 mean_age       TRUE  Mean age of part~        2 FALSE       20          80   
-       4 mean_serum_pr~ FALSE Mean serum pre-a~        1 FALSE       32          39   
-       5 mean_serum_cr~ FALSE Mean serum creat~        1 FALSE        3          15   
+       4 mean_serum_pr~ FALSE Mean serum pre-a~        2 FALSE       32          39   
+       5 mean_serum_cr~ FALSE Mean serum creat~        2 FALSE        3          15   
        6 average_bmi_a~ FALSE Average BMI is b~        2 FALSE       18          24   
        7 mean_serum_ch~ TRUE  Average Choleste~        1 FALSE      100         140   
        8 dialysis_adeq~ TRUE  Normal range for~        1 FALSE        1.2         5   
@@ -56,8 +56,8 @@
       1         2 FALSE        0.25        0.75    [%.2f, %.2f]           %.3f
       2         2 FALSE        0.25        0.75    [%.2f, %.2f]           %.3f
       3         2 FALSE       20.00       80.00    [%.0f, %.0f]           %.1f
-      4         1 FALSE       32.00       39.00    [%.0f, %.0f]           %.1f
-      5         1 FALSE        3.00       15.00    [%.0f, %.0f]           %.1f
+      4         2 FALSE       32.00       39.00    [%.0f, %.0f]           %.1f
+      5         2 FALSE        3.00       15.00    [%.0f, %.0f]           %.1f
       6         2 FALSE       18.00       24.00    [%.0f, %.0f]           %.1f
       7         1 FALSE      100.00      140.00    [%.0f, %.0f]           %.1f
       8         1 FALSE        1.20        5.00    [%.1f, %.1f]           %.2f
@@ -109,18 +109,18 @@
          <chr>                   <int> <chr>                <int> <lgl> <chr>         
        1 baseline_pre~              10 Serum pre-albumi~        1 FALSE baseline_data 
        2 missing_seru~               3 Relevant nutriti~        1 FALSE baseline_data 
-       3 serum_prealb~              15 Baseline prealbu~        1 FALSE baseline_data~
-       4 serum_prealb~               0 Baseline prealbu~        1 FALSE baseline_data~
-       5 serum_prealb~               0 Baseline prealbu~        1 FALSE baseline_data~
-       6 serum_prealb~               0 serum prealbumin~        1 FALSE baseline_data~
-       7 baseline_fir~               0 Serum prealbumin~        1 FALSE baseline_data~
-       8 daily_first_~               0 In-addition to b~        1 FALSE baseline_data~
-       9 daily_protei~               0 npcr levels in s~        1 FALSE baseline_data~
+       3 serum_prealb~              15 Baseline prealbu~        2 FALSE baseline_data~
+       4 serum_prealb~               0 Baseline prealbu~        2 FALSE baseline_data~
+       5 serum_prealb~               0 Baseline prealbu~        2 FALSE baseline_data~
+       6 serum_prealb~               0 serum prealbumin~        3 FALSE baseline_data~
+       7 baseline_fir~               0 Serum prealbumin~        3 FALSE baseline_data~
+       8 daily_first_~               0 In-addition to b~        3 FALSE baseline_data~
+       9 daily_protei~               0 npcr levels in s~        3 FALSE baseline_data~
       10 hospitalizat~               2 Patient was hosp~        1 FALSE completion_pr~
-      11 optimal_dail~               7 Daily protein in~        1 FALSE completion_pr~
-      12 recommended_~              10 NPCR values are ~        1 FALSE completion_da~
-      13 npcr                        1 NPCR at completi~        1 FALSE completion_da~
-      14 npcr_compari~               2 NPCR at completi~        1 FALSE completion_da~
+      11 optimal_dail~               7 Daily protein in~        2 FALSE completion_pr~
+      12 recommended_~              10 NPCR values are ~        2 FALSE completion_da~
+      13 npcr                        1 NPCR at completi~        2 FALSE completion_da~
+      14 npcr_compari~               2 NPCR at completi~        3 FALSE completion_da~
       # ... with 2 more variables: passing_test <chr>, results <list>
 
 ---
@@ -161,18 +161,18 @@
          priority debug
       1         1 FALSE
       2         1 FALSE
-      3         1 FALSE
-      4         1 FALSE
-      5         1 FALSE
-      6         1 FALSE
-      7         1 FALSE
-      8         1 FALSE
-      9         1 FALSE
+      3         2 FALSE
+      4         2 FALSE
+      5         2 FALSE
+      6         3 FALSE
+      7         3 FALSE
+      8         3 FALSE
+      9         3 FALSE
       10        1 FALSE
-      11        1 FALSE
-      12        1 FALSE
-      13        1 FALSE
-      14        1 FALSE
+      11        2 FALSE
+      12        2 FALSE
+      13        2 FALSE
+      14        3 FALSE
                                                                  instrument
       1                                                       baseline_data
       2                                                       baseline_data
@@ -198,7 +198,7 @@
       7                                                                                                                                                               function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n    (\n      d$redcap_event_name %in% events_to_check &\n      (d$baseline_prealbumin_level < 30) &\n      (d$baseline_normalized_protein_catabolic_rate < 1.2)\n    ),\n    (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr),\n    TRUE\n  )\n}\n
       8                                                                                                      function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")\n  dplyr::if_else(\n    (\n      (d$redcap_event_name %in% events_to_check) &\n      (d$baseline_prealbumin_level < 30) &\n      (d$baseline_normalized_protein_catabolic_rate < 1.2) &\n      (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr)\n    ),\n    d$visit_lab_npcr <= d$visit_blood_workup_npcr,\n    TRUE\n  )\n}\n
       9  function (d) {\n  events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")\n  dplyr::if_else(\n    (\n      (d$redcap_event_name %in% events_to_check) &\n      (d$baseline_prealbumin_level < 30) &\n      (d$baseline_normalized_protein_catabolic_rate < 1.2) &\n      (d$baseline_normalized_protein_catabolic_rate <= d$visit_lab_npcr) &\n      (d$visit_lab_npcr <= d$visit_blood_workup_npcr)\n    ),\n    d$visit_blood_workup_npcr < d$completion_data_npcr,\n    TRUE\n  )\n}\n
-      10                                                                                                                                                                                                                                                                    function (d) {\n  dplyr::if_else(\n    d$completion_project_questionnaire_hospitalization %in% 1,\n    !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),\n    TRUE\n  )\n}\n
+      10                                                                                                                                                                                                                                                                     function (d) {\n  dplyr::if_else(\n    d$completion_project_questionnaire_hospitalization == 1L,\n    !is.na(d$completion_project_questionnaire_hospitalization_cause) & !is.na(d$completion_project_questionnaire_hospitalization_date),\n    TRUE\n  )\n}\n
       11                                                                                                                                                                                                                                                                                                                                                                        function (d) {\n  dplyr::if_else(\n    d$completion_data_npcr >= 1.2,\n    dplyr::between(d$completion_data_prealbumin_level, 30, 40),\n    TRUE\n  )\n}\n
       12                                                                                                                                                                                                                                                                                                                                                                                                                                                           function (d) {\n  dplyr::between(d$completion_data_npcr, 1.2, 1.4)\n}\n
       13                                 function (d) {\n  events_to_check <- c("final_visit_arm_1")\n  dplyr::if_else(\n    d$redcap_event_name %in% events_to_check,\n    !is.na(d$completion_data_npcr),                                                                # If this row exists in the desired event, then check for nonmissingness.\n    TRUE                                                                                           # Otherwise, the test passes for rows associated with all other events.\n  )\n}\n
