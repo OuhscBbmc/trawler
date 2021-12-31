@@ -12,6 +12,10 @@ params:
   path_checks: "not-set"
 ---
 
+<style>
+  div.main-container { width: 100%; max-width:100%; }
+</style>
+
 <!-- Set the report-wide options, and point to the external code file. -->
 ```{r set-options, echo=F}
 library(knitr)
