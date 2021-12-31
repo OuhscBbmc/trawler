@@ -57,7 +57,7 @@ checks <- base::readRDS(path_checks)
 ```
 
 
-Set Up {.tabset .tabset-fade}
+Overview {.tabset .tabset-fade}
 =============================
 
 Instructions
@@ -72,17 +72,7 @@ Instructions
     * the report code.
 1. If you create a new rule or smell check, make sure the error message won't reveal any PHI.
 
-Execute Rules
------------------------------
-```{r execute-rules, echo = echo_chunks, results = 'asis'}
-```
-
-Execute Smells
------------------------------
-```{r execute-smells, echo = echo_chunks, results = 'asis'}
-```
-
-Inactive Rules
+Inactive Checks
 -----------------------------
 
 `r nrow(checks$rules_inactive)` rules(s) are disabled for this report: 
@@ -90,9 +80,6 @@ Inactive Rules
 ```{r rules-inactive, echo = echo_chunks, results = 'asis'}
 cat(sprintf("1. %s;", checks$rules_inactive$check_name), sep = "\n")
 ```
-
-Inactive Smells
------------------------------
 
 `r nrow(checks$smells_inactive)` smell(s) are disabled for this report: 
 
@@ -103,7 +90,9 @@ cat(sprintf("1. %s;", checks$smells_inactive$check_name), sep = "\n")
 Rules {.tabset .tabset-fade}
 =============================
 
-A *rule* is very exact.  Each record is examined, and determined if it passes each specific rule.
+`r checks$rule_status`
+
+A *rule* is very exact.  Each record is examined to determine if it passes each specific rule.  The first tab summarizes the `r nrow(checks$rules)` defined for this dataset.  The second tab details the exact record and rule for each of the `r sum(checks$rules$violation_count)` violations.
 
 Rule Summary
 -----------------------------
@@ -193,12 +182,14 @@ checks$rules |>
     DT::datatable(
       data         = d,
       # colnames     = gsub("_", " ", colnames(d)),
+      
       filter       = "top",
       caption      = paste("Violations at", Sys.time()),
       escape       = FALSE,
       options      = list(
         pageLength = 30,
         dom = "tip",
+        columnDefs   = list(list(className = 'dt-center', targets = 5:6)),
         initComplete = DT::JS(
           "function(settings, json) {",
           "$(this.api().table().header()).css({'background-color': '#555', 'color': '#fff'});",
@@ -211,6 +202,8 @@ checks$rules |>
 
 Smells {.tabset .tabset-fade}
 =============================
+
+`r checks$smell_status`
 
 A *smell* test won't validate a specific record (like the rules above), but it will make sure the dataset overall smells as expected.
 
