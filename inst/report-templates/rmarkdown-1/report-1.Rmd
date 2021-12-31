@@ -12,8 +12,13 @@ params:
   path_checks: "not-set"
 ---
 
+<!-- div.main-container: The whole page -->
+<!-- .col-md-3:          The left/side bar -->
+<!-- div.tocify:         The TOC within the left/side bar -->
 <style>
-  div.main-container { width: 100%; max-width:100%; }
+  div.main-container { width: 100%; max-width:100%; } 
+  .col-md-3          { width:  15%; } 
+  div.tocify         { width:  14%; } 
 </style>
 
 <!-- Set the report-wide options, and point to the external code file. -->
