@@ -1,5 +1,6 @@
 ^\.Rproj\.user$
 ^\.github$
+^\.lintr$
 ^\.vscode$
 ^for-developers$
 
