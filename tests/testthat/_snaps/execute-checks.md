@@ -105,22 +105,22 @@
       result$rules
     Output
       # A tibble: 14 x 8
-         check_name    violation_count error_message     priority debug instrument    
-         <chr>                   <int> <chr>                <int> <lgl> <chr>         
-       1 baseline_pre~              10 Serum pre-albumi~        1 FALSE baseline_data 
-       2 missing_seru~               3 Relevant nutriti~        1 FALSE baseline_data 
-       3 serum_prealb~              15 Baseline prealbu~        2 FALSE baseline_data~
-       4 serum_prealb~               0 Baseline prealbu~        2 FALSE baseline_data~
-       5 serum_prealb~               0 Baseline prealbu~        2 FALSE baseline_data~
-       6 serum_prealb~               0 serum prealbumin~        3 FALSE baseline_data~
-       7 baseline_fir~               0 Serum prealbumin~        3 FALSE baseline_data~
-       8 daily_first_~               0 In-addition to b~        3 FALSE baseline_data~
-       9 daily_protei~               0 npcr levels in s~        3 FALSE baseline_data~
-      10 hospitalizat~               2 Patient was hosp~        1 FALSE completion_pr~
-      11 optimal_dail~               7 Daily protein in~        2 FALSE completion_pr~
-      12 recommended_~              10 NPCR values are ~        2 FALSE completion_da~
-      13 npcr                        1 NPCR at completi~        2 FALSE completion_da~
-      14 npcr_compari~               2 NPCR at completi~        3 FALSE completion_da~
+         check_name   violation_count error_message   priority debug redcap_instrument
+         <chr>                  <int> <chr>              <int> <lgl> <chr>            
+       1 baseline_pr~              10 Serum pre-albu~        1 FALSE baseline_data    
+       2 missing_ser~               3 Relevant nutri~        1 FALSE baseline_data    
+       3 serum_preal~              15 Baseline preal~        2 FALSE baseline_data, v~
+       4 serum_preal~               0 Baseline preal~        2 FALSE baseline_data, v~
+       5 serum_preal~               0 Baseline preal~        2 FALSE baseline_data, v~
+       6 serum_preal~               0 serum prealbum~        3 FALSE baseline_data, v~
+       7 baseline_fi~               0 Serum prealbum~        3 FALSE baseline_data, v~
+       8 daily_first~               0 In-addition to~        3 FALSE baseline_data, p~
+       9 daily_prote~               0 npcr levels in~        3 FALSE baseline_data, p~
+      10 hospitaliza~               2 Patient was ho~        1 FALSE completion_proje~
+      11 optimal_dai~               7 Daily protein ~        2 FALSE completion_proje~
+      12 recommended~              10 NPCR values ar~        2 FALSE completion_data  
+      13 npcr                       1 NPCR at comple~        2 FALSE completion_data  
+      14 npcr_compar~               2 NPCR at comple~        3 FALSE completion_data  
       # ... with 2 more variables: passing_test <chr>, results <list>
 
 ---
@@ -173,7 +173,7 @@
       12        2 FALSE
       13        2 FALSE
       14        3 FALSE
-                                                                 instrument
+                                                          redcap_instrument
       1                                                       baseline_data
       2                                                       baseline_data
       3                                       baseline_data, visit_lab_date

@@ -188,7 +188,7 @@ load_rules <- function(checks) {
   # The rule columns (in the yaml checks file) should be correct.
   checkmate::assert_subset(
     colnames(rules),
-    c("check_name", "error_message", "priority", "debug", "instrument", "passing_test")
+    c("check_name", "error_message", "priority", "debug", "redcap_instrument", "passing_test")
   )
 
   testit::assert(
@@ -205,7 +205,7 @@ load_rules <- function(checks) {
   checkmate::assert_character(rules$error_message , any.missing = FALSE , pattern = "^.{4,255}$" , unique = TRUE)
   checkmate::assert_integer(  rules$priority      , any.missing = FALSE , lower = 1, upper = 5    )
   checkmate::assert_logical(  rules$debug         , any.missing = FALSE                           )
-  checkmate::assert_character(rules$instrument    , any.missing = FALSE , pattern = "^.{2,255}$"  )
+  checkmate::assert_character(rules$redcap_instrument, any.missing = FALSE , pattern = "^.{2,255}$"  )
   checkmate::assert_character(rules$passing_test  , any.missing = FALSE , pattern = "^.{5,}$"     , unique = TRUE)
 
   list(

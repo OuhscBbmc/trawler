@@ -178,7 +178,7 @@ rules:
   priority             : 1
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data                                                         # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
+  redcap_instrument    : baseline_data                                                         # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
   passing_test         : |
     function (d) {
       dplyr::if_else(
@@ -192,7 +192,7 @@ rules:
   priority             : 1
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data
+  redcap_instrument    : baseline_data
   passing_test         : |
     function (d) {
       dplyr::if_else(
@@ -210,7 +210,7 @@ rules:
   priority             : 2
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data, visit_lab_date
+  redcap_instrument    : baseline_data, visit_lab_date
   passing_test         : |
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
@@ -228,7 +228,7 @@ rules:
   priority             : 2
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data, visit_lab_date, visit_blood_workup
+  redcap_instrument    : baseline_data, visit_lab_date, visit_blood_workup
   passing_test         : |
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
@@ -247,7 +247,7 @@ rules:
   priority             : 2
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
+  redcap_instrument    : baseline_data, visit_lab_date, visit_blood_workup, completion_date
   passing_test         : |
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
@@ -267,7 +267,7 @@ rules:
   priority             : 3
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data, visit_lab_date, visit_blood_workup, completion_date
+  redcap_instrument    : baseline_data, visit_lab_date, visit_blood_workup, completion_date
   passing_test         : |
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
@@ -288,7 +288,7 @@ rules:
   priority             : 3
   active               : FALSE
   debug                : FALSE
-  instrument           : visit_lab_date
+  redcap_instrument    : visit_lab_date
   passing_test         : |
     function (d) {
       events_to_check <- c("visit_1_arm_1", "visit_2_arm_1")
@@ -304,7 +304,7 @@ rules:
   priority             : 3
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data, visit_lab_data
+  redcap_instrument    : baseline_data, visit_lab_data
   passing_test         : |
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
@@ -323,7 +323,7 @@ rules:
   priority             : 3
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data, patient_morale_questionnaire
+  redcap_instrument    : baseline_data, patient_morale_questionnaire
   passing_test         : |
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1")
@@ -343,7 +343,7 @@ rules:
   priority             : 3
   active               : TRUE
   debug                : FALSE
-  instrument           : baseline_data, patient_morale_questionnaire
+  redcap_instrument    : baseline_data, patient_morale_questionnaire
   passing_test         : |
     function (d) {
       events_to_check <- c("enrollment_arm_1", "visit_1_arm_1", "visit_2_arm_1", "final_visit_arm_1")
@@ -364,7 +364,7 @@ rules:
   priority             : 1
   active               : TRUE
   debug                : FALSE
-  instrument           : completion_project_questionnaire
+  redcap_instrument    : completion_project_questionnaire
   passing_test         : |
     function (d) {
       dplyr::if_else(
@@ -378,7 +378,7 @@ rules:
   priority             : 2
   active               : TRUE
   debug                : FALSE
-  instrument           : completion_project_questionnaire, completion_data
+  redcap_instrument    : completion_project_questionnaire, completion_data
   passing_test         : |
     function (d) {
       dplyr::if_else(
@@ -392,7 +392,7 @@ rules:
   priority             : 2
   active               : TRUE
   debug                : FALSE
-  instrument           : completion_data                                                              # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
+  redcap_instrument    : completion_data                                                              # At baseline the study is enrolling malnourished patients or patients with chronic renal failure
   passing_test         : |
     function (d) {
       dplyr::between(d$completion_data_npcr, 1.2, 1.4)
@@ -402,7 +402,7 @@ rules:
   priority             : 2
   active               : TRUE
   debug                : FALSE
-  instrument           : completion_data
+  redcap_instrument    : completion_data
   passing_test         : |
     function (d) {
       events_to_check <- c("final_visit_arm_1")
@@ -417,7 +417,7 @@ rules:
   priority             : 3
   active               : TRUE
   debug                : FALSE
-  instrument           : completion_data
+  redcap_instrument    : completion_data
   passing_test         : |
     function (d) {
       dplyr::if_else(

@@ -156,22 +156,22 @@
       checks$rules
     Output
       # A tibble: 14 x 6
-         check_name    error_message     priority debug instrument    passing_test    
-         <chr>         <chr>                <int> <lgl> <chr>         <chr>           
-       1 baseline_pre~ Serum pre-albumi~        1 FALSE baseline_data "function (d) {~
-       2 missing_seru~ Relevant nutriti~        1 FALSE baseline_data "function (d) {~
-       3 serum_prealb~ Baseline prealbu~        2 FALSE baseline_dat~ "function (d) {~
-       4 serum_prealb~ Baseline prealbu~        2 FALSE baseline_dat~ "function (d) {~
-       5 serum_prealb~ Baseline prealbu~        2 FALSE baseline_dat~ "function (d) {~
-       6 serum_prealb~ serum prealbumin~        3 FALSE baseline_dat~ "function (d) {~
-       7 baseline_fir~ Serum prealbumin~        3 FALSE baseline_dat~ "function (d) {~
-       8 daily_first_~ In-addition to b~        3 FALSE baseline_dat~ "function (d) {~
-       9 daily_protei~ npcr levels in s~        3 FALSE baseline_dat~ "function (d) {~
-      10 hospitalizat~ Patient was hosp~        1 FALSE completion_p~ "function (d) {~
-      11 optimal_dail~ Daily protein in~        2 FALSE completion_p~ "function (d) {~
-      12 recommended_~ NPCR values are ~        2 FALSE completion_d~ "function (d) {~
-      13 npcr          NPCR at completi~        2 FALSE completion_d~ "function (d) {~
-      14 npcr_compari~ NPCR at completi~        3 FALSE completion_d~ "function (d) {~
+         check_name   error_message    priority debug redcap_instrument passing_test  
+         <chr>        <chr>               <int> <lgl> <chr>             <chr>         
+       1 baseline_pr~ Serum pre-album~        1 FALSE baseline_data     "function (d)~
+       2 missing_ser~ Relevant nutrit~        1 FALSE baseline_data     "function (d)~
+       3 serum_preal~ Baseline prealb~        2 FALSE baseline_data, v~ "function (d)~
+       4 serum_preal~ Baseline prealb~        2 FALSE baseline_data, v~ "function (d)~
+       5 serum_preal~ Baseline prealb~        2 FALSE baseline_data, v~ "function (d)~
+       6 serum_preal~ serum prealbumi~        3 FALSE baseline_data, v~ "function (d)~
+       7 baseline_fi~ Serum prealbumi~        3 FALSE baseline_data, v~ "function (d)~
+       8 daily_first~ In-addition to ~        3 FALSE baseline_data, p~ "function (d)~
+       9 daily_prote~ npcr levels in ~        3 FALSE baseline_data, p~ "function (d)~
+      10 hospitaliza~ Patient was hos~        1 FALSE completion_proje~ "function (d)~
+      11 optimal_dai~ Daily protein i~        2 FALSE completion_proje~ "function (d)~
+      12 recommended~ NPCR values are~        2 FALSE completion_data   "function (d)~
+      13 npcr         NPCR at complet~        2 FALSE completion_data   "function (d)~
+      14 npcr_compar~ NPCR at complet~        3 FALSE completion_data   "function (d)~
 
 ---
 
@@ -223,7 +223,7 @@
       12        2 FALSE
       13        2 FALSE
       14        3 FALSE
-                                                                 instrument
+                                                          redcap_instrument
       1                                                       baseline_data
       2                                                       baseline_data
       3                                       baseline_data, visit_lab_date
@@ -260,7 +260,7 @@
       checks$rules_inactive
     Output
       # A tibble: 1 x 6
-        check_name         error_message   priority debug instrument  passing_test    
-        <chr>              <chr>              <int> <lgl> <chr>       <chr>           
-      1 pre_albumin_levels pre_albumin le~        3 FALSE visit_lab_~ "function (d) {~
+        check_name         error_message  priority debug redcap_instrume~ passing_test
+        <chr>              <chr>             <int> <lgl> <chr>            <chr>       
+      1 pre_albumin_levels pre_albumin l~        3 FALSE visit_lab_date   "function (~
 

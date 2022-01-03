@@ -16,9 +16,9 @@ params:
 <!-- .col-md-3:          The left/side bar -->
 <!-- div.tocify:         The TOC within the left/side bar -->
 <style>
-  div.main-container { width: 100%; max-width:100%; } 
-  .col-md-3          { width:  15%; } 
-  div.tocify         { width:  14%; } 
+  div.main-container { width: 100%; max-width:100%; }
+  .col-md-3          { width:  15%; }
+  div.tocify         { width:  14%; }
 </style>
 
 <!-- Set the report-wide options, and point to the external code file. -->
@@ -43,7 +43,7 @@ requireNamespace("DT")
 
 <!-- Load any global functions and variables declared in the R file.  Suppress the output. -->
 ```{r declare-globals, echo = echo_chunks}
-path_checks <- 
+path_checks <-
   if (params$path_checks == "not-set") {
     system.file("derived/biochemical.rds", package = "trawler")
   } else {
@@ -93,20 +93,20 @@ A *rule* is very exact.  Each record is examined to determine if it passes each 
 Rule Summary
 -----------------------------
 ```{r table-rule-summary, echo = echo_chunks}
-ds_rule_summary <- 
-  checks$rules |> 
-  dplyr::arrange(.data$priority, .data$check_name) 
+ds_rule_summary <-
+  checks$rules |>
+  dplyr::arrange(.data$priority, .data$check_name)
 
 ds_rule_summary |>
   dplyr::mutate(
     check_name            = gsub("_", " ", check_name),
-  ) |> 
+  ) |>
   dplyr::select(
-    `Rule Name`           = .data$check_name,   
-    `Priority`            = .data$priority,   
-    `Error Message`       = .data$error_message,   
-    `Violation Count`     = .data$violation_count,  
-  ) |> 
+    `Rule Name`           = .data$check_name,
+    `Priority`            = .data$priority,
+    `Error Message`       = .data$error_message,
+    `Violation Count`     = .data$violation_count,
+  ) |>
   knitr::kable(
     align     = "lrlr",
     escape    = FALSE,
@@ -148,37 +148,37 @@ checks$rules |>
     .data$error_message,
     .data$priority,
     # .data$debug,
-    # .data$instrument,
+    # .data$redcap_instrument,
     # .data$passing_test,
     .data$results
-  ) |> 
-  tidyr::unnest(results) |> 
+  ) |>
+  tidyr::unnest(results) |>
   dplyr::mutate(
     # record_id         = sprintf(
     #   checks$link_specific,
-    #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$instrument, .data$record_id
+    #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$redcap_instrument, .data$record_id
     # ),
     check_name        = gsub("_", " ", .data$check_name),
-  ) |> 
+  ) |>
   dplyr::mutate(
     # DT provides a drop down filter for factors.
-    check_name        = factor(.data$check_name), 
-    error_message     = factor(.data$error_message), 
+    check_name        = factor(.data$check_name),
+    error_message     = factor(.data$error_message),
     data_collector    = factor(.data$data_collector),
-  ) |> 
+  ) |>
   dplyr::select(
-    `Rule Name`           = .data$check_name,   
-    `Priority`            = .data$priority,   
-    `Error Message`       = .data$error_message,   
+    `Rule Name`           = .data$check_name,
+    `Priority`            = .data$priority,
+    `Error Message`       = .data$error_message,
     `Record ID`           = .data$record_id,
     `Data Collector`      = .data$data_collector,
     `Baseline Date`       = .data$baseline_date,
-  ) |> 
+  ) |>
   {\(d)
     DT::datatable(
       data         = d,
       # colnames     = gsub("_", " ", colnames(d)),
-      
+
       filter       = "top",
       caption      = paste("Violations at", Sys.time()),
       escape       = FALSE,
@@ -200,7 +200,7 @@ Inactive Rules
 -----------------------------
 
 <div style="background-color:#555;color:white;padding:20px;">
-`r nrow(checks$rules_inactive)` rules(s) are disabled for this report: 
+`r nrow(checks$rules_inactive)` rules(s) are disabled for this report:
 
 ```{r rules-inactive, echo = echo_chunks, results = 'asis'}
 cat(sprintf("1. %s;", checks$rules_inactive$check_name), sep = "\n")
@@ -230,17 +230,17 @@ ds_smell_result_pretty <-
     pass
     # n
   ) |>
-  dplyr::arrange(priority, check_name) 
+  dplyr::arrange(priority, check_name)
 
 ds_smell_result_pretty |>
   dplyr::select(
-    "Smell Name"           = check_name,   
-    "Priority"             = priority,   
-    "Proportion of..."     = description,   
-    "Legal Boundaries"     = boundaries,   
-    "Value"                = value,   
-    "Pass"                 = pass,  
-  ) |> 
+    "Smell Name"           = check_name,
+    "Priority"             = priority,
+    "Proportion of..."     = description,
+    "Legal Boundaries"     = boundaries,
+    "Value"                = value,
+    "Pass"                 = pass,
+  ) |>
   knitr::kable(
     align     = "lrllrl",
     escape    = FALSE,
@@ -278,7 +278,7 @@ Inactive Smells
 
 <div style="background-color:#555;color:white;padding:20px;">
 
-`r nrow(checks$smells_inactive)` smell(s) are disabled for this report: 
+`r nrow(checks$smells_inactive)` smell(s) are disabled for this report:
 
 ```{r smells-inactive, echo = echo_chunks, results = 'asis'}
 cat(sprintf("1. %s;", checks$smells_inactive$check_name), sep = "\n")
@@ -308,4 +308,3 @@ report_render_duration_in_seconds <- as.integer(difftime(Sys.time(), report_rend
 ```
 
 Report rendered by `r Sys.info()["user"]` at `r strftime(Sys.time(), "%Y-%m-%d, %H:%M %z")` in `r report_render_duration_in_seconds` seconds.
-

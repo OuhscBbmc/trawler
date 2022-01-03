@@ -151,9 +151,9 @@ execute_rules <- function(ds, checks) {
           check_name                = checks$rules$check_name[i],
           error_message             = checks$rules$error_message[i],
           priority                  = checks$rules$priority[i],
-          instrument                = checks$rules$instrument[i]
+          redcap_instrument         = checks$rules$redcap_instrument[i]
         ) |>
-        dplyr::select(.data$check_name, .data$record_id, .data$data_collector, .data$error_message, .data$priority, .data$instrument, .data$baseline_date)
+        dplyr::select(.data$check_name, .data$record_id, .data$data_collector, .data$error_message, .data$priority, .data$redcap_instrument, .data$baseline_date)
     }
     rm(f, index, violations, ds_violation_single)
   } # End for loop
