@@ -41,7 +41,7 @@
 #' unlink(directory_output, recursive = TRUE)
 #'
 #' @export
-render_rmarkdown <- function (
+render_rmarkdown <- function(
   path_checks,
   directory_output,
   path_template = system.file("report-templates/rmarkdown-1/report-1.Rmd", package = "trawler")

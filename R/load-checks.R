@@ -8,7 +8,7 @@
 #' load_checks(path_checks)
 #'
 #' @export
-load_checks <- function (path_checks) {
+load_checks <- function(path_checks) {
   checkmate::assert_file_exists(path_checks, extension = c("yml", "yaml"))
 
   checks <-
@@ -20,7 +20,7 @@ load_checks <- function (path_checks) {
   new_trawler_checks(checks)
 }
 
-new_trawler_checks <- function (checks) {
+new_trawler_checks <- function(checks) {
   checkmate::assert_list(checks, any.missing = FALSE, null.ok = FALSE)
 
   misc        <- load_misc(checks)
@@ -46,7 +46,7 @@ new_trawler_checks <- function (checks) {
   )
 }
 
-load_misc <- function (checks) {
+load_misc <- function(checks) {
   checkmate::assert_character(checks$record_id_name    , min.chars =  1, len = 1, any.missing = FALSE)
   checkmate::assert_character(checks$baseline_date_name, min.chars =  1, len = 1, any.missing = FALSE)
   checkmate::assert_character(checks$record_id_link    , min.chars = 10, len = 1, any.missing = FALSE)
@@ -63,7 +63,7 @@ load_misc <- function (checks) {
 }
 
 #' @importFrom rlang .data
-load_smells <- function (checks) {
+load_smells <- function(checks) {
   ds_smell_all <-
     checks$smells |>
     purrr::map_df(tibble::as_tibble) |>
@@ -103,23 +103,26 @@ load_smells <- function (checks) {
 
   # table(smells$check_name)
   # OuhscMunge::verify_value_headstart(smells)
-  checkmate::assert_character(smells$check_name      , any.missing = FALSE , pattern="^.{4,99}$"  , unique = TRUE)
-  checkmate::assert_character(smells$description     , any.missing = FALSE , pattern="^.{4,255}$" , unique = TRUE)
-  checkmate::assert_integer(  smells$priority        , any.missing = FALSE , lower=1, upper=5     )
-  checkmate::assert_logical(  smells$debug           , any.missing = FALSE                        )
-  checkmate::assert_numeric(  smells$bound_lower     , any.missing = FALSE                        )
-  checkmate::assert_numeric(  smells$bound_upper     , any.missing = FALSE                        )
-  checkmate::assert_character(smells$bounds_template , any.missing = FALSE , pattern="^.{2,255}$" )
-  checkmate::assert_character(smells$value_template  , any.missing = FALSE , pattern="^.{2,255}$" )
-  checkmate::assert_character(smells$equation        , any.missing = FALSE , pattern="^.{5,}$"    , unique = TRUE)
-  checkmate::assert_character(smells$boundaries      , any.missing = FALSE , pattern="^.{6,}$"  )
+  checkmate::assert_character(smells$check_name      , any.missing = FALSE , pattern = "^.{4,99}$"  , unique = TRUE)
+  checkmate::assert_character(smells$description     , any.missing = FALSE , pattern = "^.{4,255}$" , unique = TRUE)
+  checkmate::assert_integer(  smells$priority        , any.missing = FALSE , lower = 1, upper = 5   )
+  checkmate::assert_logical(  smells$debug           , any.missing = FALSE                          )
+  checkmate::assert_numeric(  smells$bound_lower     , any.missing = FALSE                          )
+  checkmate::assert_numeric(  smells$bound_upper     , any.missing = FALSE                          )
+  checkmate::assert_character(smells$bounds_template , any.missing = FALSE , pattern = "^.{2,255}$" )
+  checkmate::assert_character(smells$value_template  , any.missing = FALSE , pattern = "^.{2,255}$" )
+  checkmate::assert_character(smells$equation        , any.missing = FALSE , pattern = "^.{5,}$"    , unique = TRUE)
+  checkmate::assert_character(smells$boundaries      , any.missing = FALSE , pattern = "^.{6,}$"    )
 
+  # Run through each function to make sure it can be parsed successfully.
+  #   It's not used until the `execute_checks()` functions
   for (i in seq_len(nrow(smells))) { # i <- 2L
     if (smells$debug[i]) {
       browser() #nocov
     }
 
-    fx <- convert_equation(smells$equation[i], smells$check_name[i])
+    fx_test <- convert_equation(smells$equation[i], smells$check_name[i])
+    rm(fx_test)
   }
 
   smell_names_md <-
@@ -150,16 +153,16 @@ load_smells <- function (checks) {
   )
 }
 
-convert_equation <- function (equation, check_name) {
+convert_equation <- function(equation, check_name) {
   tryCatch({
-    fx <- eval(parse(text = equation))
+    eval(parse(text = equation))
   }, error = function(e) {
     stop("Problem parsing the equation for smell `", check_name, "`.\n", e)
   })
 }
 
 #' @importFrom rlang .data
-load_rules <- function (checks) {
+load_rules <- function(checks) {
     # https://stackoverflow.com/questions/47242697/denormalize-coerce-list-with-nested-vectors-to-data-frame-in-r
   ds_rule_all <-
     checks$rules |>
@@ -198,12 +201,12 @@ load_rules <- function (checks) {
   # table(rules$passing_test)
   # which(is.na(rules$error_message))
   # OuhscMunge::verify_value_headstart(rules)
-  checkmate::assert_character(rules$check_name    , any.missing = FALSE , pattern="^.{4,99}$"  , unique = TRUE)
-  checkmate::assert_character(rules$error_message , any.missing = FALSE , pattern="^.{4,255}$" , unique = TRUE)
-  checkmate::assert_integer(  rules$priority      , any.missing = FALSE , lower=1, upper=5      )
-  checkmate::assert_logical(  rules$debug         , any.missing = FALSE                         )
-  checkmate::assert_character(rules$instrument    , any.missing = FALSE , pattern="^.{2,255}$"  )
-  checkmate::assert_character(rules$passing_test  , any.missing = FALSE , pattern="^.{5,}$"     , unique = TRUE)
+  checkmate::assert_character(rules$check_name    , any.missing = FALSE , pattern = "^.{4,99}$"  , unique = TRUE)
+  checkmate::assert_character(rules$error_message , any.missing = FALSE , pattern = "^.{4,255}$" , unique = TRUE)
+  checkmate::assert_integer(  rules$priority      , any.missing = FALSE , lower = 1, upper = 5    )
+  checkmate::assert_logical(  rules$debug         , any.missing = FALSE                           )
+  checkmate::assert_character(rules$instrument    , any.missing = FALSE , pattern = "^.{2,255}$"  )
+  checkmate::assert_character(rules$passing_test  , any.missing = FALSE , pattern = "^.{5,}$"     , unique = TRUE)
 
   list(
     rules           = rules,
@@ -211,7 +214,7 @@ load_rules <- function (checks) {
   )
 }
 
-fill_column <- function (.d, column_name) {
+fill_column <- function(.d, column_name) {
   if (column_name %in% colnames(.d)) {
     # Fill missing cells with TRUEs.
     .d[[column_name]]   <- dplyr::coalesce(.d[[column_name]], TRUE)

@@ -1,0 +1,6 @@
+linters: with_defaults(
+  line_length_linter(200),
+  commas_linter         = NULL,
+  commented_code_linter = NULL,
+  spaces_inside_linter  = NULL
+  )

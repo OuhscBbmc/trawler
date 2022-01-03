@@ -16,7 +16,7 @@
 #' # saveRDS(execute_checks(ds_pt_event, checks), "inst/derived/biochemical.rds")
 #'
 #' @export
-execute_checks <- function (ds, checks) {
+execute_checks <- function(ds, checks) {
   checkmate::assert_data_frame(ds)
   checkmate::assert_class(checks, "trawler_checks_definition")
   checkmate::assert_data_frame(checks$smells)
@@ -32,20 +32,20 @@ execute_checks <- function (ds, checks) {
       github_file_prefix  = checks$github_file_prefix,
       redcap_codebook     = checks$redcap_codebook,
 
-      smells        = smells$ds_smell_result,
-      smell_status  = smells$smell_status,
-      smells_inactive = smells$smells_inactive,
+      smells              = smells$ds_smell_result,
+      smell_status        = smells$smell_status,
+      smells_inactive     = smells$smells_inactive,
 
-      rules         = rules$rules,
-      rule_status   = rules$rule_status,
-      rules_inactive= rules$rules_inactive
+      rules               = rules$rules,
+      rule_status         = rules$rule_status,
+      rules_inactive      = rules$rules_inactive
     ),
     class = "trawler_checks"
   )
 }
 
 #' @importFrom rlang .data
-execute_smells <- function (ds, checks) {
+execute_smells <- function(ds, checks) {
   checkmate::assert_data_frame(ds)
   checkmate::assert_class(checks, "trawler_checks_definition")
   checkmate::assert_data_frame(checks$smells)
@@ -103,7 +103,7 @@ execute_smells <- function (ds, checks) {
 }
 
 #' @importFrom rlang .data
-execute_rules <- function (ds, checks) {
+execute_rules <- function(ds, checks) {
   checkmate::assert_data_frame(ds)
   checkmate::assert_class(checks, "trawler_checks_definition")
   checkmate::assert_data_frame(checks$rules)
@@ -120,7 +120,7 @@ execute_rules <- function (ds, checks) {
       f <- eval(parse(text = checks$rules$passing_test[i]))
     }, warning = function(e) {
       stop("Problem parsing the equation for the rule `", checks$rules$check_name[i], "`.\n", e)
-    }, error = function( e ) {
+    }, error = function(e) {
       stop("Problem parsing the equation for the rule `", checks$rules$check_name[i], "`.\n", e)
     })
 

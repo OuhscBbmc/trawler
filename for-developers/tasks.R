@@ -26,6 +26,8 @@ gp <-
 goodpractice::results(gp)
 gp
 
+lintr::lint_package()
+
 devtools::document()
 pkgdown::clean_site()
 pkgdown::build_site()
