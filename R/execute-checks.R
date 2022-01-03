@@ -31,6 +31,7 @@ execute_checks <- function(ds, checks) {
       record_id_link      = checks$record_id_link,
       github_file_prefix  = checks$github_file_prefix,
       redcap_codebook     = checks$redcap_codebook,
+      redcap_version      = checks$redcap_version,
 
       smells              = smells$ds_smell_result,
       smell_status        = smells$smell_status,
@@ -78,7 +79,7 @@ execute_smells <- function(ds, checks) {
 
     # ds_smell_result$smell_value[i]   <- f[[i]](ds)
     ds_smell_result$pass[i]    <- dplyr::between(ds_smell_result$value[i], left = ds_smell_result$bound_lower[i], right = ds_smell_result$bound_upper[i])
-  }
+  } # End for loop
 
   ds_smell_result <-
     ds_smell_result |>
@@ -166,6 +167,12 @@ execute_rules <- function(ds, checks) {
       .data$record_id,
       .data$data_collector,
       .data$baseline_date,
+    ) |>
+    dplyr::mutate(
+      # record_id_linked = sprintf(
+      #   checks$link_specific,
+      #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$redcap_instrument, .data$record_id
+      # ),
     ) |>
     dplyr::arrange(.data$check_name, .data$record_id) |>
     dplyr::group_by(.data$check_name) |>

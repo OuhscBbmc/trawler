@@ -29,6 +29,20 @@
 ---
 
     Code
+      checks$redcap_codebook
+    Output
+      [1] "https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/Design/data_dictionary_codebook.php?pid=1612"
+
+---
+
+    Code
+      checks$redcap_version
+    Output
+      [1] "10.5.1"
+
+---
+
+    Code
       checks$smells
     Output
       # A tibble: 12 x 10
