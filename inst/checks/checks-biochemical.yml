@@ -1,11 +1,11 @@
-project_id          : 1612 # This is located in config.yml also.
+redcap_project_id   : 1612 # This is located in config.yml also.
 path_output_rule    : "data-public/derived/validator-1-rule.csv"
 path_output_rule_rds: "data-public/derived/validator-1-rule.rds"
 path_output_smell_csv: "data-public/derived/validator-1-smell.csv"
 path_output_smell_rds: "data-public/derived/validator-1-smell.rds"
 
 redcap_version      : 10.5.1
-default_arm         : 1
+redcap_default_arm  : 1
 baseline_date_name  : date_enrolled
 record_id_name      : record_id
 record_id_link      : '<a href="https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s" target="_blank">%s</a>'

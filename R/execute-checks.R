@@ -30,8 +30,10 @@ execute_checks <- function(ds, checks) {
       baseline_date_name  = checks$baseline_date_name,
       record_id_link      = checks$record_id_link,
       github_file_prefix  = checks$github_file_prefix,
-      redcap_codebook     = checks$redcap_codebook,
+      redcap_project_id   = checks$redcap_project_id,
       redcap_version      = checks$redcap_version,
+      redcap_default_arm  = checks$redcap_default_arm,
+      redcap_codebook     = checks$redcap_codebook,
 
       smells              = smells$ds_smell_result,
       smell_status        = smells$smell_status,

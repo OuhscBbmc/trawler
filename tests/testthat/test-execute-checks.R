@@ -15,8 +15,10 @@ test_that("execute-checks-biochemical", {
   expect_snapshot(checks$baseline_date_name)
   expect_snapshot(checks$record_id_link)
   expect_snapshot(checks$github_file_prefix)
-  expect_snapshot(checks$redcap_codebook)
+  expect_snapshot(checks$redcap_project_id)
   expect_snapshot(checks$redcap_version)
+  expect_snapshot(checks$redcap_default_arm)
+  expect_snapshot(checks$redcap_codebook)
 
   # Compare smells
   expect_snapshot(result$smells)
