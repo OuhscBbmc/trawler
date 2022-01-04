@@ -272,19 +272,19 @@
     Code
       ds_result_unnested
     Output
-      # A tibble: 50 x 4
-         check_name                 record_id data_collector baseline_date
-         <chr>                          <int>          <int> <date>       
-       1 baseline_prealbumin_levels         1              1 2015-01-02   
-       2 baseline_prealbumin_levels         2              2 2015-01-02   
-       3 baseline_prealbumin_levels         3              3 2015-01-05   
-       4 baseline_prealbumin_levels         8              1 2015-02-03   
-       5 baseline_prealbumin_levels         9              3 2015-02-08   
-       6 baseline_prealbumin_levels        12              3 2015-03-06   
-       7 baseline_prealbumin_levels        13              1 2015-03-15   
-       8 baseline_prealbumin_levels        14              1 2015-03-10   
-       9 baseline_prealbumin_levels        15              3 2015-03-03   
-      10 baseline_prealbumin_levels       100              1 2015-04-02   
+      # A tibble: 50 x 5
+         check_name    record_id data_collector baseline_date record_id_linked        
+         <chr>             <int>          <int> <date>        <chr>                   
+       1 baseline_pre~         1              1 2015-01-02    "<a href=\"https://bbmc~
+       2 baseline_pre~         2              2 2015-01-02    "<a href=\"https://bbmc~
+       3 baseline_pre~         3              3 2015-01-05    "<a href=\"https://bbmc~
+       4 baseline_pre~         8              1 2015-02-03    "<a href=\"https://bbmc~
+       5 baseline_pre~         9              3 2015-02-08    "<a href=\"https://bbmc~
+       6 baseline_pre~        12              3 2015-03-06    "<a href=\"https://bbmc~
+       7 baseline_pre~        13              1 2015-03-15    "<a href=\"https://bbmc~
+       8 baseline_pre~        14              1 2015-03-10    "<a href=\"https://bbmc~
+       9 baseline_pre~        15              3 2015-03-03    "<a href=\"https://bbmc~
+      10 baseline_pre~       100              1 2015-04-02    "<a href=\"https://bbmc~
       # ... with 40 more rows
 
 ---
@@ -343,6 +343,57 @@
       48                         npcr        10             NA          <NA>
       49              npcr_comparison         1             NA          <NA>
       50              npcr_comparison        12             NA          <NA>
+                                                                                                                                                                        record_id_linked
+      1                                          <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=1&page=baseline_data" target="_blank">1</a>
+      2                                          <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=2&page=baseline_data" target="_blank">2</a>
+      3                                          <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=3&page=baseline_data" target="_blank">3</a>
+      4                                          <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=8&page=baseline_data" target="_blank">8</a>
+      5                                          <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=9&page=baseline_data" target="_blank">9</a>
+      6                                        <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=12&page=baseline_data" target="_blank">12</a>
+      7                                        <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=13&page=baseline_data" target="_blank">13</a>
+      8                                        <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=14&page=baseline_data" target="_blank">14</a>
+      9                                        <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=15&page=baseline_data" target="_blank">15</a>
+      10                                     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=100&page=baseline_data" target="_blank">100</a>
+      11                                         <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=7&page=baseline_data" target="_blank">7</a>
+      12                                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=10&page=baseline_data" target="_blank">10</a>
+      13                                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=11&page=baseline_data" target="_blank">11</a>
+      14                         <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=1&page=baseline_data, visit_lab_date" target="_blank">1</a>
+      15                         <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=2&page=baseline_data, visit_lab_date" target="_blank">2</a>
+      16                         <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=3&page=baseline_data, visit_lab_date" target="_blank">3</a>
+      17                         <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=4&page=baseline_data, visit_lab_date" target="_blank">4</a>
+      18                         <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=5&page=baseline_data, visit_lab_date" target="_blank">5</a>
+      19                         <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=6&page=baseline_data, visit_lab_date" target="_blank">6</a>
+      20                         <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=8&page=baseline_data, visit_lab_date" target="_blank">8</a>
+      21                         <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=9&page=baseline_data, visit_lab_date" target="_blank">9</a>
+      22                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=12&page=baseline_data, visit_lab_date" target="_blank">12</a>
+      23                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=13&page=baseline_data, visit_lab_date" target="_blank">13</a>
+      24                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=14&page=baseline_data, visit_lab_date" target="_blank">14</a>
+      25                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=15&page=baseline_data, visit_lab_date" target="_blank">15</a>
+      26                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=16&page=baseline_data, visit_lab_date" target="_blank">16</a>
+      27                     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=100&page=baseline_data, visit_lab_date" target="_blank">100</a>
+      28                     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=220&page=baseline_data, visit_lab_date" target="_blank">220</a>
+      29                      <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=8&page=completion_project_questionnaire" target="_blank">8</a>
+      30                    <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=14&page=completion_project_questionnaire" target="_blank">14</a>
+      31     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=5&page=completion_project_questionnaire, completion_data" target="_blank">5</a>
+      32     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=6&page=completion_project_questionnaire, completion_data" target="_blank">6</a>
+      33     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=7&page=completion_project_questionnaire, completion_data" target="_blank">7</a>
+      34     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=8&page=completion_project_questionnaire, completion_data" target="_blank">8</a>
+      35   <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=11&page=completion_project_questionnaire, completion_data" target="_blank">11</a>
+      36   <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=15&page=completion_project_questionnaire, completion_data" target="_blank">15</a>
+      37 <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=100&page=completion_project_questionnaire, completion_data" target="_blank">100</a>
+      38                                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=1&page=completion_data" target="_blank">1</a>
+      39                                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=6&page=completion_data" target="_blank">6</a>
+      40                                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=7&page=completion_data" target="_blank">7</a>
+      41                                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=8&page=completion_data" target="_blank">8</a>
+      42                                     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=12&page=completion_data" target="_blank">12</a>
+      43                                     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=13&page=completion_data" target="_blank">13</a>
+      44                                     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=14&page=completion_data" target="_blank">14</a>
+      45                                     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=16&page=completion_data" target="_blank">16</a>
+      46                                   <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=100&page=completion_data" target="_blank">100</a>
+      47                                   <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=220&page=completion_data" target="_blank">220</a>
+      48                                     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=10&page=completion_data" target="_blank">10</a>
+      49                                       <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=1&page=completion_data" target="_blank">1</a>
+      50                                     <a href="https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/DataEntry/index.php?pid=1612&arm=1&id=12&page=completion_data" target="_blank">12</a>
 
 ---
 

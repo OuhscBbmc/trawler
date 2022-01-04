@@ -169,12 +169,16 @@ execute_rules <- function(ds, checks) {
       .data$record_id,
       .data$data_collector,
       .data$baseline_date,
+      .data$redcap_instrument,
     ) |>
     dplyr::mutate(
-      # record_id_linked = sprintf(
-      #   checks$link_specific,
-      #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$redcap_instrument, .data$record_id
-      # ),
+      record_id_linked = sprintf(
+        checks$redcap_record_link,
+        checks$redcap_version, checks$redcap_project_id, checks$redcap_default_arm, .data$record_id, .data$redcap_instrument, .data$record_id
+      ),
+    ) |>
+    dplyr::select(
+      -.data$redcap_instrument
     ) |>
     dplyr::arrange(.data$check_name, .data$record_id) |>
     dplyr::group_by(.data$check_name) |>

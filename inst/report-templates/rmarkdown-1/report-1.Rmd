@@ -3,8 +3,8 @@ title: Trawler Report
 date: "Date: `r Sys.time()`"
 output:
   html_document:
-    keep_md: yes
-    toc: yes
+    keep_md: true
+    toc: true
     toc_float: true
     number_sections: true
     # css: ../analysis/common/styles-1.css
@@ -147,17 +147,10 @@ checks$rules |>
     .data$check_name,
     .data$error_message,
     .data$priority,
-    # .data$debug,
-    # .data$redcap_instrument,
-    # .data$passing_test,
-    .data$results
+    .data$results,
   ) |>
   tidyr::unnest(results) |>
   dplyr::mutate(
-    # record_id         = sprintf(
-    #   checks$link_specific,
-    #   checks$redcap_version, checks$project_id, checks$default_arm, .data$record_id, .data$redcap_instrument, .data$record_id
-    # ),
     check_name        = gsub("_", " ", .data$check_name),
   ) |>
   dplyr::mutate(
@@ -170,15 +163,14 @@ checks$rules |>
     `Rule Name`           = .data$check_name,
     `Priority`            = .data$priority,
     `Error Message`       = .data$error_message,
-    `Record ID`           = .data$record_id,
+    `Record ID`           = .data$record_id_linked,
+    # `Record ID`           = .data$record_id,
     `Data Collector`      = .data$data_collector,
     `Baseline Date`       = .data$baseline_date,
   ) |>
   {\(d)
     DT::datatable(
       data         = d,
-      # colnames     = gsub("_", " ", colnames(d)),
-
       filter       = "top",
       caption      = paste("Violations at", Sys.time()),
       escape       = FALSE,
@@ -214,7 +206,7 @@ Smells {.tabset .tabset-fade}
 
 `r checks$smell_status`
 
-A *smell* test won't validate a specific record (like the rules above), but it will make sure the dataset overall smells as expected.
+A *smell* test won't validate a specific record (like the rules above), but it will make sure the overall dataset smells as expected.
 
 Smell Summary
 -----------------------------
