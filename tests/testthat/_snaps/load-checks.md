@@ -57,6 +57,13 @@
 ---
 
     Code
+      checks$redcap_record_link
+    Output
+      [1] "<a href=\"https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s\" target=\"_blank\">%s</a>"
+
+---
+
+    Code
       checks$smells
     Output
       # A tibble: 12 x 10

@@ -37,6 +37,7 @@ new_trawler_checks <- function(checks) {
       redcap_version      = misc$redcap_version,
       redcap_default_arm  = misc$redcap_default_arm,
       redcap_codebook     = misc$redcap_codebook,
+      redcap_record_link  = misc$redcap_record_link,
 
       smells            = smells_all$smells,
       smells_inactive   = smells_all$smells_inactive,
@@ -58,6 +59,7 @@ load_misc <- function(checks) {
   checkmate::assert_character(checks$redcap_version    , min.chars =  5, len = 1, any.missing = FALSE)
   checkmate::assert_integer(  checks$redcap_default_arm, lower = 1     , len = 1, any.missing = FALSE)
   checkmate::assert_character(checks$redcap_codebook   , min.chars = 10, len = 1, any.missing = FALSE)
+  checkmate::assert_character(checks$redcap_record_link, min.chars = 50, len = 1, any.missing = FALSE)
 
   list(
     record_id_name          = checks$record_id_name,
@@ -67,7 +69,8 @@ load_misc <- function(checks) {
     redcap_project_id       = checks$redcap_project_id,
     redcap_version          = checks$redcap_version,
     redcap_default_arm      = checks$redcap_default_arm,
-    redcap_codebook         = checks$redcap_codebook
+    redcap_codebook         = checks$redcap_codebook,
+    redcap_record_link      = checks$redcap_record_link
   )
 }
 

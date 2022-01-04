@@ -7,6 +7,7 @@ record_id_name      : record_id
 record_id_link      : '<a href="https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s" target="_blank">%s</a>'
 github_file_prefix  : https://github.com/OuhscBbmc/validator-1/blob/master
 redcap_codebook     : https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/Design/data_dictionary_codebook.php?pid=1612
+redcap_record_link  : '<a href="https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s" target="_blank">%s</a>'
 
 smells:
 - check_name           : proportion_female_participants

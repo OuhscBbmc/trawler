@@ -19,6 +19,7 @@ test_that("execute-checks-biochemical", {
   expect_snapshot(checks$redcap_version)
   expect_snapshot(checks$redcap_default_arm)
   expect_snapshot(checks$redcap_codebook)
+  expect_snapshot(checks$redcap_record_link)
 
   # Compare smells
   expect_snapshot(result$smells)
