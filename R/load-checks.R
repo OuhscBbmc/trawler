@@ -51,6 +51,16 @@ new_trawler_checks <- function(checks) {
 }
 
 load_misc <- function(checks) {
+  checkmate::assert_integerish(checks$trawler_version  , lower = 1     , len = 1, any.missing = FALSE)
+
+  if (as.integer(checks$trawler_version) != 1L) {
+    warning(
+      "This yaml file is marked as trawler version `",
+      checks$trawler_version,
+      "`.  But you are running v1.  Some functions may not operate as expected."
+    )
+  }
+
   checkmate::assert_character(checks$record_id_name    , min.chars =  1, len = 1, any.missing = FALSE)
   checkmate::assert_character(checks$baseline_date_name, min.chars =  1, len = 1, any.missing = FALSE)
   checkmate::assert_character(checks$record_id_link    , min.chars = 10, len = 1, any.missing = FALSE)

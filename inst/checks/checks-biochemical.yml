@@ -1,5 +1,5 @@
+trawler_version     : 1
 redcap_project_id   : 1612 # This is located in config.yml also.
-
 redcap_version      : 10.5.1
 redcap_default_arm  : 1
 baseline_date_name  : date_enrolled
