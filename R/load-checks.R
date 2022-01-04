@@ -115,7 +115,7 @@ load_smells <- function(checks) {
 
   # table(smells$check_name)
   # OuhscMunge::verify_value_headstart(smells)
-  checkmate::assert_character(smells$check_name      , any.missing = FALSE , pattern = "^.{4,99}$"  , unique = TRUE)
+  checkmate::assert_character(smells$check_name      , any.missing = FALSE , pattern = "^.{2,99}$"  , unique = TRUE)
   checkmate::assert_character(smells$description     , any.missing = FALSE , pattern = "^.{4,255}$" , unique = TRUE)
   checkmate::assert_integer(  smells$priority        , any.missing = FALSE , lower = 1, upper = 5   )
   checkmate::assert_logical(  smells$debug           , any.missing = FALSE                          )

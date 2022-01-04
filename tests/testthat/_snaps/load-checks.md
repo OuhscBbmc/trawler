@@ -66,21 +66,20 @@
     Code
       checks$smells
     Output
-      # A tibble: 12 x 10
+      # A tibble: 11 x 10
          check_name description priority debug bound_lower bound_upper bounds_template
          <chr>      <chr>          <int> <lgl>       <dbl>       <dbl> <chr>          
-       1 proportio~ Proportion~        2 FALSE        0.25        0.75 [%.2f, %.2f]   
-       2 proportio~ Proportion~        2 FALSE        0.25        0.75 [%.2f, %.2f]   
-       3 mean_age   Mean age o~        2 FALSE       20          80    [%.0f, %.0f]   
-       4 mean_seru~ Mean serum~        2 FALSE       32          39    [%.0f, %.0f]   
-       5 mean_seru~ Mean serum~        2 FALSE        3          15    [%.0f, %.0f]   
-       6 average_b~ Average BM~        2 FALSE       18          24    [%.0f, %.0f]   
-       7 mean_seru~ Average Ch~        1 FALSE      100         140    [%.0f, %.0f]   
-       8 dialysis_~ Normal ran~        1 FALSE        1.2         5    [%.1f, %.1f]   
-       9 average_s~ Mean serum~        1 FALSE      501        1200    [%.0f, %.0f]   
-      10 nutrition~ Most patie~        2 FALSE        0.85        0.99 [%.2f, %.2f]   
-      11 definitiv~ All study ~        1 FALSE        1           1    [%.2f, %.2f]   
-      12 normalize~ Average No~        1 FALSE        0           0.12 [%.2f, %.2f]   
+       1 females    Proportion~        2 FALSE        0.4         0.6  [%.2f, %.2f]   
+       2 males      Proportion~        2 FALSE        0.4         0.6  [%.2f, %.2f]   
+       3 age        Mean parti~        2 FALSE       20          60    [%.0f, %.0f]   
+       4 serum_pre~ Mean serum~        2 FALSE       32          39    [%.0f, %.0f]   
+       5 serum_cre~ Mean serum~        2 FALSE        3          15    [%.0f, %.0f]   
+       6 bmi_at_ba~ Mean BMI i~        2 FALSE       18          24    [%.0f, %.0f]   
+       7 serum_cho~ Mean chole~        1 FALSE      100         140    [%.0f, %.0f]   
+       8 dialysis_~ Mean Kt/V ~        1 FALSE        1.2         5    [%.1f, %.1f]   
+       9 nutrition~ Most patie~        2 FALSE        0.85        0.99 [%.2f, %.2f]   
+      10 definitiv~ The propor~        1 FALSE        1           1    [%.1f, %.1f]   
+      11 normalize~ Mean Norma~        1 FALSE        0           1.2  [%.1f, %.1f]   
       # ... with 3 more variables: value_template <chr>, equation <chr>,
       #   boundaries <chr>
 
@@ -89,45 +88,42 @@
     Code
       as.data.frame(checks$smells)
     Output
-                                        check_name
-      1             proportion_female_participants
-      2               proportion_male_participants
-      3                                   mean_age
-      4    mean_serum_prealbumin_level_at_baseline
-      5    mean_serum_creatinine_level_at_baseline
-      6                    average_bmi_at_baseline
-      7  mean_serum_cholesterol_levels_at_baseline
-      8                          dialysis_adequacy
-      9  average_serum_ferritin_levels_at_baseline
-      10                    nutritional_counseling
-      11                      definitive_diagnosis
-      12         normalized_protein_catabolic_rate
-                                                                                           description
-      1                  Proportion female participants is half the participants till study conclusion
-      2                    Proportion male participants is half the participants till study conclusion
-      3                                       Mean age of participants is between 18 years to 20 years
-      4                      Mean serum pre-albumin levels at baseline are between 31mg/dl and 39mg/dl
-      5                        Mean serum creatinine levels at baseline are between 3mg/dl and 15mg/dl
-      6                                                               Average BMI is between 18 and 24
-      7                Average Cholesterol levels range is between 100mg/dl-140mg/dl at baseline level
-      8                                             Normal range for Kt/V values are between 1.2 and 5
-      9                Mean serum ferritin levels are in the recommended range of > 500ng/dl-1200ng/dl
-      10                                      Most patients agreed to receiving nutritional counseling
-      11 All study participants were diagnosed with malnutrition associated with Chronic Renal Disease
-      12                                    Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
+                                   check_name
+      1                               females
+      2                                 males
+      3                                   age
+      4    serum_prealbumin_level_at_baseline
+      5    serum_creatinine_level_at_baseline
+      6                       bmi_at_baseline
+      7  serum_cholesterol_levels_at_baseline
+      8                     dialysis_adequacy
+      9                nutritional_counseling
+      10                 definitive_diagnosis
+      11    normalized_protein_catabolic_rate
+                                                                                                                              description
+      1                                                                        Proportion of female participants is about half the sample
+      2                                                                          Proportion of male participants is about half the sample
+      3                                                                                   Mean participant age is between 20 and 60 years
+      4                                                           Mean serum pre-albumin level is between 31mg/dl and 39mg/dl at baseline
+      5                                                             Mean serum creatinine level is between 3mg/dl and 15mg/dl at baseline
+      6                                                                                                     Mean BMI is between 18 and 24
+      7                                                             Mean cholesterol levels range is between 100 and 140mg/dl at baseline
+      8                                                            Mean Kt/V value is within the normal range (*i.e.*, between 1.2 and 5)
+      9                                                                          Most patients agreed to receiving nutritional counseling
+      10 The proportion of study participants diagnosed with malnutrition associated with Chronic Renal Disease is 1.0 (*i.e.*, everyone)
+      11                                                                  Mean Normalized Protein Catabolic Rate (nPCR) is <= 1.2g/kg/day
          priority debug bound_lower bound_upper bounds_template value_template
-      1         2 FALSE        0.25        0.75    [%.2f, %.2f]           %.3f
-      2         2 FALSE        0.25        0.75    [%.2f, %.2f]           %.3f
-      3         2 FALSE       20.00       80.00    [%.0f, %.0f]           %.1f
+      1         2 FALSE        0.40        0.60    [%.2f, %.2f]           %.3f
+      2         2 FALSE        0.40        0.60    [%.2f, %.2f]           %.3f
+      3         2 FALSE       20.00       60.00    [%.0f, %.0f]           %.1f
       4         2 FALSE       32.00       39.00    [%.0f, %.0f]           %.1f
       5         2 FALSE        3.00       15.00    [%.0f, %.0f]           %.1f
       6         2 FALSE       18.00       24.00    [%.0f, %.0f]           %.1f
       7         1 FALSE      100.00      140.00    [%.0f, %.0f]           %.1f
       8         1 FALSE        1.20        5.00    [%.1f, %.1f]           %.2f
-      9         1 FALSE      501.00     1200.00    [%.0f, %.0f]           %.1f
-      10        2 FALSE        0.85        0.99    [%.2f, %.2f]           %.3f
-      11        1 FALSE        1.00        1.00    [%.2f, %.2f]           %.2f
-      12        1 FALSE        0.00        0.12    [%.2f, %.2f]           %.3f
+      9         2 FALSE        0.85        0.99    [%.2f, %.2f]           %.3f
+      10        1 FALSE        1.00        1.00    [%.1f, %.1f]           %.2f
+      11        1 FALSE        0.00        1.20    [%.1f, %.1f]           %.3f
                                                                                         equation
       1                             function (d) {\n  mean(d$sex == "female", na.rm = TRUE)\n}\n
       2                               function (d) {\n  mean(d$sex == "male", na.rm = TRUE)\n}\n
@@ -137,53 +133,51 @@
       6                                function (d) {\n  mean(d$baseline_bmi, na.rm = TRUE)\n}\n
       7                        function (d) {\n  mean(d$baseline_cholesterol, na.rm = TRUE)\n}\n
       8  function (d) {\n  mean(d$completion_project_questionnaire_ktv_value, na.rm = TRUE)\n}\n
-      9                     function (d) {\n  mean(d$baseline_ferritin_level, na.rm = TRUE)\n}\n
-      10                     function (d) {\n  mean(d$nutritional_counseling, na.rm = TRUE)\n}\n
-      11        function (d) {\n  mean(d$differential_diagnoses_malnutrition, na.rm = TRUE)\n}\n
-      12 function (d) {\n  mean(d$baseline_normalized_protein_catabolic_rate, na.rm = TRUE)\n}\n
+      9                      function (d) {\n  mean(d$nutritional_counseling, na.rm = TRUE)\n}\n
+      10        function (d) {\n  mean(d$differential_diagnoses_malnutrition, na.rm = TRUE)\n}\n
+      11 function (d) {\n  mean(d$baseline_normalized_protein_catabolic_rate, na.rm = TRUE)\n}\n
            boundaries
-      1  [0.25, 0.75]
-      2  [0.25, 0.75]
-      3      [20, 80]
+      1  [0.40, 0.60]
+      2  [0.40, 0.60]
+      3      [20, 60]
       4      [32, 39]
       5       [3, 15]
       6      [18, 24]
       7    [100, 140]
       8    [1.2, 5.0]
-      9   [501, 1200]
-      10 [0.85, 0.99]
-      11 [1.00, 1.00]
-      12 [0.00, 0.12]
+      9  [0.85, 0.99]
+      10   [1.0, 1.0]
+      11   [0.0, 1.2]
 
 ---
 
     Code
       checks$smells_inactive
     Output
-      # A tibble: 0 x 9
-      # ... with 9 variables: check_name <chr>, description <chr>, priority <int>,
-      #   debug <lgl>, bound_lower <dbl>, bound_upper <dbl>, bounds_template <chr>,
-      #   value_template <chr>, equation <chr>
+      # A tibble: 1 x 9
+        check_name  description priority debug bound_lower bound_upper bounds_template
+        <chr>       <chr>          <int> <lgl>       <dbl>       <dbl> <chr>          
+      1 average_se~ ??Units co~        1 FALSE         501        1200 [%.0f, %.0f]   
+      # ... with 2 more variables: value_template <chr>, equation <chr>
 
 ---
 
     Code
       cat(checks$smell_names_md)
     Output
-      12 smells have been defined:
+      11 smells have been defined:
       
-      1. proportion_female_participants;
-      2. proportion_male_participants;
-      3. mean_age;
-      4. mean_serum_prealbumin_level_at_baseline;
-      5. mean_serum_creatinine_level_at_baseline;
-      6. average_bmi_at_baseline;
-      7. mean_serum_cholesterol_levels_at_baseline;
+      1. females;
+      2. males;
+      3. age;
+      4. serum_prealbumin_level_at_baseline;
+      5. serum_creatinine_level_at_baseline;
+      6. bmi_at_baseline;
+      7. serum_cholesterol_levels_at_baseline;
       8. dialysis_adequacy;
-      9. average_serum_ferritin_levels_at_baseline;
-      10. nutritional_counseling;
-      11. definitive_diagnosis;
-      12. normalized_protein_catabolic_rate;
+      9. nutritional_counseling;
+      10. definitive_diagnosis;
+      11. normalized_protein_catabolic_rate;
 
 ---
 

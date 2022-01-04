@@ -10,47 +10,47 @@ redcap_codebook     : https://bbmc.ouhsc.edu/redcap/redcap_v10.5.1/Design/data_d
 redcap_record_link  : '<a href="https://bbmc.ouhsc.edu/redcap/redcap_v%s/DataEntry/index.php?pid=%s&arm=%s&id=%s&page=%s" target="_blank">%s</a>'
 
 smells:
-- check_name           : proportion_female_participants
-  description          : Proportion female participants is half the participants till study conclusion
+- check_name           : females
+  description          : Proportion of female participants is about half the sample
   priority             : 2
   active               : TRUE
   debug                : FALSE
-  bound_lower          : .25
-  bound_upper          : .75
+  bound_lower          : .4
+  bound_upper          : .6
   bounds_template      : "[%.2f, %.2f]"    # See `?sprintf`; "%" indicates variable, ".2" indicates up to two decimal points and "f" means Floating-point number.
   value_template       : "%.3f"
   equation             : |
     function (d) {
       mean(d$sex == "female", na.rm = TRUE)
     }
-- check_name           : proportion_male_participants
-  description          : Proportion male participants is half the participants till study conclusion
+- check_name           : males
+  description          : Proportion of male participants is about half the sample
   priority             : 2
   active               : TRUE
   debug                : FALSE
-  bound_lower          : .25
-  bound_upper          : .75
+  bound_lower          : .4
+  bound_upper          : .6
   bounds_template      : "[%.2f, %.2f]"
   value_template       : "%.3f"
   equation             : |
     function (d) {
       mean(d$sex == "male", na.rm = TRUE)
     }
-- check_name           : mean_age
-  description          : Mean age of participants is between 18 years to 20 years
+- check_name           : age
+  description          : Mean participant age is between 20 and 60 years
   priority             : 2
   active               : TRUE
   debug                : FALSE
   bound_lower          : 20
-  bound_upper          : 80
+  bound_upper          : 60
   bounds_template      : "[%.0f, %.0f]"
   value_template       : "%.1f"
   equation             : |
     function (d) {
       mean(d$age, na.rm = TRUE)
     }
-- check_name           : mean_serum_prealbumin_level_at_baseline
-  description          : Mean serum pre-albumin levels at baseline are between 31mg/dl and 39mg/dl
+- check_name           : serum_prealbumin_level_at_baseline
+  description          : Mean serum pre-albumin level is between 31mg/dl and 39mg/dl at baseline
   priority             : 2
   active               : TRUE
   debug                : FALSE
@@ -62,8 +62,8 @@ smells:
     function (d) {
       mean(d$baseline_prealbumin_level, na.rm = TRUE)
     }
-- check_name           : mean_serum_creatinine_level_at_baseline
-  description          : Mean serum creatinine levels at baseline are between 3mg/dl and 15mg/dl
+- check_name           : serum_creatinine_level_at_baseline
+  description          : Mean serum creatinine level is between 3mg/dl and 15mg/dl at baseline
   priority             : 2
   active               : TRUE
   debug                : FALSE
@@ -75,8 +75,8 @@ smells:
     function (d) {
       mean(d$baseline_creatinine_level, na.rm = TRUE)
     }
-- check_name           : average_bmi_at_baseline
-  description          : Average BMI is between 18 and 24
+- check_name           : bmi_at_baseline
+  description          : Mean BMI is between 18 and 24
   priority             : 2
   active               : TRUE
   debug                : FALSE
@@ -88,8 +88,8 @@ smells:
     function (d) {
       mean(d$baseline_bmi, na.rm = TRUE)
     }
-- check_name           : mean_serum_cholesterol_levels_at_baseline
-  description          : Average Cholesterol levels range is between 100mg/dl-140mg/dl at baseline level
+- check_name           : serum_cholesterol_levels_at_baseline
+  description          : Mean cholesterol levels range is between 100 and 140mg/dl at baseline
   priority             : 1
   active               : TRUE
   debug                : FALSE
@@ -102,7 +102,7 @@ smells:
       mean(d$baseline_cholesterol, na.rm = TRUE)
     }
 - check_name           : dialysis_adequacy
-  description          : Normal range for Kt/V values are between 1.2 and 5
+  description          : Mean Kt/V value is within the normal range (*i.e.*, between 1.2 and 5)
   priority             : 1
   active               : TRUE
   debug                : FALSE
@@ -115,9 +115,9 @@ smells:
       mean(d$completion_project_questionnaire_ktv_value, na.rm = TRUE)
     }
 - check_name           : average_serum_ferritin_levels_at_baseline
-  description          : Mean serum ferritin levels are in the recommended range of > 500ng/dl-1200ng/dl
+  description          : ??Units correct?? Mean serum ferritin level is within the recommended range of > 500ng/dl-1200ng/dl
   priority             : 1
-  active               : TRUE
+  active               : FALSE
   debug                : FALSE
   bound_lower          : 501
   bound_upper          : 1200
@@ -141,26 +141,26 @@ smells:
       mean(d$nutritional_counseling, na.rm = TRUE)
     }
 - check_name           : definitive_diagnosis
-  description          : All study participants were diagnosed with malnutrition associated with Chronic Renal Disease
+  description          : The proportion of study participants diagnosed with malnutrition associated with Chronic Renal Disease is 1.0 (*i.e.*, everyone)
   priority             : 1
   active               : TRUE
   debug                : FALSE
   bound_lower          : 1.0
   bound_upper          : 1.0
-  bounds_template      : "[%.2f, %.2f]"
+  bounds_template      : "[%.1f, %.1f]"
   value_template       : "%.2f"
   equation             : |
     function (d) {
       mean(d$differential_diagnoses_malnutrition, na.rm = TRUE)
     }
 - check_name           : normalized_protein_catabolic_rate
-  description          : Average Normalized Protein Catabolic Rate is < 1.2g/kg/day
+  description          : Mean Normalized Protein Catabolic Rate (nPCR) is <= 1.2g/kg/day
   priority             : 1
   active               : TRUE
   debug                : FALSE
   bound_lower          : 0
-  bound_upper          : 0.12
-  bounds_template      : "[%.2f, %.2f]"
+  bound_upper          : 1.2
+  bounds_template      : "[%.1f, %.1f]"
   value_template       : "%.3f"
   equation             : |
     function (d) {

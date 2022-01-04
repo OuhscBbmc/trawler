@@ -228,7 +228,7 @@ ds_smell_result_pretty |>
   dplyr::select(
     "Smell Name"           = check_name,
     "Priority"             = priority,
-    "Proportion of..."     = description,
+    "The dataset smells fresh when (the)..."     = description,
     "Legal Boundaries"     = boundaries,
     "Value"                = value,
     "Pass"                 = pass,
