@@ -49,6 +49,9 @@ execute_checks <- function(ds, checks) {
 
 #' @importFrom rlang .data
 execute_smells <- function(ds, checks) {
+  active <- baseline_date <- check_name <- data_collector <- error_message <- pass <- NULL
+  priority <- record_id <- redcap_instrument <- results <- violation_count <- NULL
+
   checkmate::assert_data_frame(ds)
   checkmate::assert_class(checks, "trawler_checks_definition")
   checkmate::assert_data_frame(checks$smells)
@@ -86,8 +89,8 @@ execute_smells <- function(ds, checks) {
   ds_smell_result <-
     ds_smell_result |>
       dplyr::select(
-        .data$check_name,
-        .data$pass,
+        check_name,
+        pass,
         tidyselect::everything()
       )
 
@@ -107,6 +110,8 @@ execute_smells <- function(ds, checks) {
 
 #' @importFrom rlang .data
 execute_rules <- function(ds, checks) {
+  baseline_date <- check_name <- data_collector <- error_message <- priority <- NULL
+  record_id <- redcap_instrument <- results <- violation_count <- NULL
   checkmate::assert_data_frame(ds)
   checkmate::assert_class(checks, "trawler_checks_definition")
   checkmate::assert_data_frame(checks$rules)
@@ -156,7 +161,7 @@ execute_rules <- function(ds, checks) {
           priority                  = checks$rules$priority[i],
           redcap_instrument         = checks$rules$redcap_instrument[i]
         ) |>
-        dplyr::select(.data$check_name, .data$record_id, .data$data_collector, .data$error_message, .data$priority, .data$redcap_instrument, .data$baseline_date)
+        dplyr::select(check_name, record_id, data_collector, error_message, priority, redcap_instrument, baseline_date)
     }
     rm(f, index, violations, ds_violation_single)
   } # End for loop
@@ -165,28 +170,28 @@ execute_rules <- function(ds, checks) {
     ds_rule_violation_list |>
     dplyr::bind_rows() |>
     dplyr::select(
-      .data$check_name,
-      .data$record_id,
-      .data$data_collector,
-      .data$baseline_date,
-      .data$redcap_instrument,
+      check_name,
+      record_id,
+      data_collector,
+      baseline_date,
+      redcap_instrument,
     ) |>
     dplyr::mutate(
       record_id_linked = sprintf(
         checks$redcap_record_link,
-        checks$redcap_version, checks$redcap_project_id, checks$redcap_default_arm, .data$record_id, .data$redcap_instrument, .data$record_id
+        checks$redcap_version, checks$redcap_project_id, checks$redcap_default_arm, record_id, redcap_instrument, record_id
       ),
     ) |>
     dplyr::select(
-      -.data$redcap_instrument
+      -redcap_instrument
     ) |>
-    dplyr::arrange(.data$check_name, .data$record_id) |>
-    dplyr::group_by(.data$check_name) |>
+    dplyr::arrange(check_name, record_id) |>
+    dplyr::group_by(check_name) |>
     tidyr::nest(
-      results = -.data$check_name
+      results = -check_name
     ) |>
     dplyr::mutate(
-      violation_count = purrr::map_int(.data$results, nrow)
+      violation_count = purrr::map_int(results, nrow)
     )
 
   rule_status <-
@@ -201,11 +206,11 @@ execute_rules <- function(ds, checks) {
     checks$rules |>
     dplyr::left_join(ds_rule_results, by = "check_name") |>
     dplyr::mutate(
-      violation_count   = dplyr::coalesce(.data$violation_count, 0L),
+      violation_count   = dplyr::coalesce(violation_count, 0L),
     ) |>
     dplyr::select(
-      .data$check_name,
-      .data$violation_count,
+      check_name,
+      violation_count,
       tidyselect::everything(),
     )
 

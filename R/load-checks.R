@@ -86,6 +86,10 @@ load_misc <- function(checks) {
 
 #' @importFrom rlang .data
 load_smells <- function(checks) {
+  active <- baseline_date <- bound_lower <- bound_upper <- bounds_template <- NULL
+  check_name <- data_collector <- error_message <- pass <- priority <- record_id <- NULL
+  redcap_instrument <- results <- violation_count <- NULL
+
   ds_smell_all <-
     checks$smells |>
     purrr::map_df(tibble::as_tibble) |>
@@ -94,16 +98,16 @@ load_smells <- function(checks) {
 
   smells <-
     ds_smell_all |>
-    dplyr::filter(.data$active) |>
+    dplyr::filter(active) |>
     dplyr::select(
-      -.data$active
+      -active
     )
 
   smells_inactive <-
     ds_smell_all |>
-    dplyr::filter(!.data$active) |>
+    dplyr::filter(!active) |>
     dplyr::select(
-      -.data$active
+      -active
     )
 
   # The smell columns (in the yaml checks file) should be correct.
@@ -120,7 +124,7 @@ load_smells <- function(checks) {
   smells <-
     smells |>
     dplyr::mutate(
-      boundaries            = sprintf(.data$bounds_template, .data$bound_lower, .data$bound_upper),
+      boundaries            = sprintf(bounds_template, bound_lower, bound_upper),
     )
 
   # table(smells$check_name)
@@ -185,7 +189,9 @@ convert_equation <- function(equation, check_name) {
 
 #' @importFrom rlang .data
 load_rules <- function(checks) {
-    # https://stackoverflow.com/questions/47242697/denormalize-coerce-list-with-nested-vectors-to-data-frame-in-r
+  active <- baseline_date <- check_name <- data_collector <- error_message <- priority <- NULL
+  record_id <- redcap_instrument <- results <- violation_count <- NULL
+  # https://stackoverflow.com/questions/47242697/denormalize-coerce-list-with-nested-vectors-to-data-frame-in-r
   ds_rule_all <-
     checks$rules |>
     purrr::map_df(tibble::as_tibble) |>
@@ -194,17 +200,17 @@ load_rules <- function(checks) {
 
   rules <-
     ds_rule_all |>
-    dplyr::filter(.data$active) |>
+    dplyr::filter(active) |>
     dplyr::select(
-      -.data$active
+      -active
     )
 
   rules_inactive <-
     checks$rules |>
     purrr::map_df(tibble::as_tibble) |>
-    dplyr::filter(!.data$active) |>
+    dplyr::filter(!active) |>
     dplyr::select(
-      -.data$active
+      -active
     )
 
   # The rule columns (in the yaml checks file) should be correct.
