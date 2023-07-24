@@ -73,47 +73,47 @@
 </h2>
 <p>You can install the development version of trawler from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"OuhscBbmc/trawler"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"OuhscBbmc/trawler"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="standard-trawler-report">Standard Trawler Report<a class="anchor" aria-label="anchor" href="#standard-trawler-report"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Step 0: define paths.</span>
-<span class="co">#   So this package example executes on every machine, temp files are used.</span>
-
-<span class="co"># Replace the two paths for your specific project</span>
-<span class="va">path_data</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"datasets/pt-event-biochemical.rds"</span>, package <span class="op">=</span> <span class="st">"trawler"</span><span class="op">)</span>
-<span class="va">path_defs</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"checks/checks-biochemical.yml"</span>, package <span class="op">=</span> <span class="st">"trawler"</span><span class="op">)</span>
-
-<span class="co"># In your real code, this will probably in a static directory.</span>
-<span class="co"># If PHI or sensitive info is contained, use a secure location.</span>
-<span class="va">directory_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span>check <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"trawler"</span><span class="op">)</span>
-<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">directory_output</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">directory_output</span><span class="op">)</span>
-<span class="va">path_checks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"trawler-checks-"</span>, fileext <span class="op">=</span> <span class="st">".rds"</span>, tmpdir <span class="op">=</span> <span class="va">directory_output</span><span class="op">)</span>
-
-<span class="co"># Step 1: load the check definitions and the dataset to test</span>
-<span class="va">ds_pt_event</span>  <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html" class="external-link">read_rds</a></span><span class="op">(</span><span class="va">path_data</span><span class="op">)</span>
-<span class="va">checks</span>       <span class="op">&lt;-</span> <span class="fu">trawler</span><span class="fu">::</span><span class="fu"><a href="reference/load_checks.html">load_checks</a></span><span class="op">(</span><span class="va">path_defs</span><span class="op">)</span>
-
-<span class="co"># Step 2: execute the checks and save to an rds file</span>
-<span class="va">ds_pt_event</span> |&gt;
-  <span class="fu">trawler</span><span class="fu">::</span><span class="fu"><a href="reference/execute_checks.html">execute_checks</a></span><span class="op">(</span><span class="va">checks</span><span class="op">)</span> |&gt;
-  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html" class="external-link">write_rds</a></span><span class="op">(</span><span class="va">path_checks</span><span class="op">)</span>
-
-<span class="co"># Step 3: render checks as an html report with R Markdown</span>
-<span class="fu">trawler</span><span class="fu">::</span><span class="fu"><a href="reference/render_rmarkdown.html">render_rmarkdown</a></span><span class="op">(</span><span class="va">path_checks</span>, <span class="va">directory_output</span><span class="op">)</span>
-<span class="co">#&gt; processing file: report-1.Rmd</span>
-<span class="co">#&gt; Loading required namespace: DT</span>
-<span class="co">#&gt; output file: report-1.knit.md</span>
-<span class="co">#&gt; /usr/lib/rstudio/bin/pandoc/pandoc +RTS -K512m -RTS report-1.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/Rtmpy5PD2b/trawler/report-1.html --lua-filter /home/wibeasley/R/x86_64-pc-linux-gnu-library/4.1/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /home/wibeasley/R/x86_64-pc-linux-gnu-library/4.1/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --variable bs3=TRUE --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /home/wibeasley/R/x86_64-pc-linux-gnu-library/4.1/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --variable theme=bootstrap --include-in-header /tmp/Rtmpy5PD2b/rmarkdown-strb799437a216a.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Output created: /tmp/Rtmpy5PD2b/trawler/report-1.html</span>
-
-<span class="co"># For the sake of this example, clean up temp files.</span>
-<span class="co">#    You probably do NOT want this line in your real code.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">directory_output</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Step 0: define paths.</span></span>
+<span><span class="co">#   So this package example executes on every machine, temp files are used.</span></span>
+<span></span>
+<span><span class="co"># Replace the two paths for your specific project</span></span>
+<span><span class="va">path_data</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"datasets/pt-event-biochemical.rds"</span>, package <span class="op">=</span> <span class="st">"trawler"</span><span class="op">)</span></span>
+<span><span class="va">path_defs</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"checks/checks-biochemical.yml"</span>, package <span class="op">=</span> <span class="st">"trawler"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># In your real code, this will probably in a static directory.</span></span>
+<span><span class="co"># If PHI or sensitive info is contained, use a secure location.</span></span>
+<span><span class="va">directory_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span>check <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"trawler"</span><span class="op">)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">directory_output</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">directory_output</span><span class="op">)</span></span>
+<span><span class="va">path_checks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"trawler-checks-"</span>, fileext <span class="op">=</span> <span class="st">".rds"</span>, tmpdir <span class="op">=</span> <span class="va">directory_output</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 1: load the check definitions and the dataset to test</span></span>
+<span><span class="va">ds_pt_event</span>  <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html" class="external-link">read_rds</a></span><span class="op">(</span><span class="va">path_data</span><span class="op">)</span></span>
+<span><span class="va">checks</span>       <span class="op">&lt;-</span> <span class="fu">trawler</span><span class="fu">::</span><span class="fu"><a href="reference/load_checks.html">load_checks</a></span><span class="op">(</span><span class="va">path_defs</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 2: execute the checks and save to an rds file</span></span>
+<span><span class="va">ds_pt_event</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">trawler</span><span class="fu">::</span><span class="fu"><a href="reference/execute_checks.html">execute_checks</a></span><span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html" class="external-link">write_rds</a></span><span class="op">(</span><span class="va">path_checks</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 3: render checks as an html report with R Markdown</span></span>
+<span><span class="fu">trawler</span><span class="fu">::</span><span class="fu"><a href="reference/render_rmarkdown.html">render_rmarkdown</a></span><span class="op">(</span><span class="va">path_checks</span>, <span class="va">directory_output</span><span class="op">)</span></span>
+<span><span class="co">#&gt; processing file: report-1.Rmd</span></span>
+<span><span class="co">#&gt; Loading required namespace: DT</span></span>
+<span><span class="co">#&gt; output file: report-1.knit.md</span></span>
+<span><span class="co">#&gt; /usr/lib/rstudio/bin/pandoc/pandoc +RTS -K512m -RTS report-1.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/Rtmpy5PD2b/trawler/report-1.html --lua-filter /home/wibeasley/R/x86_64-pc-linux-gnu-library/4.1/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /home/wibeasley/R/x86_64-pc-linux-gnu-library/4.1/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --variable bs3=TRUE --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /home/wibeasley/R/x86_64-pc-linux-gnu-library/4.1/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --variable theme=bootstrap --include-in-header /tmp/Rtmpy5PD2b/rmarkdown-strb799437a216a.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Output created: /tmp/Rtmpy5PD2b/trawler/report-1.html</span></span>
+<span></span>
+<span><span class="co"># For the sake of this example, clean up temp files.</span></span>
+<span><span class="co">#    You probably do NOT want this line in your real code.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">directory_output</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>The rendered html report will look similar to <a href="https://htmlpreview.github.io/?https://github.com/OuhscBbmc/trawler/blob/main/inst/report-templates/rmarkdown-1/report-1.html" class="external-link">this preview</a>.</p>
 </div>
 </div>
@@ -172,7 +172,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
