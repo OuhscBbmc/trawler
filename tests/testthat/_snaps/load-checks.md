@@ -80,8 +80,7 @@
        9 nutrition~ Most patie~        2 FALSE        0.85        0.99 [%.2f, %.2f]   
       10 definitiv~ The propor~        1 FALSE        1           1    [%.1f, %.1f]   
       11 normalize~ Mean Norma~        1 FALSE        0           1.2  [%.1f, %.1f]   
-      # ... with 3 more variables: value_template <chr>, equation <chr>,
-      #   boundaries <chr>
+      # i 3 more variables: value_template <chr>, equation <chr>, boundaries <chr>
 
 ---
 
@@ -158,7 +157,7 @@
         check_name  description priority debug bound_lower bound_upper bounds_template
         <chr>       <chr>          <int> <lgl>       <dbl>       <dbl> <chr>          
       1 average_se~ ??Units co~        1 FALSE         501        1200 [%.0f, %.0f]   
-      # ... with 2 more variables: value_template <chr>, equation <chr>
+      # i 2 more variables: value_template <chr>, equation <chr>
 
 ---
 
@@ -185,22 +184,22 @@
       checks$rules
     Output
       # A tibble: 14 x 6
-         check_name   error_message    priority debug redcap_instrument passing_test  
-         <chr>        <chr>               <int> <lgl> <chr>             <chr>         
-       1 baseline_pr~ Serum pre-album~        1 FALSE baseline_data     "function (d)~
-       2 missing_ser~ Relevant nutrit~        1 FALSE baseline_data     "function (d)~
-       3 serum_preal~ Baseline prealb~        2 FALSE baseline_data, v~ "function (d)~
-       4 serum_preal~ Baseline prealb~        2 FALSE baseline_data, v~ "function (d)~
-       5 serum_preal~ Baseline prealb~        2 FALSE baseline_data, v~ "function (d)~
-       6 serum_preal~ serum prealbumi~        3 FALSE baseline_data, v~ "function (d)~
-       7 baseline_fi~ Serum prealbumi~        3 FALSE baseline_data, v~ "function (d)~
-       8 daily_first~ In-addition to ~        3 FALSE baseline_data, p~ "function (d)~
-       9 daily_prote~ npcr levels in ~        3 FALSE baseline_data, p~ "function (d)~
-      10 hospitaliza~ Patient was hos~        1 FALSE completion_proje~ "function (d)~
-      11 optimal_dai~ Daily protein i~        2 FALSE completion_proje~ "function (d)~
-      12 recommended~ NPCR values are~        2 FALSE completion_data   "function (d)~
-      13 npcr         NPCR at complet~        2 FALSE completion_data   "function (d)~
-      14 npcr_compar~ NPCR at complet~        3 FALSE completion_data   "function (d)~
+         check_name        error_message priority debug redcap_instrument passing_test
+         <chr>             <chr>            <int> <lgl> <chr>             <chr>       
+       1 baseline_prealbu~ Serum pre-al~        1 FALSE baseline_data     "function (~
+       2 missing_serum_ma~ Relevant nut~        1 FALSE baseline_data     "function (~
+       3 serum_prealbumin~ Baseline pre~        2 FALSE baseline_data, v~ "function (~
+       4 serum_prealbumin~ Baseline pre~        2 FALSE baseline_data, v~ "function (~
+       5 serum_prealbumin~ Baseline pre~        2 FALSE baseline_data, v~ "function (~
+       6 serum_prealbumin~ serum prealb~        3 FALSE baseline_data, v~ "function (~
+       7 baseline_first_v~ Serum prealb~        3 FALSE baseline_data, v~ "function (~
+       8 daily_first_visi~ In-addition ~        3 FALSE baseline_data, p~ "function (~
+       9 daily_protein_in~ npcr levels ~        3 FALSE baseline_data, p~ "function (~
+      10 hospitalization_~ Patient was ~        1 FALSE completion_proje~ "function (~
+      11 optimal_daily_pr~ Daily protei~        2 FALSE completion_proje~ "function (~
+      12 recommended_npcr~ NPCR values ~        2 FALSE completion_data   "function (~
+      13 npcr              NPCR at comp~        2 FALSE completion_data   "function (~
+      14 npcr_comparison   NPCR at comp~        3 FALSE completion_data   "function (~
 
 ---
 
@@ -289,7 +288,7 @@
       checks$rules_inactive
     Output
       # A tibble: 1 x 6
-        check_name         error_message  priority debug redcap_instrume~ passing_test
-        <chr>              <chr>             <int> <lgl> <chr>            <chr>       
-      1 pre_albumin_levels pre_albumin l~        3 FALSE visit_lab_date   "function (~
+        check_name         error_message priority debug redcap_instrument passing_test
+        <chr>              <chr>            <int> <lgl> <chr>             <chr>       
+      1 pre_albumin_levels pre_albumin ~        3 FALSE visit_lab_date    "function (~
 

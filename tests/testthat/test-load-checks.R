@@ -1,4 +1,5 @@
 library(testthat)
+# testthat::test_file("tests/testthat/test-load-checks.R")
 
 test_that("load-checks-biochemical", {
   path_checks <- system.file("checks/checks-biochemical.yml", package = "trawler")

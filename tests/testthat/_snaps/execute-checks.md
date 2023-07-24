@@ -67,20 +67,20 @@
       result$smells
     Output
       # A tibble: 11 x 12
-         check_name    pass  description        priority debug bound_lower bound_upper
-         <chr>         <lgl> <chr>                 <int> <lgl>       <dbl>       <dbl>
-       1 females       TRUE  Proportion of fem~        2 FALSE        0.4         0.6 
-       2 males         TRUE  Proportion of mal~        2 FALSE        0.4         0.6 
-       3 age           TRUE  Mean participant ~        2 FALSE       20          60   
-       4 serum_prealb~ FALSE Mean serum pre-al~        2 FALSE       32          39   
-       5 serum_creati~ FALSE Mean serum creati~        2 FALSE        3          15   
-       6 bmi_at_basel~ FALSE Mean BMI is betwe~        2 FALSE       18          24   
-       7 serum_choles~ TRUE  Mean cholesterol ~        1 FALSE      100         140   
-       8 dialysis_ade~ TRUE  Mean Kt/V value i~        1 FALSE        1.2         5   
-       9 nutritional_~ TRUE  Most patients agr~        2 FALSE        0.85        0.99
-      10 definitive_d~ TRUE  The proportion of~        1 FALSE        1           1   
-      11 normalized_p~ TRUE  Mean Normalized P~        1 FALSE        0           1.2 
-      # ... with 5 more variables: bounds_template <chr>, value_template <chr>,
+         check_name           pass  description priority debug bound_lower bound_upper
+         <chr>                <lgl> <chr>          <int> <lgl>       <dbl>       <dbl>
+       1 females              TRUE  Proportion~        2 FALSE        0.4         0.6 
+       2 males                TRUE  Proportion~        2 FALSE        0.4         0.6 
+       3 age                  TRUE  Mean parti~        2 FALSE       20          60   
+       4 serum_prealbumin_le~ FALSE Mean serum~        2 FALSE       32          39   
+       5 serum_creatinine_le~ FALSE Mean serum~        2 FALSE        3          15   
+       6 bmi_at_baseline      FALSE Mean BMI i~        2 FALSE       18          24   
+       7 serum_cholesterol_l~ TRUE  Mean chole~        1 FALSE      100         140   
+       8 dialysis_adequacy    TRUE  Mean Kt/V ~        1 FALSE        1.2         5   
+       9 nutritional_counsel~ TRUE  Most patie~        2 FALSE        0.85        0.99
+      10 definitive_diagnosis TRUE  The propor~        1 FALSE        1           1   
+      11 normalized_protein_~ TRUE  Mean Norma~        1 FALSE        0           1.2 
+      # i 5 more variables: bounds_template <chr>, value_template <chr>,
       #   equation <chr>, boundaries <chr>, value <dbl>
 
 ---
@@ -162,23 +162,23 @@
       result$rules
     Output
       # A tibble: 14 x 8
-         check_name   violation_count error_message   priority debug redcap_instrument
-         <chr>                  <int> <chr>              <int> <lgl> <chr>            
-       1 baseline_pr~              10 Serum pre-albu~        1 FALSE baseline_data    
-       2 missing_ser~               3 Relevant nutri~        1 FALSE baseline_data    
-       3 serum_preal~              15 Baseline preal~        2 FALSE baseline_data, v~
-       4 serum_preal~               0 Baseline preal~        2 FALSE baseline_data, v~
-       5 serum_preal~               0 Baseline preal~        2 FALSE baseline_data, v~
-       6 serum_preal~               0 serum prealbum~        3 FALSE baseline_data, v~
-       7 baseline_fi~               0 Serum prealbum~        3 FALSE baseline_data, v~
-       8 daily_first~               0 In-addition to~        3 FALSE baseline_data, p~
-       9 daily_prote~               0 npcr levels in~        3 FALSE baseline_data, p~
-      10 hospitaliza~               2 Patient was ho~        1 FALSE completion_proje~
-      11 optimal_dai~               7 Daily protein ~        2 FALSE completion_proje~
-      12 recommended~              10 NPCR values ar~        2 FALSE completion_data  
-      13 npcr                       1 NPCR at comple~        2 FALSE completion_data  
-      14 npcr_compar~               2 NPCR at comple~        3 FALSE completion_data  
-      # ... with 2 more variables: passing_test <chr>, results <list>
+         check_name     violation_count error_message priority debug redcap_instrument
+         <chr>                    <int> <chr>            <int> <lgl> <chr>            
+       1 baseline_prea~              10 Serum pre-al~        1 FALSE baseline_data    
+       2 missing_serum~               3 Relevant nut~        1 FALSE baseline_data    
+       3 serum_prealbu~              15 Baseline pre~        2 FALSE baseline_data, v~
+       4 serum_prealbu~               0 Baseline pre~        2 FALSE baseline_data, v~
+       5 serum_prealbu~               0 Baseline pre~        2 FALSE baseline_data, v~
+       6 serum_prealbu~               0 serum prealb~        3 FALSE baseline_data, v~
+       7 baseline_firs~               0 Serum prealb~        3 FALSE baseline_data, v~
+       8 daily_first_v~               0 In-addition ~        3 FALSE baseline_data, p~
+       9 daily_protein~               0 npcr levels ~        3 FALSE baseline_data, p~
+      10 hospitalizati~               2 Patient was ~        1 FALSE completion_proje~
+      11 optimal_daily~               7 Daily protei~        2 FALSE completion_proje~
+      12 recommended_n~              10 NPCR values ~        2 FALSE completion_data  
+      13 npcr                         1 NPCR at comp~        2 FALSE completion_data  
+      14 npcr_comparis~               2 NPCR at comp~        3 FALSE completion_data  
+      # i 2 more variables: passing_test <chr>, results <list>
 
 ---
 
@@ -267,19 +267,19 @@
       ds_result_unnested
     Output
       # A tibble: 50 x 5
-         check_name    record_id data_collector baseline_date record_id_linked        
-         <chr>             <int>          <int> <date>        <chr>                   
-       1 baseline_pre~         1              1 2015-01-02    "<a href=\"https://bbmc~
-       2 baseline_pre~         2              2 2015-01-02    "<a href=\"https://bbmc~
-       3 baseline_pre~         3              3 2015-01-05    "<a href=\"https://bbmc~
-       4 baseline_pre~         8              1 2015-02-03    "<a href=\"https://bbmc~
-       5 baseline_pre~         9              3 2015-02-08    "<a href=\"https://bbmc~
-       6 baseline_pre~        12              3 2015-03-06    "<a href=\"https://bbmc~
-       7 baseline_pre~        13              1 2015-03-15    "<a href=\"https://bbmc~
-       8 baseline_pre~        14              1 2015-03-10    "<a href=\"https://bbmc~
-       9 baseline_pre~        15              3 2015-03-03    "<a href=\"https://bbmc~
-      10 baseline_pre~       100              1 2015-04-02    "<a href=\"https://bbmc~
-      # ... with 40 more rows
+         check_name            record_id data_collector baseline_date record_id_linked
+         <chr>                     <int>          <int> <date>        <chr>           
+       1 baseline_prealbumin_~         1              1 2015-01-02    "<a href=\"http~
+       2 baseline_prealbumin_~         2              2 2015-01-02    "<a href=\"http~
+       3 baseline_prealbumin_~         3              3 2015-01-05    "<a href=\"http~
+       4 baseline_prealbumin_~         8              1 2015-02-03    "<a href=\"http~
+       5 baseline_prealbumin_~         9              3 2015-02-08    "<a href=\"http~
+       6 baseline_prealbumin_~        12              3 2015-03-06    "<a href=\"http~
+       7 baseline_prealbumin_~        13              1 2015-03-15    "<a href=\"http~
+       8 baseline_prealbumin_~        14              1 2015-03-10    "<a href=\"http~
+       9 baseline_prealbumin_~        15              3 2015-03-03    "<a href=\"http~
+      10 baseline_prealbumin_~       100              1 2015-04-02    "<a href=\"http~
+      # i 40 more rows
 
 ---
 

@@ -1,4 +1,5 @@
 library(testthat)
+# testthat::test_file("tests/testthat/test-execute-checks.R")
 
 test_that("execute-checks-biochemical", {
   path_data     <- system.file("datasets/pt-event-biochemical.rds", package = "trawler")
