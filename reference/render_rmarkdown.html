@@ -98,46 +98,17 @@ built into the trawler package.</p></dd>
 <span class="r-in"><span><span class="co"># Step 1: load the check definitions and the dataset to test</span></span></span>
 <span class="r-in"><span><span class="va">ds_pt_event</span>  <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html" class="external-link">read_rds</a></span><span class="op">(</span><span class="va">path_data</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">checks</span>       <span class="op">&lt;-</span> <span class="fu"><a href="load_checks.html">load_checks</a></span><span class="op">(</span><span class="va">path_defs</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in checkmate::assert_character(origin, any.missing = FALSE, len = 1,     pattern = "^(?:csv|REDCap)$"):</span> argument "origin" is missing, with no default</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Step 2: execute the checks and save to an rds file</span></span></span>
 <span class="r-in"><span><span class="va">ds_pt_event</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="execute_checks.html">execute_checks</a></span><span class="op">(</span><span class="va">checks</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html" class="external-link">write_rds</a></span><span class="op">(</span><span class="va">path_checks</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'checks' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Step 3: render checks as an html report with R Markdown</span></span></span>
 <span class="r-in"><span><span class="fu">render_rmarkdown</span><span class="op">(</span><span class="va">path_checks</span>, <span class="va">directory_output</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> processing file: report-1.Rmd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2/25 [set-options]        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4/25 [load-packages]      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6/25 [declare-globals]    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8/25 [load-data]          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10/25 [tweak-data]         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12/25 [table-rule-summary] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14/25 [table-rule-detail]  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16/25 [rules-inactive]     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18/25 [table-smell-summary]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20/25 [smells-inactive]    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22/25 [session-info]       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23/25                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24/25 [session-duration]   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25/25                      </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> output file: report-1.knit.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /usr/local/bin/pandoc +RTS -K512m -RTS report-1.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpesU72K/trawler/report-1.html --lua-filter /Users/runner/work/_temp/Library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Users/runner/work/_temp/Library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Users/runner/work/_temp/Library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpesU72K/rmarkdown-str9943e34c031.html </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Output created: /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpesU72K/trawler/report-1.html</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in render_rmarkdown(path_checks, directory_output):</span> Assertion on 'path_checks' failed: File does not exist: '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpQ73IsT/trawler/trawler-checks-66121fe90d3.rds'.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For the sake of this example, clean up temp files.</span></span></span>
 <span class="r-in"><span><span class="co">#    You probably do NOT want this line in your real code.</span></span></span>
