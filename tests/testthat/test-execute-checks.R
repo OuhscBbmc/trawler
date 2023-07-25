@@ -6,8 +6,8 @@ test_that("execute-checks-biochemical", {
   path_checks   <- system.file("checks/checks-biochemical.yml", package = "trawler")
 
   ds_pt_event   <- readr::read_rds(path_data)
-  checks        <- load_checks(path_checks)
-  result        <- execute_checks(ds_pt_event, checks)
+  checks        <- load_checks(path_checks, origin = "REDCap")
+  result        <- execute_checks(ds_pt_event, checks, origin = "REDCap")
 
   expect_s3_class(result, class = "trawler_checks")
 

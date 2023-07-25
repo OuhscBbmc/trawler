@@ -3,7 +3,7 @@ library(testthat)
 
 test_that("load-checks-biochemical", {
   path_checks <- system.file("checks/checks-biochemical.yml", package = "trawler")
-  checks <- load_checks(path_checks)
+  checks <- load_checks(path_checks, origin = "REDCap")
 
   expect_s3_class(checks, "trawler_checks_definition")
   expect_s3_class(checks$smells, "tbl_df")

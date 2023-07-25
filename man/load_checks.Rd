@@ -5,7 +5,7 @@
 \title{Load and parse checks in a yaml file, and return a list
 of useful objects.}
 \usage{
-load_checks(path_checks)
+load_checks(path_checks, origin = c("csv", "REDCap"))
 }
 \arguments{
 \item{path_checks}{The file path to the yaml file specifying the smells

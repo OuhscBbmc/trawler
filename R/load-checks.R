@@ -8,8 +8,10 @@
 #' load_checks(path_checks)
 #'
 #' @export
-load_checks <- function(path_checks) {
+load_checks <- function(path_checks, origin ) { # = c("csv", "REDCap")
+  # origin <- base::match.arg(origin)
   checkmate::assert_file_exists(path_checks, extension = c("yml", "yaml"))
+  checkmate::assert_character(origin, any.missing = FALSE, len = 1, pattern = "^(?:csv|REDCap)$")
 
   checks <-
     yaml::read_yaml(
@@ -17,41 +19,62 @@ load_checks <- function(path_checks) {
       eval.expr = FALSE
     )
 
-  new_trawler_checks(checks)
+  new_trawler_checks(checks, origin)
 }
 
-new_trawler_checks <- function(checks) {
+new_trawler_checks <- function(checks, origin) {
   checkmate::assert_list(checks, any.missing = FALSE, null.ok = FALSE)
+  checkmate::assert_character(origin, any.missing = FALSE, len = 1, pattern = "^(?:csv|REDCap)$")
 
-  misc        <- load_misc(checks)
-  smells_all  <- load_smells(checks)
-  rules_all   <- load_rules(checks)
+  # browser()
+  misc        <- load_misc(   checks, origin)
+  smells_all  <- load_smells( checks, origin)
+  rules_all   <- load_rules(  checks, origin)
 
-  structure(
-    list(
-      record_id_name      = misc$record_id_name,
-      baseline_date_name  = misc$baseline_date_name,
-      record_id_link      = misc$record_id_link,
-      github_file_prefix  = misc$github_file_prefix,
-      redcap_project_id   = misc$redcap_project_id,
-      redcap_version      = misc$redcap_version,
-      redcap_default_arm  = misc$redcap_default_arm,
-      redcap_codebook     = misc$redcap_codebook,
-      redcap_record_link  = misc$redcap_record_link,
+  if (origin == "csv") {
+    structure(
+      list(
+        github_file_prefix  = misc$github_file_prefix,
 
-      smells            = smells_all$smells,
-      smells_inactive   = smells_all$smells_inactive,
-      smell_names_md    = smells_all$smell_names_md,
+        smells            = smells_all$smells,
+        smells_inactive   = smells_all$smells_inactive,
+        smell_names_md    = smells_all$smell_names_md,
 
-      rules             = rules_all$rules,
-      rules_inactive    = rules_all$rules_inactive
-    ),
-    class = "trawler_checks_definition"
-  )
+        rules             = rules_all$rules,
+        rules_inactive    = rules_all$rules_inactive
+      ),
+      class = "trawler_checks_definition"
+    )
+  } else if (origin == "REDCap") {
+    structure(
+      list(
+        github_file_prefix  = misc$github_file_prefix,
+        record_id_name      = misc$record_id_name,
+        baseline_date_name  = misc$baseline_date_name,
+        record_id_link      = misc$record_id_link,
+        redcap_project_id   = misc$redcap_project_id,
+        redcap_version      = misc$redcap_version,
+        redcap_default_arm  = misc$redcap_default_arm,
+        redcap_codebook     = misc$redcap_codebook,
+        redcap_record_link  = misc$redcap_record_link,
+
+        smells            = smells_all$smells,
+        smells_inactive   = smells_all$smells_inactive,
+        smell_names_md    = smells_all$smell_names_md,
+
+        rules             = rules_all$rules,
+        rules_inactive    = rules_all$rules_inactive
+      ),
+      class = "trawler_checks_definition"
+    )
+  } else {
+    stop("The value of `origin` was not recognized.")
+  }
 }
 
-load_misc <- function(checks) {
+load_misc <- function(checks, origin) {
   checkmate::assert_integerish(checks$trawler_version  , lower = 1     , len = 1, any.missing = FALSE)
+  checkmate::assert_character(origin, any.missing = FALSE, len = 1, pattern = "^(?:csv|REDCap)$")
 
   if (as.integer(checks$trawler_version) != 1L) {
     warning(
@@ -61,31 +84,41 @@ load_misc <- function(checks) {
     )
   }
 
-  checkmate::assert_character(checks$record_id_name    , min.chars =  1, len = 1, any.missing = FALSE)
-  checkmate::assert_character(checks$baseline_date_name, min.chars =  1, len = 1, any.missing = FALSE)
-  checkmate::assert_character(checks$record_id_link    , min.chars = 10, len = 1, any.missing = FALSE)
   checkmate::assert_character(checks$github_file_prefix, min.chars = 10, len = 1, any.missing = FALSE)
-  checkmate::assert_integer(  checks$redcap_project_id , lower = 1     , len = 1, any.missing = FALSE)
-  checkmate::assert_character(checks$redcap_version    , min.chars =  5, len = 1, any.missing = FALSE)
-  checkmate::assert_integer(  checks$redcap_default_arm, lower = 1     , len = 1, any.missing = FALSE)
-  checkmate::assert_character(checks$redcap_codebook   , min.chars = 10, len = 1, any.missing = FALSE)
-  checkmate::assert_character(checks$redcap_record_link, min.chars = 50, len = 1, any.missing = FALSE)
 
-  list(
-    record_id_name          = checks$record_id_name,
-    baseline_date_name      = checks$baseline_date_name,
-    record_id_link          = checks$record_id_link,
-    github_file_prefix      = checks$github_file_prefix,
-    redcap_project_id       = checks$redcap_project_id,
-    redcap_version          = checks$redcap_version,
-    redcap_default_arm      = checks$redcap_default_arm,
-    redcap_codebook         = checks$redcap_codebook,
-    redcap_record_link      = checks$redcap_record_link
-  )
+  if (origin == "REDCap") {
+    checkmate::assert_character(checks$record_id_name    , min.chars =  1, len = 1, any.missing = FALSE)
+    checkmate::assert_character(checks$baseline_date_name, min.chars =  1, len = 1, any.missing = FALSE)
+    checkmate::assert_character(checks$record_id_link    , min.chars = 10, len = 1, any.missing = FALSE)
+    checkmate::assert_integer(  checks$redcap_project_id , lower = 1     , len = 1, any.missing = FALSE)
+    checkmate::assert_character(checks$redcap_version    , min.chars =  5, len = 1, any.missing = FALSE)
+    checkmate::assert_integer(  checks$redcap_default_arm, lower = 1     , len = 1, any.missing = FALSE)
+    checkmate::assert_character(checks$redcap_codebook   , min.chars = 10, len = 1, any.missing = FALSE)
+    checkmate::assert_character(checks$redcap_record_link, min.chars = 50, len = 1, any.missing = FALSE)
+  }
+
+  l <-
+    list(
+      record_id_name          = checks$record_id_name,
+      github_file_prefix      = checks$github_file_prefix
+    )
+
+  if (origin == "REDCap") {
+    l$baseline_date_name      = checks$baseline_date_name
+    l$record_id_link          = checks$record_id_link
+    l$redcap_project_id       = checks$redcap_project_id
+    l$redcap_version          = checks$redcap_version
+    l$redcap_default_arm      = checks$redcap_default_arm
+    l$redcap_codebook         = checks$redcap_codebook
+    l$redcap_record_link      = checks$redcap_record_link
+  }
+
+  l
 }
 
-#' @importFrom rlang .data
-load_smells <- function(checks) {
+load_smells <- function(checks, origin) {
+  checkmate::assert_character(origin, any.missing = FALSE, len = 1, pattern = "^(?:csv|REDCap)$")
+
   active <- baseline_date <- bound_lower <- bound_upper <- bounds_template <- NULL
   check_name <- data_collector <- error_message <- pass <- priority <- record_id <- NULL
   redcap_instrument <- results <- violation_count <- NULL
@@ -188,7 +221,9 @@ convert_equation <- function(equation, check_name) {
 }
 
 #' @importFrom rlang .data
-load_rules <- function(checks) {
+load_rules <- function(checks, origin) {
+  checkmate::assert_character(origin, any.missing = FALSE, len = 1, pattern = "^(?:csv|REDCap)$")
+
   active <- baseline_date <- check_name <- data_collector <- error_message <- priority <- NULL
   record_id <- redcap_instrument <- results <- violation_count <- NULL
   # https://stackoverflow.com/questions/47242697/denormalize-coerce-list-with-nested-vectors-to-data-frame-in-r
@@ -219,10 +254,20 @@ load_rules <- function(checks) {
     c("check_name", "error_message", "priority", "debug", "redcap_instrument", "passing_test")
   )
 
-  testit::assert(
-    "The count of distinct rule columns (in the yaml checks file) should be 6, after removing `active`.",
-    ncol(rules) == 6L
-  )
+
+  if (origin == "csv") {
+    testit::assert(
+      "The count of distinct rule columns (in the yaml checks file) should be 6, after removing `active`.",
+      ncol(rules) == 5L
+    )
+  } else if (origin == "REDCap") {
+    testit::assert(
+      "The count of distinct rule columns (in the yaml checks file) should be 6, after removing `active`.",
+      ncol(rules) == 6L
+    )
+  } else {
+
+  }
 
   # table(rules$check_name)
   # table(rules$error_message)
@@ -233,8 +278,11 @@ load_rules <- function(checks) {
   checkmate::assert_character(rules$error_message , any.missing = FALSE , pattern = "^.{4,255}$" , unique = TRUE)
   checkmate::assert_integer(  rules$priority      , any.missing = FALSE , lower = 1, upper = 5    )
   checkmate::assert_logical(  rules$debug         , any.missing = FALSE                           )
-  checkmate::assert_character(rules$redcap_instrument, any.missing = FALSE , pattern = "^.{2,255}$"  )
   checkmate::assert_character(rules$passing_test  , any.missing = FALSE , pattern = "^.{5,}$"     , unique = TRUE)
+
+  if (origin == "REDCap") {
+    checkmate::assert_character(rules$redcap_instrument, any.missing = FALSE , pattern = "^.{2,255}$"  )
+  }
 
   list(
     rules           = rules,

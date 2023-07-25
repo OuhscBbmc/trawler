@@ -1,6 +1,8 @@
 #' @title Execute the checks against a dataset to return a nested list.
 #' @param ds The [data.frame] to be checked.  Required.
 #' @param checks The [list] describing the check.  Is the output of
+#' @param origin The origin of the dataset.
+#' Currently supports "csv" and "REDCap".
 #' [trawler::load_checks()].  Required.
 #'
 #' @examples
@@ -16,13 +18,14 @@
 #' # saveRDS(execute_checks(ds_pt_event, checks), "inst/derived/biochemical.rds")
 #'
 #' @export
-execute_checks <- function(ds, checks) {
+execute_checks <- function(ds, checks, origin) {
   checkmate::assert_data_frame(ds)
   checkmate::assert_class(checks, "trawler_checks_definition")
   checkmate::assert_data_frame(checks$smells)
+  checkmate::assert_character(origin, any.missing = FALSE, len = 1, pattern = "^(?:csv|REDCap)$")
 
-  smells  <- execute_smells(ds, checks)
-  rules   <- execute_rules(ds , checks)
+  smells  <- execute_smells(ds, checks, origin)
+  rules   <- execute_rules(ds , checks, origin)
 
   structure(
     list(
@@ -48,7 +51,8 @@ execute_checks <- function(ds, checks) {
 }
 
 #' @importFrom rlang .data
-execute_smells <- function(ds, checks) {
+execute_smells <- function(ds, checks, origin) {
+  checkmate::assert_character(origin, any.missing = FALSE, len = 1, pattern = "^(?:csv|REDCap)$")
   active <- baseline_date <- check_name <- data_collector <- error_message <- pass <- NULL
   priority <- record_id <- redcap_instrument <- results <- violation_count <- NULL
 
@@ -109,7 +113,9 @@ execute_smells <- function(ds, checks) {
 }
 
 #' @importFrom rlang .data
-execute_rules <- function(ds, checks) {
+execute_rules <- function(ds, checks, origin) {
+  checkmate::assert_character(origin, any.missing = FALSE, len = 1, pattern = "^(?:csv|REDCap)$")
+
   baseline_date <- check_name <- data_collector <- error_message <- priority <- NULL
   record_id <- redcap_instrument <- results <- violation_count <- NULL
   checkmate::assert_data_frame(ds)
@@ -141,7 +147,6 @@ execute_rules <- function(ds, checks) {
     })
 
     index      <- length(ds_rule_violation_list) + 1L
-    # browser()
     # print(index)
     ds_violation_single <- ds |>
       dplyr::filter(violations)
@@ -175,16 +180,24 @@ execute_rules <- function(ds, checks) {
       data_collector,
       baseline_date,
       redcap_instrument,
-    ) |>
-    dplyr::mutate(
-      record_id_linked = sprintf(
-        checks$redcap_record_link,
-        checks$redcap_version, checks$redcap_project_id, checks$redcap_default_arm, record_id, redcap_instrument, record_id
-      ),
-    ) |>
-    dplyr::select(
-      -redcap_instrument
-    ) |>
+    )
+
+  if (origin == "REDCap") {
+    ds_rule_results <-
+      ds_rule_results |>
+      dplyr::mutate(
+        record_id_linked = sprintf(
+          checks$redcap_record_link,
+          checks$redcap_version, checks$redcap_project_id, checks$redcap_default_arm, record_id, redcap_instrument, record_id
+        ),
+      ) |>
+      dplyr::select(
+        -redcap_instrument
+      )
+  }
+
+  ds_rule_results <-
+    ds_rule_results |>
     dplyr::arrange(check_name, record_id) |>
     dplyr::group_by(check_name) |>
     tidyr::nest(

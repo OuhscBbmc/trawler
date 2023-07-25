@@ -24,7 +24,7 @@
     Code
       checks$github_file_prefix
     Output
-      [1] "https://github.com/OuhscBbmc/validator-1/blob/master"
+      [1] "https://github.com/OuhscBbmc/validator-1/tree/main"
 
 ---
 
