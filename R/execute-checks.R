@@ -2,7 +2,7 @@
 #' @param ds The [data.frame] to be checked.  Required.
 #' @param checks The [list] describing the check.  Is the output of
 #' @param origin The origin of the dataset.
-#' Currently supports "csv" and "REDCap".
+#' Currently supports "csv" and "REDCap". Required.
 #' [trawler::load_checks()].  Required.
 #'
 #' @examples
@@ -11,9 +11,9 @@
 #' path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
 #'
 #' ds_pt_event  <- readr::read_rds(path_data)
-#' checks       <- load_checks(path_checks)
+#' checks       <- load_checks(path_checks, origin = "REDCap")
 #'
-#' execute_checks(ds_pt_event, checks)
+#' execute_checks(ds_pt_event, checks, origin = "REDCap")
 #'
 #' # saveRDS(execute_checks(ds_pt_event, checks), "inst/derived/biochemical.rds")
 #'
@@ -172,15 +172,25 @@ execute_rules <- function(ds, checks, origin) {
   } # End for loop
 
   ds_rule_results <-
-    ds_rule_violation_list |>
-    dplyr::bind_rows() |>
-    dplyr::select(
-      check_name,
-      record_id,
-      data_collector,
-      baseline_date,
-      redcap_instrument,
-    )
+    if (1L <= length(ds_rule_violation_list)) {
+      ds_rule_violation_list |>
+      dplyr::bind_rows() |>
+      dplyr::select(
+        check_name,
+        record_id,
+        data_collector,
+        baseline_date,
+        redcap_instrument,
+      )
+    } else {
+      tibble::tibble(
+        check_name          = character(0),
+        record_id           = character(0),
+        data_collector      = character(0),
+        baseline_date       = as.Date(character(0)),
+        redcap_instrument   = character(0),
+      )
+    }
 
   if (origin == "REDCap") {
     ds_rule_results <-

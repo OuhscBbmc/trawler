@@ -12,7 +12,7 @@ execute_checks(ds, checks, origin)
 \item{checks}{The \link{list} describing the check.  Is the output of}
 
 \item{origin}{The origin of the dataset.
-Currently supports "csv" and "REDCap".
+Currently supports "csv" and "REDCap". Required.
 \code{\link[=load_checks]{load_checks()}}.  Required.}
 }
 \description{
@@ -24,9 +24,9 @@ path_data    <- system.file("datasets/pt-event-biochemical.rds", package = "traw
 path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
 
 ds_pt_event  <- readr::read_rds(path_data)
-checks       <- load_checks(path_checks)
+checks       <- load_checks(path_checks, origin = "REDCap")
 
-execute_checks(ds_pt_event, checks)
+execute_checks(ds_pt_event, checks, origin = "REDCap")
 
 # saveRDS(execute_checks(ds_pt_event, checks), "inst/derived/biochemical.rds")
 

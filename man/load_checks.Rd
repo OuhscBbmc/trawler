@@ -5,11 +5,14 @@
 \title{Load and parse checks in a yaml file, and return a list
 of useful objects.}
 \usage{
-load_checks(path_checks, origin = c("csv", "REDCap"))
+load_checks(path_checks, origin)
 }
 \arguments{
 \item{path_checks}{The file path to the yaml file specifying the smells
 and rules.  Required.}
+
+\item{origin}{The origin of the dataset.
+Currently supports "csv" and "REDCap". Required.}
 }
 \description{
 Load and parse checks in a yaml file, and return a list
@@ -18,6 +21,6 @@ of useful objects.
 \examples{
 # Replace the path for your specific project
 path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
-load_checks(path_checks)
+load_checks(path_checks, origin = "REDCap")
 
 }

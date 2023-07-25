@@ -26,11 +26,11 @@
 #'
 #' # Step 1: load the check definitions and the dataset to test
 #' ds_pt_event  <- readr::read_rds(path_data)
-#' checks       <- load_checks(path_defs)
+#' checks       <- load_checks(path_defs, origin = "REDCap")
 #'
 #' # Step 2: execute the checks and save to an rds file
 #' ds_pt_event |>
-#'   execute_checks(checks) |>
+#'   execute_checks(checks, origin = "REDCap") |>
 #'   readr::write_rds(path_checks)
 #'
 #' # Step 3: render checks as an html report with R Markdown

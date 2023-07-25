@@ -2,10 +2,12 @@
 #' of useful objects.
 #' @param path_checks The file path to the yaml file specifying the smells
 #' and rules.  Required.
+#' @param origin The origin of the dataset.
+#' Currently supports "csv" and "REDCap". Required.
 #' @examples
 #' # Replace the path for your specific project
 #' path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
-#' load_checks(path_checks)
+#' load_checks(path_checks, origin = "REDCap")
 #'
 #' @export
 load_checks <- function(path_checks, origin ) { # = c("csv", "REDCap")

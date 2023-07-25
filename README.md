@@ -47,7 +47,7 @@ checks       <- trawler::load_checks(path_defs)
 
 # Step 2: execute the checks and save to an rds file
 ds_pt_event |>
-  trawler::execute_checks(checks) |>
+  trawler::execute_checks(checks, origin = "REDCap") |>
   readr::write_rds(path_checks)
 
 # Step 3: render checks as an html report with R Markdown
