@@ -142,34 +142,47 @@ ds_rule_summary |>
 Rule Detail
 -----------------------------
 ```{r table-rule-detail, echo = echo_chunks}
-checks$rules |>
-  # dput(file = "/home/wibeasley/Documents/hlo/vasquez-frontera-1/aaa.txt")
+ds_violation <- 
+  if (0L == sum(checks$rules$violation_count)) {
+    tibble::tibble(
+      `Rule Name`           = character(0),
+      `Priority`            = character(0),
+      `Error Message`       = character(0),
+      `Record ID`           = character(0),
+      `Data Collector`      = character(0),
+      `Baseline Date`       = character(0),
+    ) 
+  } else {
+    checks$rules |>
+      # dput(file = "/home/wibeasley/Documents/hlo/vasquez-frontera-1/aaa.txt")
+      dplyr::select(
+        .data$check_name,
+        .data$error_message,
+        .data$priority,
+        .data$results,
+      ) |>
+      tidyr::unnest(results) |>
+      dplyr::mutate(
+        check_name        = gsub("_", " ", .data$check_name),
+      ) |>
+      dplyr::mutate(
+        # DT provides a drop down filter for factors.
+        check_name        = factor(.data$check_name),
+        error_message     = factor(.data$error_message),
+        data_collector    = factor(.data$data_collector),
+      ) |>
+      dplyr::select(
+        `Rule Name`           = .data$check_name,
+        `Priority`            = .data$priority,
+        `Error Message`       = .data$error_message,
+        `Record ID`           = .data$record_id_linked,
+        # `Record ID`           = .data$record_id,
+        `Data Collector`      = .data$data_collector,
+        `Baseline Date`       = .data$baseline_date,
+      ) 
+  }
 
-  dplyr::select(
-    .data$check_name,
-    .data$error_message,
-    .data$priority,
-    .data$results,
-  ) |>
-  tidyr::unnest(results) |>
-  dplyr::mutate(
-    check_name        = gsub("_", " ", .data$check_name),
-  ) |>
-  dplyr::mutate(
-    # DT provides a drop down filter for factors.
-    check_name        = factor(.data$check_name),
-    error_message     = factor(.data$error_message),
-    data_collector    = factor(.data$data_collector),
-  ) |>
-  dplyr::select(
-    `Rule Name`           = .data$check_name,
-    `Priority`            = .data$priority,
-    `Error Message`       = .data$error_message,
-    `Record ID`           = .data$record_id_linked,
-    # `Record ID`           = .data$record_id,
-    `Data Collector`      = .data$data_collector,
-    `Baseline Date`       = .data$baseline_date,
-  ) |>
+  ds_violation |>
   {\(d)
     DT::datatable(
       data         = d,
