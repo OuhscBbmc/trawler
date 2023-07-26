@@ -7,6 +7,7 @@
 render_rmarkdown(
   path_checks,
   directory_output,
+  report_file_name = "trawler.html",
   path_template = system.file("report-templates/rmarkdown-1/report-1.Rmd", package =
     "trawler")
 )
@@ -18,6 +19,9 @@ render_rmarkdown(
 \item{directory_output}{A writable directory to save the report outputs.
 The html file is the primary output.  The markdown file is sometimes
 useful too.  Required.}
+
+\item{report_file_name}{The name of the resulting html file.
+Defaults to "trawler.html".}
 
 \item{path_template}{The
 \href{https://rmarkdown.rstudio.com/articles_intro.html}{rmd file},

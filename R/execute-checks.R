@@ -27,27 +27,49 @@ execute_checks <- function(ds, checks, origin) {
   smells  <- execute_smells(ds, checks, origin)
   rules   <- execute_rules(ds , checks, origin)
 
-  structure(
-    list(
-      record_id_name      = checks$record_id_name,
-      baseline_date_name  = checks$baseline_date_name,
-      record_id_link      = checks$record_id_link,
-      github_file_prefix  = checks$github_file_prefix,
-      redcap_project_id   = checks$redcap_project_id,
-      redcap_version      = checks$redcap_version,
-      redcap_default_arm  = checks$redcap_default_arm,
-      redcap_codebook     = checks$redcap_codebook,
+  if (origin == "csv") {
+    structure(
+      list(
+        github_file_prefix  = checks$github_file_prefix,
+        record_id_name      = checks$record_id_name,
+        record_id_link      = checks$record_id_link,
+        baseline_date_name  = checks$baseline_date_name,
 
-      smells              = smells$ds_smell_result,
-      smell_status        = smells$smell_status,
-      smells_inactive     = smells$smells_inactive,
+        smells              = smells$ds_smell_result,
+        smell_status        = smells$smell_status,
+        smells_inactive     = smells$smells_inactive,
 
-      rules               = rules$rules,
-      rule_status         = rules$rule_status,
-      rules_inactive      = rules$rules_inactive
-    ),
-    class = "trawler_checks"
-  )
+        rules               = rules$rules,
+        rule_status         = rules$rule_status,
+        rules_inactive      = rules$rules_inactive
+      ),
+      class = "trawler_checks"
+    )
+  } else if (origin == "REDCap") {
+    structure(
+      list(
+        github_file_prefix  = checks$github_file_prefix,
+        record_id_name      = checks$record_id_name,
+        record_id_link      = checks$record_id_link,
+        baseline_date_name  = checks$baseline_date_name,
+        redcap_project_id   = checks$redcap_project_id,
+        redcap_version      = checks$redcap_version,
+        redcap_default_arm  = checks$redcap_default_arm,
+        redcap_codebook     = checks$redcap_codebook,
+
+        smells              = smells$ds_smell_result,
+        smell_status        = smells$smell_status,
+        smells_inactive     = smells$smells_inactive,
+
+        rules               = rules$rules,
+        rule_status         = rules$rule_status,
+        rules_inactive      = rules$rules_inactive
+      ),
+      class = "trawler_checks"
+    )
+  } else {
+    stop("The value of `origin` is not recognized.")
+  }
 }
 
 #' @importFrom rlang .data
@@ -127,7 +149,7 @@ execute_rules <- function(ds, checks, origin) {
   for (i in seq_len(nrow(checks$rules))) {
 
     if (checks$rules$debug[i]) {
-      browser()
+      browser() #nocov
     }
 
     tryCatch({
@@ -199,6 +221,18 @@ execute_rules <- function(ds, checks, origin) {
         record_id_linked = sprintf(
           checks$redcap_record_link,
           checks$redcap_version, checks$redcap_project_id, checks$redcap_default_arm, record_id, redcap_instrument, record_id
+        ),
+      ) |>
+      dplyr::select(
+        -redcap_instrument
+      )
+  } else {
+    ds_rule_results <-
+      ds_rule_results |>
+      dplyr::mutate(
+        record_id_linked = sprintf(
+          checks$record_id_link,
+          record_id
         ),
       ) |>
       dplyr::select(

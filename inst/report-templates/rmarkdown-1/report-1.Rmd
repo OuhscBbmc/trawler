@@ -143,6 +143,8 @@ Rule Detail
 -----------------------------
 ```{r table-rule-detail, echo = echo_chunks}
 checks$rules |>
+  # dput(file = "/home/wibeasley/Documents/hlo/vasquez-frontera-1/aaa.txt")
+
   dplyr::select(
     .data$check_name,
     .data$error_message,

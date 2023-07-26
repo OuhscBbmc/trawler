@@ -4,6 +4,8 @@
 #' @param directory_output A writable directory to save the report outputs.
 #' The html file is the primary output.  The markdown file is sometimes
 #' useful too.  Required.
+#' @param report_file_name The name of the resulting html file.
+#' Defaults to "trawler.html".
 #' @param path_template The
 #' [rmd file](https://rmarkdown.rstudio.com/articles_intro.html),
 #' which serves as the report template.  Defaults to the
@@ -44,6 +46,7 @@
 render_rmarkdown <- function(
   path_checks,
   directory_output,
+  report_file_name = "trawler.html",
   path_template = system.file("report-templates/rmarkdown-1/report-1.Rmd", package = "trawler")
 ) {
   checkmate::assert_file_exists(path_checks)
@@ -51,6 +54,7 @@ render_rmarkdown <- function(
   rmarkdown::render(
     input       = path_template,
     params      = list(path_checks = path_checks),
-    output_dir  = directory_output
+    output_dir  = directory_output,
+    output_file = report_file_name
   )
 }
