@@ -6,16 +6,25 @@
 #' [trawler::load_checks()].  Required.
 #'
 #' @examples
+#' # Step 0: define paths.
+#' #   So this package example executes on every machine, temp files are used.
+#'
 #' # Replace the two paths for your specific project
 #' path_data    <- system.file("datasets/pt-event-biochemical.rds", package = "trawler")
 #' path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
 #'
+#' # Step 1: load the check definitions and the dataset to test
 #' ds_pt_event  <- readr::read_rds(path_data)
 #' checks       <- load_checks(path_checks, origin = "REDCap")
 #'
-#' execute_checks(ds_pt_event, checks, origin = "REDCap")
+#' # Step 2: execute the checks and save to an rds file
+#' ds_pt_event |>
+#'   execute_checks(checks, origin = "REDCap")
 #'
-#' # saveRDS(execute_checks(ds_pt_event, checks), "inst/derived/biochemical.rds")
+#' # Save to disk if needed
+#' # ds_pt_event |>
+#' #   execute_checks(checks, origin = "REDCap") |>
+#' #   readr::write_rds("inst/derived/biochemical.rds")
 #'
 #' @export
 execute_checks <- function(ds, checks, origin) {

@@ -4,9 +4,15 @@
 #' and rules.  Required.
 #' @param origin The origin of the dataset.
 #' Currently supports "csv" and "REDCap". Required.
+#'
 #' @examples
-#' # Replace the path for your specific project
+#' # Step 0: define paths.
+#' #   So this package example executes on every machine, temp files are used.
+#'
+#' # Replace the two paths for your specific project
 #' path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
+#'
+#' # Step 1: load the check definitions and the dataset to test
 #' load_checks(path_checks, origin = "REDCap")
 #'
 #' @export

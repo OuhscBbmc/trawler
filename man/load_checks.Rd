@@ -19,8 +19,13 @@ Load and parse checks in a yaml file, and return a list
 of useful objects.
 }
 \examples{
-# Replace the path for your specific project
+# Step 0: define paths.
+#   So this package example executes on every machine, temp files are used.
+
+# Replace the two paths for your specific project
 path_checks  <- system.file("checks/checks-biochemical.yml", package = "trawler")
+
+# Step 1: load the check definitions and the dataset to test
 load_checks(path_checks, origin = "REDCap")
 
 }
