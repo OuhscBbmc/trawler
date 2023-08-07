@@ -72,14 +72,20 @@ Currently supports "csv" and "REDCap". Required.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Replace the two paths for your specific project</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Step 0: define paths.</span></span></span>
+<span class="r-in"><span><span class="co">#   So this package example executes on every machine, temp files are used.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Replace the two paths for your specific project</span></span></span>
 <span class="r-in"><span><span class="va">path_data</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"datasets/pt-event-biochemical.rds"</span>, package <span class="op">=</span> <span class="st">"trawler"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">path_checks</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"checks/checks-biochemical.yml"</span>, package <span class="op">=</span> <span class="st">"trawler"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Step 1: load the check definitions and the dataset to test</span></span></span>
 <span class="r-in"><span><span class="va">ds_pt_event</span>  <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html" class="external-link">read_rds</a></span><span class="op">(</span><span class="va">path_data</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">checks</span>       <span class="op">&lt;-</span> <span class="fu"><a href="load_checks.html">load_checks</a></span><span class="op">(</span><span class="va">path_checks</span>, origin <span class="op">=</span> <span class="st">"REDCap"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">execute_checks</span><span class="op">(</span><span class="va">ds_pt_event</span>, <span class="va">checks</span>, origin <span class="op">=</span> <span class="st">"REDCap"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Step 2: execute the checks and save to an rds file</span></span></span>
+<span class="r-in"><span><span class="va">ds_pt_event</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">execute_checks</span><span class="op">(</span><span class="va">checks</span>, origin <span class="op">=</span> <span class="st">"REDCap"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $github_file_prefix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://github.com/OuhscBbmc/validator-1/tree/main"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -164,7 +170,10 @@ Currently supports "csv" and "REDCap". Required.
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "trawler_checks"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># saveRDS(execute_checks(ds_pt_event, checks), "inst/derived/biochemical.rds")</span></span></span>
+<span class="r-in"><span><span class="co"># Save to disk if needed</span></span></span>
+<span class="r-in"><span><span class="co"># ds_pt_event |&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#   execute_checks(checks, origin = "REDCap") |&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#   readr::write_rds("inst/derived/biochemical.rds")</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
