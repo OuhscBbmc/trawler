@@ -123,11 +123,11 @@ execute_smells <- function(ds, checks, origin) {
 
   ds_smell_result <-
     ds_smell_result |>
-      dplyr::select(
-        check_name,
-        pass,
-        tidyselect::everything()
-      )
+    dplyr::select(
+      check_name,
+      pass,
+      tidyselect::everything()
+    )
 
   smell_status <-
     sprintf(
@@ -197,7 +197,15 @@ execute_rules <- function(ds, checks, origin) {
           priority                  = checks$rules$priority[i],
           redcap_instrument         = checks$rules$redcap_instrument[i]
         ) |>
-        dplyr::select(check_name, record_id, data_collector, error_message, priority, redcap_instrument, baseline_date)
+        dplyr::select(
+          check_name,
+          record_id,
+          data_collector,
+          error_message,
+          priority,
+          redcap_instrument,
+          baseline_date
+        )
     }
     rm(f, index, violations, ds_violation_single)
   } # End for loop
@@ -205,14 +213,14 @@ execute_rules <- function(ds, checks, origin) {
   ds_rule_results <-
     if (1L <= length(ds_rule_violation_list)) {
       ds_rule_violation_list |>
-      dplyr::bind_rows() |>
-      dplyr::select(
-        check_name,
-        record_id,
-        data_collector,
-        baseline_date,
-        redcap_instrument,
-      )
+        dplyr::bind_rows() |>
+        dplyr::select(
+          check_name,
+          record_id,
+          data_collector,
+          baseline_date,
+          redcap_instrument,
+        )
     } else {
       tibble::tibble(
         check_name          = character(0),

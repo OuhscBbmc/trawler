@@ -116,11 +116,11 @@ load_misc <- function(checks, origin) {
     )
 
   if (origin == "REDCap") {
-    l$redcap_project_id       = checks$redcap_project_id
-    l$redcap_version          = checks$redcap_version
-    l$redcap_default_arm      = checks$redcap_default_arm
-    l$redcap_codebook         = checks$redcap_codebook
-    l$redcap_record_link      = checks$redcap_record_link
+    l$redcap_project_id       <- checks$redcap_project_id
+    l$redcap_version          <- checks$redcap_version
+    l$redcap_default_arm      <- checks$redcap_default_arm
+    l$redcap_codebook         <- checks$redcap_codebook
+    l$redcap_record_link      <- checks$redcap_record_link
   }
 
   l
@@ -209,7 +209,6 @@ load_smells <- function(checks, origin) {
           {\(d)
             sprintf("%i. %s;", d$rowid, d$check_name)
           }(),
-          # glue::glue_data(, "1. {check_name};\n"),
         collapse = "\n"
       ),
       sep = "\n"
@@ -290,7 +289,7 @@ load_rules <- function(checks, origin) {
   checkmate::assert_character(rules$passing_test  , any.missing = FALSE , pattern = "^.{5,}$"     , unique = TRUE)
 
   # if (origin == "REDCap") {
-    checkmate::assert_character(rules$redcap_instrument, any.missing = FALSE , pattern = "^.{2,255}$"  )
+  checkmate::assert_character(rules$redcap_instrument, any.missing = FALSE , pattern = "^.{2,255}$"  )
   # }
 
   list(
